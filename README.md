@@ -29,7 +29,6 @@
   <a href="#license">License</a>
 </p>
 
-
 <h3 id="contributing">Contributing</h3>
 
 <h4>PR Templates<h4>
@@ -37,9 +36,4 @@
 
 <h4>To Squash or Not To Squash<h4>
 <p>Squash. After your PR is approved by our DEV OPs lead, you will want to <u>squash merge</u> your changes. Your commit history leading up to your PR is not needed for posterity. If you don't squash then this history will end up on the main branch. Feel free to keep that record on your machine or on that specific branch.</p>
-
-
-
-
-
 

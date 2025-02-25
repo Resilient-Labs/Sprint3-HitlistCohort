@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="#"><img src="./assets/temp.png" alt="HitList Pro by ResilientLabs"></a>
+  <a href="#"><img style="height: 600px; width: 1200px;" src="./assets/temp.png" alt="HitList Pro by ResilientLabs"></a>
 </h1>
 
 <h4 align="center"><i>A sleek progress tracker for resilient job hunters </i>🏋🏽</h4>

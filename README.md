@@ -28,5 +28,3 @@
   <a href="#sponsor">Sponsor</a> •
   <a href="#license">License</a>
 </p>
-
-

@@ -78,10 +78,3 @@ When you are creating a PR for the project, make sure to fill out the PR templat
 Squash. After your PR is approved by our DEV OPs lead, you will want to <u>squash merge</u> your changes. Your commit history leading up to your PR is not needed for posterity. If you don't squash then this history will end up on the main branch. Feel free to keep that record on your machine or on that specific branch.
 
 
-
-
-
-
-
-
-

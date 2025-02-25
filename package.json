@@ -1,0 +1,22 @@
+{
+    "scripts": {
+        "lint": "eslint --fix .",
+        "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,mdx,css}\"",
+        "check": "prettier --check \"**/*.{ts,tsx,js,jsx,md,mdx,css}\""
+    },
+    "dependencies": {
+        "eslint-plugin-react": "^7.37.4",
+        "eslint-plugin-react-hooks": "^5.1.0",
+        "eslint-plugin-react-refresh": "^0.4.19"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.17.0",
+        "eslint": "^9.21.0",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-prettier": "^5.2.3",
+        "eslint-plugin-unused-imports": "^4.1.4",
+        "lint-staged": "^15.4.3",
+        "prettier": "^3.5.2"
+    }
+}

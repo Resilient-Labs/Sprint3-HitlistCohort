@@ -1,5 +1,4 @@
 require('dotenv').config({ path: `${__dirname}/../.env` })
-console.log(__dirname)
 const express = require('express')
 const app = express()
 const main = require('./mongoose')

@@ -65,6 +65,33 @@ This app is a monorepo that houses both the frontend and backend of Hitlist Pro.
 
 5. Navigate to ``` http://localhost:5174/ ```
 
+
+To run the front end from the backend folder: 
+
+1. In frontend folder: ```npm run build``` first to create minimized dist directory
+
+2. In frontend folder: ```cp -r dist ../backend``` to copy minimized dist folder from the frontend into backend
+
+3. In the backend folder: ```npm run dev```
+
+4. Then in the backend folder run ```npm run dev```
+
+
+<h4> Running the backend </h4>
+
+TBD 
+
+
+<br/>
+
+<h2 id="updating">Updating</h2>
+
+<h3>Workspaces</h3>
+
+This project used workspaces to manage dependencies within its monorepo.  You can read more about how workspaces work <a href="https://docs.npmjs.com/cli/v7/using-npm/workspaces?v=true">here</a> in NPM's documentation. The active workspaces in this project are listed within  ```./package.json``` and ```./package-lock.json```. 
+
+To create a new workspace you can run ```npm init -w [the path of your workspace]```. I do not reccommend updating these files manually since a typo could really ruin your day and introduce bugs. 
+
 <br/>
 
 <h2 id="contributing">Contributing</h2>

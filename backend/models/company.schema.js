@@ -1,20 +1,13 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const companySchema = new mongoose.Schema({
     name: String,
-    addressOne: String,
-    addressTwo: String,
-    city: String,
-    state: String,
-    zipCode: String,
-    contact: {
-        phone: String,
-        email: String,
-        website: String,
-        jobListing: String,
-    },
+    status: String,
+    applicationUrl: String,
+    notes: String,
+    pointOfContacts: [String],
 })
 
 const CompanyModel = mongoose.model('Company', companySchema)
 
-export default CompanyModel
+module.exports = CompanyModel

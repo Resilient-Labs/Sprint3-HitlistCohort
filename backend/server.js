@@ -51,8 +51,6 @@ app.delete('/companies/:id', async (req, res) => {
 app.use(express.static('dist'))
 app.use(express.json());
 app.use(main)
-
-const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

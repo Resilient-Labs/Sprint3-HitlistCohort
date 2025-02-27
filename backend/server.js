@@ -21,7 +21,6 @@ app.post('/companies', async (req,res) => {
       notes,
       pointOfContact,
     })
-    
     await newCompany.save();
 
     console.log('Company saved:', newCompany)

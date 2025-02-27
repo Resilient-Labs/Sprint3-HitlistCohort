@@ -31,7 +31,6 @@ app.post('/companies', async (req,res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 })
-//this code isn't working
 
 //***** DELETE COMPANY *****
 app.delete('/companies/:id', async (req, res) => {

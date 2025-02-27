@@ -3,10 +3,11 @@
         "start": "node server",
         "dev": "node --watch server.js",
         "lint": "eslint --fix .",
-        "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,mdx,css}\"",
-        "check": "prettier --check \"**/*.{ts,tsx,js,jsx,md,mdx,css}\""
+        "format": "npx prettier --write \"**/*.{ts,js,md}\"",
+        "check": "npx prettier --check \"**/*.{ts,js,md}\""
     },
     "dependencies": {
+        "dotenv": "^16.4.7",
         "eslint-plugin-react": "^7.37.4",
         "eslint-plugin-react-hooks": "^5.1.0",
         "eslint-plugin-react-refresh": "^0.4.19",

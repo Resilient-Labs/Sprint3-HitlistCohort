@@ -1,6 +1,6 @@
 import './App.css'
-import CompanyList from "./components/CompanyList"
-import ContactList from "./components/ContactList"
+import CompanyList from './components/CompanyList'
+import ContactList from './components/ContactList'
 // import CompanyForm from "./components/CompanyForm"
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
         <>
             <h1>Job Hitlist</h1>
             <CompanyList data={data} />
-            <ContactList contacts={data.map(company => company.contact)} />
+            <ContactList contacts={data.map((company) => company.contact)} />
             {/* <CompanyForm/> */}
         </>
     )

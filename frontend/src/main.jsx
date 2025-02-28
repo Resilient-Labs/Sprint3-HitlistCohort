@@ -9,6 +9,7 @@ import ContactsPage from './pages/ContactsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
+import { AuthProvider } from './contexts/AuthContext';
 
 const router = createBrowserRouter([
     {
@@ -39,6 +40,8 @@ const router = createBrowserRouter([
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <RouterProvider router={router} />
+        <AuthProvider>  {/* AuthProvider should wrap RouterProvider */}
+            <RouterProvider router={router} />
+        </AuthProvider>
     </StrictMode>,
 )

@@ -1,7 +1,8 @@
 import './App.css'
-import CompanyList from "./components/CompanyList"
-import ContactList from "./components/ContactList"
-import CompanyForm from "./components/CompanyForm"
+import Navbar from './components/Navbar'
+import CompanyList from './components/CompanyList'
+import ContactList from './components/ContactList'
+import CompanyForm from './components/CompanyForm'
 
 function App() {
     // Mock Data (delete once real data is added)
@@ -33,8 +34,8 @@ function App() {
         <>
             <Navbar />
             <CompanyList data={data} />
-            <ContactList contacts={data.map(company => company.contact)} />
-            <CompanyForm/>
+            <ContactList contacts={data.map((company) => company.contact)} />
+            <CompanyForm />
         </>
     )
 }

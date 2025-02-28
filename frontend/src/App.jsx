@@ -11,7 +11,7 @@ function App() {
             name: 'Notion',
             status: 'Hiring',
             url: 'www.google.com',
-            notes: 'Met at meetup',
+            notes: 'Met at the meetup',
             contact: 'Lena Carter',
         },
         {

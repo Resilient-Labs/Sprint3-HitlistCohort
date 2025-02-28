@@ -31,7 +31,7 @@ function App() {
 
     return (
         <>
-            <h1>Job Hitlist</h1>
+            <Navbar />
             <CompanyList data={data} />
             <ContactList contacts={data.map(company => company.contact)} />
             <CompanyForm/>

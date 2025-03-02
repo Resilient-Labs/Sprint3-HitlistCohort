@@ -21,7 +21,7 @@ function App() {
         <>
             <Navbar />
             <CompanyList data={data} />
-            <ContactList contacts={data.map((company) => company.contact)} />
+            <ContactList contacts={data?.map((company) => company.contact) || []} />
             <CompanyForm />
         </>
     )

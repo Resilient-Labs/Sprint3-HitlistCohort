@@ -1,5 +1,6 @@
 import './CompanyForm.css'
 import { useState } from 'react'
+import companyService from '../services/company'
 
 const CompanyForm = () => {
     const [newCompanyName, setNewCompanyName] = useState('')
@@ -28,9 +29,29 @@ const CompanyForm = () => {
         setNewPointOfContact(event.target.value)
     }
 
+    const addCompany = (event) => {
+        event.preventDefault()
+
+        const companyObject = {
+            name: newCompanyName,
+            status: newStatus,
+            applicationUrl: newApplicationURL,
+            notes: newNotes,
+            pointOfContact: newPointOfContact,
+        }
+
+        companyService.create(companyObject).then(() => {
+            setNewCompanyName('')
+            setNewStatus('')
+            setNewApplicationURL('')
+            setNewNotes('')
+            setNewPointOfContact('')
+        })
+    }
+
     return (
         <div id="form-container">
-            <form id="add-company-form">
+            <form onSubmit={addCompany} id="add-company-form">
                 <div id="heading-container">
                     <h2 id="form-heading">Add new Company</h2>
                 </div>

@@ -58,6 +58,44 @@ app.post('/login', async (req, res) => {
 });
 
 
+//***** GET COMPANY INFO*****
+app.get('/companies', async (req, res) => {
+  try {
+    await Company.find({}).then(company => {
+      res.json(company)
+    })
+  } catch (error) {
+    console.error("Error getting companies", error)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+})
+
+
+//***** Edit company info *****
+
+app.put('/companies/:id', async (req,res) => {
+  try {
+      const body = req.body
+      const companyInfo = {
+        name: body.name,
+        status: body.status,
+        applicationUrl: body.applicationUrl,
+        notes: body.notes,
+        pointOfContacts: body.pointOfContacts
+      }
+      const ID = req.params.id
+      Company.findByIdAndUpdate(ID,companyInfo,{new: true})
+        .then(updatedCompnayInfo => {
+          res.json(updatedCompnayInfo)
+        })
+
+  } catch (error) { 
+    console.error("Error Editing compnay info")
+    res.status(500).json({error: "Internal Server Error"})
+  }
+})
+
+
 //***** ADD COMPANY *****
 app.post('/companies', async (req, res) => {
     try {

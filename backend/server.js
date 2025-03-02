@@ -4,11 +4,11 @@ const app = express()
 const main = require('./mongoose')
 const Company = require('./models/company.schema')
 const User = require('./models/user.schema')
-const PORT = 3001
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
+app.use(express.json()); // Enables JSON parsing
+// app.use(express.urlencoded({ extended: true })); // Parses URL-encoded data
 
-app.use(express.json())
 app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }))
 
 app.post('/sign-up', async (req, res) => {
@@ -57,6 +57,41 @@ app.post('/login', async (req, res) => {
   }
 });
 
+//***** GET COMPANY INFO*****
+app.get('/companies', async (req, res) => {
+  try {
+    await Company.find({}).then(company => {
+      res.json(company)
+    })
+  } catch (error) {
+    console.error("Error getting companies", error)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+})
+
+
+//***** EDIT COMPANY INFO *****
+app.put('/companies/:id', async (req,res) => {
+  try {
+      const body = req.body
+      const companyInfo = {
+        name: body.name,
+        status: body.status,
+        applicationUrl: body.applicationUrl,
+        notes: body.notes,
+        pointOfContacts: body.pointOfContacts
+      }
+      const ID = req.params.id
+      Company.findByIdAndUpdate(ID,companyInfo,{new: true})
+        .then(updatedCompnayInfo => {
+          res.json(updatedCompnayInfo)
+        })
+
+  } catch (error) { 
+    console.error("Error Editing compnay info")
+    res.status(500).json({error: "Internal Server Error"})
+  }
+})
 
 //***** ADD COMPANY *****
 app.post('/companies', async (req, res) => {
@@ -96,6 +131,25 @@ app.delete('/companies/:id', async (req, res) => {
     }
 })
 
+//***** GET ALL POINTS OF CONTACTS *****
+app.get('/all-contacts', async (req, res) => {
+  console.log("test")
+  try {
+    // Query only the pointOfContacts field from all companies
+    const companiesPoc = await Company.find({});
+    // Extract just the array of contacts from each company object
+    const allContacts = companiesPoc
+      .map(company => company.pointOfContacts)
+      .flat()
+
+    res.json({ allContacts });
+  } catch (error) {
+    console.error("Error fetching point of contactS:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
 app.use(express.static('dist'))
 app.use(main)
 app.listen(PORT, () => {

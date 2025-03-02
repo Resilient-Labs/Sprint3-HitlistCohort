@@ -7,7 +7,6 @@ const User = require('./models/user.schema')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true })); // Parses URL-encoded data
 
 app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }))
 
@@ -133,11 +132,8 @@ app.delete('/companies/:id', async (req, res) => {
 
 //***** GET ALL POINTS OF CONTACTS *****
 app.get('/all-contacts', async (req, res) => {
-  console.log("test")
   try {
-    // Query only the pointOfContacts field from all companies
     const companiesPoc = await Company.find({});
-    // Extract just the array of contacts from each company object
     const allContacts = companiesPoc
       .map(company => company.pointOfContacts)
       .flat()

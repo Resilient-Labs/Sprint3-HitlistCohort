@@ -3,32 +3,19 @@ import Navbar from './components/Navbar'
 import CompanyList from './components/CompanyList'
 import ContactList from './components/ContactList'
 import CompanyForm from './components/CompanyForm'
+import { useEffect, useState } from 'react'
+import { fetchCompanies } from './services/Company' 
 
 function App() {
-    // Mock Data (delete once real data is added)
-    const data = [
-        {
-            name: 'Notion',
-            status: 'Hiring',
-            url: 'www.google.com',
-            notes: 'Met at meetup',
-            contact: 'Lena Carter',
-        },
-        {
-            name: 'Google',
-            status: 'Interested',
-            url: 'www.google.com',
-            notes: 'Messaged on Linkedin',
-            contact: 'Marcus Delgado',
-        },
-        {
-            name: 'Apple',
-            status: 'Interviewing',
-            url: 'www.google.com',
-            notes: 'On first interview out of 3',
-            contact: 'Jasper Nguyen',
-        },
-    ]
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        const getCompanies = async () => {
+            const response = await fetchCompanies()
+            setData(response)
+        }
+        getCompanies()
+    },[])
 
     return (
         <>

@@ -9,7 +9,7 @@ const cors = require('cors')
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
-app.use(cors({ origin: `http://localhost:${PORT}`, optionsSuccessStatus: 200 }))
+app.use(cors({ origin: `http://localhost:5173`, optionsSuccessStatus: 200 }))
 
 app.post('/sign-up', async (req, res) => {
   try {

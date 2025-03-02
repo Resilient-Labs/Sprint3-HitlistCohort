@@ -6,11 +6,12 @@ const Company = require('./models/company.schema')
 const User = require('./models/user.schema')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
+const PORT = process.env.PORT || 3001;
+
 app.use(express.json());
+app.use(cors({ origin: `http://localhost:${PORT}`, optionsSuccessStatus: 200 }))
 
-app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }))
-
-app.post('/sign-up', async (req, res) => {
+app.post('/sign-up', async (req, res) => {s
   try {
       const { email, password, username } = req.body;
 
@@ -133,7 +134,7 @@ app.delete('/companies/:id', async (req, res) => {
 //***** GET ALL POINTS OF CONTACTS *****
 app.get('/all-contacts', async (req, res) => {
   try {
-    const companiesPoc = await Company.find({}, 'pointOfContacts');
+    const companiesPoc = await Company.find({}, 'pointOfContacts -_id');
     const allContacts = companiesPoc
       .map(company => Array.isArray(company.pointOfContacts) ? company.pointOfContacts : [])
       .flat()
@@ -145,7 +146,6 @@ app.get('/all-contacts', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;
 app.use(express.static('dist'))
 app.use(main)
 app.listen(PORT, () => {

@@ -1,0 +1,17 @@
+.sortable-header {
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: inherit;
+    color: inherit;
+}
+
+.sortable-header:hover {
+    text-decoration: underline;
+}
+
+.sort-icon {
+    margin-left: 3px;
+}

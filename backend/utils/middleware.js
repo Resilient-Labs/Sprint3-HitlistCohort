@@ -3,5 +3,5 @@ const unknownEndpoint = (request, response) => {
 }
 
 module.exports = {
-    unknownEndpoint
+    unknownEndpoint,
 }

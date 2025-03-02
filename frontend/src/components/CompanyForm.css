@@ -1,0 +1,80 @@
+/* LAYOUT */
+
+#form-container,
+#add-company-form,
+.form-field-container,
+#form-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#add-company-form,
+.form-field-container {
+    flex-direction: column;
+}
+
+#form-container {
+    width: 50%;
+    justify-self: center;
+    align-self: center;
+}
+
+#add-company-form {
+    width: 100%;
+    min-width: 315px;
+}
+
+#heading-container,
+.form-field-container,
+#form-button-container {
+    width: 100%;
+}
+
+.form-field-container,
+#form-button-container {
+    height: 100px;
+}
+
+#form-company-notes {
+    min-width: 80%;
+    max-width: 80%;
+    min-height: 65px;
+    max-height: 65px;
+}
+
+#add-company-form-button {
+    width: 150px;
+    height: 50px;
+}
+
+/* FONTS */
+
+#form-heading {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ADDITIONAL STYLING */
+
+#add-company-form {
+    border: 1px solid black;
+}
+
+#heading-container,
+#add-company-form-button {
+    background: #333f59;
+    color: white;
+    text-align: center;
+}
+
+#form-button-container,
+.form-field-container:nth-child(odd) {
+    background-color: #f3f3f3;
+}

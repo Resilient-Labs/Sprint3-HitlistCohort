@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(cors({ origin: `http://localhost:${PORT}`, optionsSuccessStatus: 200 }))
 
-app.post('/sign-up', async (req, res) => {s
+app.post('/sign-up', async (req, res) => {
   try {
       const { email, password, username } = req.body;
 

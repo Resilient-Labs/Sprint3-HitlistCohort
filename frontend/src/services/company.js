@@ -1,13 +1,14 @@
 import axios from 'axios'
 const baseUrl = `http://localhost:3001/companies`
 
-const getAll = () => {
-    const request = axios.get(baseUrl)
-    return request
-        .then((response) => response.data)
-        .catch((error) => {
-            console.error('GET error', error)
-        })
+const getAll = async () => {
+    try {
+        const response = await axios.get(baseUrl)
+        return Array.isArray(response.data) ? response.data : []
+    } catch (error) {
+        console.error('GET error', error)
+        return []
+    }
 }
 
 const create = (newObject) => {

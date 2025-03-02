@@ -6,7 +6,7 @@ const Company = require('./models/company.schema')
 const User = require('./models/user.schema')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
-app.use(express.json()); // Enables JSON parsing
+app.use(express.json());
 // app.use(express.urlencoded({ extended: true })); // Parses URL-encoded data
 
 app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }))

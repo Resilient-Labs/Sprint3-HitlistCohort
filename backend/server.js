@@ -133,9 +133,9 @@ app.delete('/companies/:id', async (req, res) => {
 //***** GET ALL POINTS OF CONTACTS *****
 app.get('/all-contacts', async (req, res) => {
   try {
-    const companiesPoc = await Company.find({});
+    const companiesPoc = await Company.find({}, 'pointOfContacts');
     const allContacts = companiesPoc
-      .map(company => company.pointOfContacts)
+      .map(company => Array.isArray(company.pointOfContacts) ? company.pointOfContacts : [])
       .flat()
 
     res.json({ allContacts });
@@ -145,7 +145,7 @@ app.get('/all-contacts', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.use(express.static('dist'))
 app.use(main)
 app.listen(PORT, () => {

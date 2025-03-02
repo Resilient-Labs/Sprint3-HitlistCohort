@@ -72,7 +72,7 @@ To run the front end from the backend folder:
 
 2. In frontend folder: ```cp -r dist ../backend``` to copy minimized dist folder from the frontend into backend
 
-3. In the backend folder: ```npm run dev```
+3. Still In the frontend folder: ```npm run dev```
 
 4. Then in the backend folder run ```npm run dev```
 

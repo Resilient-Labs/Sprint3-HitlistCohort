@@ -16,8 +16,9 @@
     gap: 1rem;
 }
 .navbar-title h1 {
-    margin: 0;
+    margin: 0 10px 0 0;
 }
 .highlight {
     border-bottom: 3px solid red;
 }
+

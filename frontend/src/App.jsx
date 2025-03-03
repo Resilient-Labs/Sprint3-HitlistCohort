@@ -8,6 +8,9 @@ import companyService from './services/company'
 
 function App() {
     const [data, setData] = useState([])
+    const [darkMode, setDarkMode] = useState(() => {
+        return localStorage.getItem('theme') === 'dark'
+    })
 
     useEffect(() => {
         const getCompanies = async () => {
@@ -17,13 +20,24 @@ function App() {
         getCompanies()
     }, [])
 
+    useEffect(() => {
+        localStorage.setItem('theme', darkMode ? 'dark' : 'light')
+    }, [darkMode])
+
     return (
-        <>
-            <Navbar />
+        <div
+            style={{
+                backgroundColor: darkMode ? '#A9A9A9' : '#ffffff',
+                color: darkMode ? '#ffffff' : '#000000',
+            }}
+        >
+            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
             <CompanyList data={data} />
-            <ContactList contacts={data?.map((company) => company.contact) || []} />
+            <ContactList
+                contacts={data?.map((company) => company.contact) || []}
+            />
             <CompanyForm />
-        </>
+        </div>
     )
 }
 

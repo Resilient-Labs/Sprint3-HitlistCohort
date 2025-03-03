@@ -1,5 +1,3 @@
-import './DarkModeToggle.css'
-
 const DarkModeToggle = ({ darkMode, setDarkMode }) => {
     return (
         <div>

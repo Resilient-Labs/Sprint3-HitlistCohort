@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import './ContactList.css'
 
 const ContactList = ({ contacts }) => {
     console.log('data:', contacts)
+    const [search, setSearch] = useState('')
 
     const processPointOfContacts = (pointOfContacts) => {
         if (!pointOfContacts) return []
@@ -22,11 +24,48 @@ const ContactList = ({ contacts }) => {
         }))
         .filter((contact) => contact.pointOfContacts.length > 0)
 
+    const filteredContacts = validContacts.filter((contact) =>
+        contact.pointOfContacts.some((name) =>
+            name.toLowerCase().includes(search.toLowerCase())
+        )
+    )
+
     return (
         <div>
             <h2 className="contacts-header">Points of Contact</h2>
+            <input
+                type="text"
+                placeholder="Search contacts..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+
             <ul className="contacts-list">
-                {validContacts.length === 0 ? (
+                {search ? ( // If user is searching, show filtered results
+                    filteredContacts.length === 0 ? (
+                        <li>No contacts found</li>
+                    ) : (
+                        filteredContacts.map((contact) => (
+                            <li key={contact._id} className="contacts-items">
+                                <p>
+                                    Point of Contact:{' '}
+                                    {contact.pointOfContacts.join(', ')}
+                                </p>
+                                <strong>{contact.name}</strong>
+                                <p>Status: {contact.status}</p>
+                                <p>Notes: {contact.notes}</p>
+                                <a
+                                    href={contact.applicationUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Application Link
+                                </a>
+                            </li>
+                        ))
+                    )
+                ) : // If no search input, show all contacts
+                validContacts.length === 0 ? (
                     <li>No contacts with valid points of contact</li>
                 ) : (
                     validContacts.map((contact) => (

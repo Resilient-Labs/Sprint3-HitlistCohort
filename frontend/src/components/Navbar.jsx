@@ -1,12 +1,13 @@
 import { NavLink, Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from '../contexts/AuthContext'
-
+import { DarkModeContext } from '../contexts/DarkModeContext'
 import './Navbar.css'
 import DarkModeToggle from './DarkModeToggle'
 
-const Navbar = ({ darkMode, setDarkMode }) => {
+const Navbar = () => {
     const { isAuthenticated, logout } = useContext(AuthContext)
+    const { darkMode, setDarkMode } = useContext(DarkModeContext)
 
     return (
         <div className="navbar-container">

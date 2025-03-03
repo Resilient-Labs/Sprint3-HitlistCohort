@@ -1,8 +1,16 @@
-const DarkModeToggle = ({ darkMode, setDarkMode }) => {
+import { useContext } from 'react'
+import { DarkModeContext } from '../contexts/DarkModeContext'
+const DarkModeToggle = () => {
+    const { darkMode, setDarkMode } = useContext(DarkModeContext)
+
+    const toggleDarkMode = () => {
+        setDarkMode((prevMode) => !prevMode)
+    }
+
     return (
         <div>
             <button
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={toggleDarkMode}
                 style={{
                     background: '#313f58',
                     border: '1px solid #313f58',
@@ -11,7 +19,7 @@ const DarkModeToggle = ({ darkMode, setDarkMode }) => {
                     color: 'white',
                 }}
             >
-                {darkMode ? 'Switch to dark Mode' : 'Switch to light Mode'}
+                {darkMode ? 'Switch to light Mode' : 'Switch to dark Mode'}
             </button>
         </div>
     )

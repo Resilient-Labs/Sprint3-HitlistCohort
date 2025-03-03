@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const main = require('./mongoose')
 const Company = require('./models/company.schema')
+const { validateCompany } = require('./utils/middleware')
 const User = require('./models/user.schema')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
@@ -71,21 +72,40 @@ app.get('/companies', async (req, res) => {
 
 
 //***** EDIT COMPANY INFO *****
-app.put('/companies/:id', async (req,res) => {
+app.put('/companies/:id', async (req, validateCompany, res) => {
   try {
+
       const body = req.body
       const companyInfo = {
-        name: body.name,
-        status: body.status,
-        applicationUrl: body.applicationUrl,
-        notes: body.notes,
-        pointOfContacts: body.pointOfContacts
+        name: body.apiName,
+        status: body.apiStatus,
+        applicationUrl: body.apiApplicationUrl,
+        notes: body.apiNotes,
+        pointOfContacts: body.apiPointOfContacts
       }
+
       const ID = req.params.id
-      Company.findByIdAndUpdate(ID,companyInfo,{new: true})
-        .then(updatedCompnayInfo => {
-          res.json(updatedCompnayInfo)
-        })
+
+      // Add an await for the DB lookup to make it async
+      // Attempts to locate and replace the company data by ID
+      // returns null if company is not found
+      const updatedCompany = await Company.findByIdAndUpdate(
+        ID,
+        companyInfo,
+        {new: true}
+      );
+
+      // If company not found, provide errro message
+      if (!updatedCompany) {
+        res.status(404).json({
+          error: 'Not Found', 
+          message: 'Company not found',
+          errorCode: 'companyNotFound'
+        });
+      }
+        
+      // Return updated company data if compnay found and updated.
+      res.json(updatedCompany);
 
   } catch (error) { 
     console.error("Error Editing compnay info")

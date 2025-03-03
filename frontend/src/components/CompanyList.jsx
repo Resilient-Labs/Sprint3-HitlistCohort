@@ -3,7 +3,6 @@ import SortColumn from './SortColumn'
 import './CompanyList.css'
 
 const CompanyList = ({ data }) => {
-    console.log(data)
     const [searchQuery, setSearchQuery] = useState('')
     const [filteredData, setFilteredData] = useState([...data])
     const [sortedData, setSortedData] = useState([...data])

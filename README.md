@@ -79,7 +79,7 @@ To run the front end from the backend folder:
 
 <h4> Running the backend </h4>
 
-TBD 
+1. navigate to npm run dev
 
 
 <br/>
@@ -103,5 +103,164 @@ When you are creating a PR for the project, make sure to fill out the PR templat
 <h3>To Squash or Not To Squash</h3>
 
 Squash. After your PR is approved by our DEV OPs lead, you will want to <u>squash merge</u> your changes. Your commit history leading up to your PR is not needed for posterity. If you don't squash then this history will end up on the main branch. Feel free to keep that record on your machine or on that specific branch.
+
+So how and why do I squash merge my changes? 
+
+Squash merging is usually an option listed below a PR after it is approved.
+
+![Squash Merge Button](image.png)
+
+That button gives github permission to Squash the git history associated with the feature branch that you are tying to merge into main.
+
+That way the commit history under your feature branch is mot merged into the history of the main branch which can kind of clutter the project’s full history over time. See [HitList Pro Commit History]('https://github.com/Resilient-Labs/Sprint3-HitlistCohort/commits/main/'). 
+
+If every developer who pushed the changes to the main branch retained their commit history, this page would grow exponentially over time. This would make it more difficult to pin down specific feature changes and would add possibly unnecessary commits to our git history. A pro on the other hand is that the project would retain a high level of detail about all the commits that have made up the project. There are pros and cons to squashing. 
+
+If you want to squash merge without github, you can do a git squash locally before or after your PR is approved. After you squash (and rebase if you need to). Then push your changes and merger them to main.
+Here is an article that explains more about git squash and how to use it: [Free code camp article on squash commits]('https://www.freecodecamp.org/news/git-squash-commits/')
+
+
+<br/>
+
+<h4>APIs</h4>
+
+In the backend of the project there are multiple endpoints to source data from. 
+
+<p>API Base URL</p>
+
+<p>Development:</p>
+<p>Production:</p>
+
+<bold>Companies</bold>
+
+
+<h4>Requests</h4>
+
+Query Parameters
+``` ```
+
+<h4>Responses</h4>
+
+
+``` POST: /Signup ```
+
+<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+
+``` 
+ { user, message: 'User registered successfully', token }
+```
+
+<div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
+
+```
+{ message: 'Email already in use' }
+```
+
+<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+
+``` 
+{ message: 'Server error', error: error.message }
+```
+
+</br>
+
+``` POST: /Login ```
+
+<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+
+``` 
+ {message: 'Login successful', token, user }
+```
+
+<div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
+
+```
+{ message: 'Invalid email or password' }
+```
+
+<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+
+``` 
+{ message: 'Server error', error: error.message }
+```
+
+</br>
+
+
+``` GET: /companies```
+
+<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+
+``` 
+ {
+    name: String,
+    status: String,
+    applicationUrl: String,
+    notes: String,
+    pointOfContacts: [String],
+}
+```
+
+<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+
+``` 
+{ error: "Internal Server Error" }
+```
+
+``` PUT: /companies/:id```
+
+<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+
+``` 
+ {
+  companies: [
+    {
+    name: String,
+    status: String,
+    applicationUrl: String,
+    notes: String,
+    pointOfContacts: [String],
+    }
+  ]
+ }
+```
+
+<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+
+``` 
+ { error: "Internal Server Error"}
+```
+
+```POST: /all-contacts' ```
+
+
+
+
+```/all-contacts' ```
+
+<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+
+``` 
+ {message: 'Login successful', token, user }
+```
+
+<div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
+
+```
+{ message: 'Invalid email or password' }
+```
+
+<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+
+``` 
+{ error: "Internal Server Error" }
+```
+
+<bold>Users</bold>
+
+
+
+
+
 
 

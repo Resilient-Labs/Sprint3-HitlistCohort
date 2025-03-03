@@ -1,32 +1,55 @@
-import React, { useState, useEffect } from "react";
-import SortColumn from "./SortColumn";
+import React, { useState, useEffect } from 'react'
+import SortColumn from './SortColumn'
 import './CompanyList.css'
 
 const CompanyList = ({ data }) => {
-    const [sortedData, setSortedData] = useState([...data]);
+    console.log(data)
+    const [searchQuery, setSearchQuery] = useState('')
+    const [filteredData, setFilteredData] = useState([...data])
+    const [sortedData, setSortedData] = useState([...data])
 
     useEffect(() => {
-        setSortedData([...data]);
-    }, [data]);
+        const filtered = data.filter((company) =>
+            company.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        setFilteredData(filtered)
+        setSortedData(filtered)
+    }, [searchQuery, data])
 
     const handleSort = (columnKey, order) => {
-        const sorted = [...data].sort((a,b) => {
-            let valueA = a[columnKey]?.toLowerCase() || "";
-            let valueB = b[columnKey]?.toLowerCase() || "";
-            return order === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
-        });
+        const sorted = [...sortedData].sort((a, b) => {
+            let valueA = a[columnKey]?.toLowerCase() || ''
+            let valueB = b[columnKey]?.toLowerCase() || ''
 
-    setSortedData(sorted);
-    };
+            return order === 'asc'
+                ? valueA.localeCompare(valueB)
+                : valueB.localeCompare(valueA)
+        })
+
+        setSortedData(sorted)
+    }
 
     return (
         <div>
             <h2>Companies</h2>
+
+            <input
+                type="text"
+                placeholder="Search by company name..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input"
+            />
+
             <table>
                 <thead>
                     <tr className="header-row">
                         <th>
-                            <SortColumn label="Name" columnKey="name" onSortChange={handleSort}></SortColumn>
+                            <SortColumn
+                                label="Name"
+                                columnKey="name"
+                                onSortChange={handleSort}
+                            ></SortColumn>
                         </th>
                         <th>Status</th>
                         <th>Application URL</th>

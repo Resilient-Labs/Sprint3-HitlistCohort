@@ -9,6 +9,8 @@ import companyService from './services/company'
 function App() {
     const [data, setData] = useState([])
 
+    console.log(data)
+
     useEffect(() => {
         const getCompanies = async () => {
             const response = await companyService.getAll()
@@ -21,7 +23,7 @@ function App() {
         <>
             <Navbar />
             <CompanyList data={data} />
-            <ContactList contacts={data?.map((company) => company.contact) || []} />
+            <ContactList contacts={data}/>
             <CompanyForm />
         </>
     )

@@ -6,7 +6,7 @@ import CompanyForm from './components/CompanyForm'
 import { useEffect, useState, useContext } from 'react'
 import companyService from './services/company'
 import { DarkModeContext } from './contexts/DarkModeContext'
-import './GlobalStyles.css'
+// import './GlobalStyles.css'
 
 function App() {
     const [data, setData] = useState([])
@@ -24,10 +24,10 @@ function App() {
         <div className={darkMode ? 'app-dark' : 'app-light'}>
             <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
             <CompanyList data={data} />
-            <ContactList
+            {/* <ContactList
                 contacts={data?.map((company) => company.contact) || []}
             />
-            <CompanyForm />
+            <CompanyForm /> */}
         </div>
     )
 }

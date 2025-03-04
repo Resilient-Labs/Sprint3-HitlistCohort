@@ -12,7 +12,7 @@ import LoginPage from './pages/LoginPage'
 import { AuthProvider } from './contexts/AuthContext'
 import { DarkModeProvider } from './contexts/DarkModeContext.jsx'
 
-import './GlobalStyles.css'
+// import './GlobalStyles.css'
 
 const router = createBrowserRouter([
     {
@@ -52,5 +52,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 </div>
             </DarkModeProvider>
         </AuthProvider>
-    </StrictMode>
+    </StrictMode>,
 )

@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar'
+import ContactList from '../components/ContactList'
 import { useContext } from 'react'
 import { DarkModeContext } from '../contexts/DarkModeContext'
 
@@ -12,7 +13,7 @@ const Contacts = () => {
             }}
         >
             <Navbar />
-            <div>Contacts Page</div>
+            <ContactList />
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import CompanyList from '../components/CompanyList'
 import Navbar from '../components/Navbar'
+import CompanyForm from '../components/CompanyForm'
 import { DarkModeContext } from '../contexts/DarkModeContext'
 import { useContext } from 'react'
 
@@ -13,7 +14,7 @@ const HitlistPage = () => {
             }}
         >
             <Navbar />
-            <div>Hitlist Page</div>
+            <CompanyForm />
             <CompanyList />
         </div>
     )

@@ -18,16 +18,21 @@
 </p>
       
 <p align="center">
+  <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#updating">Updating</a> •
-  <a href="#features">Features</a> •
   <a href="#APIs">APIs</a> •
   <a href="#contributing">Contributing</a> •
   <a href="#credits">Credits</a> •
-  <a href="#support">Support</a> •
-  <a href="#sponsor">Sponsor</a> •
   <a href="#license">License</a>
 </p>
+
+
+<h2 id="features">Features</h2>
+
+* Users can signup and login to their accounts
+* Companies can be created using a form on the home page 
+* A user can search all saved companies by company name, location, role, etc. 
 
 <h2 id="installation">Installation</h2>
 
@@ -128,27 +133,19 @@ Here is an article that explains more about git squash and how to use it: [Free 
 
 <h2 id="APIs">APIs</h2>
 
-In the backend of the project there are multiple endpoints to source data from. 
+<h4>Usage</h4> Connect to the API using Postman or Insominia. The API lives at <code>http://localhost:3001</code> when the server is running. 
 
-<bold>API Base URL</bold>
+<h4>Technologies used</h4
 
-<p>Development:</p>
-```http://localhost:3001 ```
+* [NodeJS](https://nodejs.org/) This is a cross-platform runtime environment built on Chrome's V8 JavaScript engine used in running JavaScript codes on the server. It allows for installation and managing of dependencies and communication with databases.
+* [ExpressJS](https://www.expresjs.org/) This is a NodeJS web application framework.
+* [MongoDB](https://www.mongodb.com/) This is a free open source NOSQL document database with scalability and flexibility. Data are stored in flexible JSON-like documents.
+* [Mongoose ODM](https://mongoosejs.com/) This makes it easy to write MongoDB validation by providing a straight-forward, schema-based solution to model to application data.
 
-<bold>Companies</bold>
-
-<h4>Requests</h4>
-
-TBD
-
-Query Parameters: 
-
-TBD
-
-<h4>Responses</h4>
+<h4>Requests and Responses</h4>
 
 <details>
-<summary><bold>POST: /Signup</bold></summary>
+<summary><bold><code>GET: /signuo</code> </br> Action: To create an account for the user. A user object is saved to mongo to register this user with their credentials</bold></summary>
 </br>
 <div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
@@ -166,14 +163,14 @@ TBD
 </br>
 
 <details>
-<summary><bold>POST: /Login</bold></summary>
+<summary><bold><code>GET: /login</code> </br> Action: To sign the user into the app.</bold></summary>
 </br>
 <div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
 | Status | Response |
 |--------|----------|
 |        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{message: 'Login successful', token, user }</code>|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{message: 'Login successful', token, user }</code>|
 | <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Invalid email or password' }</code>|
 | <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Server error', error: error.message }</code>|
 </details>
@@ -182,7 +179,7 @@ TBD
 </br>
 
 <details>
-<summary><bold>GET: /companies</bold></summary>
+<summary><bold><code>GET: /companies</code> </br> Action: To retrieve a list of companies and applications saved by the user.</bold></summary>
 </br>
 
 <div style='border-radius: 8px; background-color: grey; padding:8px;'>
@@ -190,8 +187,7 @@ TBD
 | Status | Response |
 |--------|----------|
 |        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{name: String,status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}</code>|
-| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{name: String,status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}</code>|
 | <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
 </div>
 </details>
@@ -199,31 +195,17 @@ TBD
 </br>
 
 <details>
-<summary><bold>GET: /companies</bold></summary>
+<summary><bold><code>PUT: /companies/:id</code> </br> Action: To update the details of an existing company.</bold></summary>
 </br>
 
-<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+<div style='border-radius: 8px; background-color: grey; padding:16px;'>
+
+<span>Request Params: <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">id: String</code></span>
 
 | Status | Response |
 |--------|----------|
 |        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;"> { companies: [ { name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String] }]}</code>|
-
-</div>
-</details>
-
-</br>
-
-<details>
-<summary><bold>PUT: /companies/:id</bold></summary>
-</br>
-
-<div style='border-radius: 8px; background-color: grey; padding:8px;'>
-
-| Status | Response |
-|--------|----------|
-|        |          |
-|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">'{companies:[{ name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}]}'</code>|
+|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">'{companies:[{ name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}]}'</code>|
 | <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error"}</code>|
 </details>
 </div>
@@ -231,42 +213,29 @@ TBD
 </br>
 
 <details>
-<summary>POST: /all-contacts</summary>
+<summary><bold><code>GET: /all-contacts</code> </br> Action: To retrieve an array of all the user's contacts.</bold></summary>
 
-TBD
-
-</details>
-
-</br>
-
-<details>
-<summary>POST: /all-contacts</summary>
-
-TBD
-
-</details>
-
-</br>
-
-<details>
-<summary>POST: /all-contacts</summary>
-</br>
-
-<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+<div style='border-radius: 8px; background-color: grey; padding:16px;'>
 
 | Status | Response |
 |--------|----------|
 |        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{message: 'Login successful', token, user }</code>|
-| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Invalid email or password' }</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
+|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{allContacts: String[]}</code>|
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error"}</code>|
 
 </div>
-
 </details>
 
-<bold>Users</bold>
+<h2 href="#credits">Credits</h2>
 
+<details>
+<summary><bold>All credit goes to my son Cosmo. He wrote most of this. Pray that he never learns Cobalt - otherwise, its over. </bold></summary>
+<img style="height: 200px; width: 200px;" src="./assets/credits.jpg" alt="KingCosmo">
+<span>Behold! The face of genius.</span>
+</details>
+
+<h2 id='#License'>License</h2>
+This project is available for use under the MIT License.
 
 
 

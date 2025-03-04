@@ -57,7 +57,7 @@ This app is a monorepo that houses both the frontend and backend of Hitlist Pro.
 
 1. Clone the repository onto your machine. 
 
-2. Navigate to ``` ./hitListProject/frontend ```. This is where the frontend app lives. 
+2. Navigate to ``` ./frontend ```.
 
 3. Run ```npm install ```. If you have an issue downloading the project dependencies, you may have an outdated node version.  If you are using nvm, run ``` nvm use 18.18.0 ```. The required version of the project may change. Check the terminal to determine which version nvm should use. 
 
@@ -79,8 +79,13 @@ To run the front end from the backend folder:
 
 <h4> Running the backend </h4>
 
-1. navigate to npm run dev
+1. Run ```npm i```. If you are using nvm make sure to run ```npm use [required  node version for project]```
 
+2. Navigate to ```./backend```
+
+3. Run ```npm run start```
+
+4. Ensure the backend is at ```http://localhost:3001/```
 
 <br/>
 
@@ -141,88 +146,80 @@ Query Parameters
 
 <h4>Responses</h4>
 
+<details>
+<summary><bold>POST: /Signup</bold></summary>
+</br>
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
-``` POST: /Signup ```
+| Status | Response |
+|--------|----------|
+|        |          |
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ user, message: 'User registered successfully', token }</code>|
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Email already in use' }</code>|
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Server error', error: error.message }</code>|
 
-<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+</div>
 
-``` 
- { user, message: 'User registered successfully', token }
-```
-
-<div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
-
-```
-{ message: 'Email already in use' }
-```
-
-<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
-
-``` 
-{ message: 'Server error', error: error.message }
-```
+</details>
 
 </br>
 
-``` POST: /Login ```
+<details>
+<summary><bold>POST: /Login</bold></summary>
+</br>
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
-<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
-
-``` 
- {message: 'Login successful', token, user }
-```
-
-<div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
-
-```
-{ message: 'Invalid email or password' }
-```
-
-<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
-
-``` 
-{ message: 'Server error', error: error.message }
-```
+| Status | Response |
+|--------|----------|
+|        |          |
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{message: 'Login successful', token, user }</code>|
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Invalid email or password' }</code>|
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Server error', error: error.message }</code>|
+</details>
+</div>
 
 </br>
 
+<details>
+<summary><bold>GET: /companies</bold></summary>
+</br>
 
-``` GET: /companies```
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+
+| Status | Response |
+|--------|----------|
+|        |          |
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{name: String,status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}</code>|
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
+</div>
+</details>
+
+</br>
+
+<details>
+<summary><bold>GET: /companies</bold></summary>
+</br>
+
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+
+| Status | Response |
+|--------|----------|
+|        |          |
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;"> { companies: [ { name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String] }]}</code>|
+
+</div>
+</details>
+
+</br>
+
+<details>
+<summary><bold>PUT: /companies/:id</bold></summary>
 
 <div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
 
 ``` 
- {
-    name: String,
-    status: String,
-    applicationUrl: String,
-    notes: String,
-    pointOfContacts: [String],
-}
-```
-
-<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
-
-``` 
-{ error: "Internal Server Error" }
-```
-
-``` PUT: /companies/:id```
-
-<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
-
-``` 
- {
-  companies: [
-    {
-    name: String,
-    status: String,
-    applicationUrl: String,
-    notes: String,
-    pointOfContacts: [String],
-    }
-  ]
- }
+ { companies: [ { name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String] }]}
 ```
 
 <div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
@@ -230,31 +227,46 @@ Query Parameters
 ``` 
  { error: "Internal Server Error"}
 ```
+</details>
 
-```POST: /all-contacts' ```
+</br>
+
+<details>
+<summary>POST: /all-contacts</summary>
 
 
+</details>
+
+</br>
+
+<details>
+<summary>POST: /all-contacts</summary>
 
 
-```/all-contacts' ```
+</details>
 
-<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+</br>
 
-``` 
- {message: 'Login successful', token, user }
-```
+<details>
+<summary>POST: /all-contacts</summary>
+  <div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
 
-<div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
+  ``` 
+  {message: 'Login successful', token, user }
+  ```
 
-```
-{ message: 'Invalid email or password' }
-```
+  <div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
 
-<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+  ```
+  { message: 'Invalid email or password' }
+  ```
 
-``` 
-{ error: "Internal Server Error" }
-```
+  <div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+
+  ``` 
+  { error: "Internal Server Error" }
+  ```
+</details>
 
 <bold>Users</bold>
 

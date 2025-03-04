@@ -77,7 +77,7 @@ To run the front end from the backend folder:
 4. Then in the backend folder run ```npm run dev```
 
 
-<h4> Running the backend </h4>
+<h3> Running the backend </h3>
 
 1. Run ```npm i```. If you are using nvm make sure to run ```npm use [required  node version for project]```
 
@@ -124,25 +124,26 @@ If every developer who pushed the changes to the main branch retained their comm
 If you want to squash merge without github, you can do a git squash locally before or after your PR is approved. After you squash (and rebase if you need to). Then push your changes and merger them to main.
 Here is an article that explains more about git squash and how to use it: [Free code camp article on squash commits]('https://www.freecodecamp.org/news/git-squash-commits/')
 
-
 <br/>
 
-<h4>APIs</h4>
+<h2 id="APIs">APIs</h2>
 
 In the backend of the project there are multiple endpoints to source data from. 
 
-<p>API Base URL</p>
+<bold>API Base URL</bold>
 
 <p>Development:</p>
-<p>Production:</p>
+```http://localhost:3001 ```
 
 <bold>Companies</bold>
 
-
 <h4>Requests</h4>
 
-Query Parameters
-``` ```
+TBD
+
+Query Parameters: 
+
+TBD
 
 <h4>Responses</h4>
 
@@ -215,18 +216,25 @@ Query Parameters
 
 <details>
 <summary><bold>PUT: /companies/:id</bold></summary>
+</br>
 
-<div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
-``` 
- { companies: [ { name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String] }]}
-```
+| Status | Response |
+|--------|----------|
+|        |          |
+|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">'{companies:[{ name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}]}'</code>|
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error"}</code>|
+</details>
+</div>
 
-<div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
+</br>
 
-``` 
- { error: "Internal Server Error"}
-```
+<details>
+<summary>POST: /all-contacts</summary>
+
+TBD
+
 </details>
 
 </br>
@@ -234,6 +242,7 @@ Query Parameters
 <details>
 <summary>POST: /all-contacts</summary>
 
+TBD
 
 </details>
 
@@ -241,31 +250,19 @@ Query Parameters
 
 <details>
 <summary>POST: /all-contacts</summary>
-
-
-</details>
-
 </br>
 
-<details>
-<summary>POST: /all-contacts</summary>
-  <div style='padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px'><bold>201</bold></div>
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
-  ``` 
-  {message: 'Login successful', token, user }
-  ```
+| Status | Response |
+|--------|----------|
+|        |          |
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{message: 'Login successful', token, user }</code>|
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Invalid email or password' }</code>|
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
 
-  <div style='padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px'><bold>400</bold></div>
+</div>
 
-  ```
-  { message: 'Invalid email or password' }
-  ```
-
-  <div style='padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px'><bold>500</bold></div>
-
-  ``` 
-  { error: "Internal Server Error" }
-  ```
 </details>
 
 <bold>Users</bold>

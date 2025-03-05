@@ -145,7 +145,7 @@ Here is an article that explains more about git squash and how to use it: [Free 
 <h4>Requests and Responses</h4>
 
 <details>
-<summary><bold><code>GET: /signuo</code> </br> Action: To create an account for the user. A user object is saved to mongo to register this user with their credentials</bold></summary>
+<summary><bold><code>GET: /signup</code> </br> Action: To create an account for the user. A user object is saved to mongo to register this user with their credentials</bold></summary>
 </br>
 <div style='border-radius: 8px; background-color: grey; padding:8px;'>
 

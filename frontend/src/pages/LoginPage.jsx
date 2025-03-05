@@ -35,7 +35,7 @@ const LoginPage = () => {
                     login(
                         token,
                         data.user.username,
-                        'Account logged in successfully!'
+                        'Account logged in successfully!',
                     ) // Save the token and update the authentication state
                 } else {
                     console.error('No token found in the response')

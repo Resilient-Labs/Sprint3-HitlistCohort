@@ -1,10 +1,18 @@
 import './ContactList.css'
-import React, { useState, useEffect } from "react";
-import contactsService from "../services/contacts";
+import React, { useState, useEffect } from 'react'
+import contactsService from '../services/contacts'
 
-const ContactList = ( {contacts} ) => {
-    // tbd: implementing contactsService to fetch Point of Contact data whenever this component loads (instead of passing 'contacts' as prop from App.jsx and receiving above)
+const ContactList = () => {
+    const [contacts, setContacts] = useState([])
 
+    useEffect(() => {
+        contactsService
+            .getAll()
+            .then((data) => {
+                setContacts(data || [])
+            })
+            .catch((error) => console.error('Error fetching companies:', error))
+    }, [])
     return (
         <div>
             <h2 className="contacts-header">Points of Contact</h2>

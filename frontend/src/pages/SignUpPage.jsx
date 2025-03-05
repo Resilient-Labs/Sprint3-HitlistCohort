@@ -39,7 +39,7 @@ const SignUpPage = () => {
                     login(
                         token,
                         data.user.username,
-                        'Account created successfully!'
+                        'Account created successfully!',
                     ) // Save the token and update the authentication state
                 } else {
                     console.error('No token found in the response')

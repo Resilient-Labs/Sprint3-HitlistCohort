@@ -1,58 +1,67 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar'
-import { AuthContext } from '../contexts/AuthContext'; 
+import { AuthContext } from '../contexts/AuthContext'
+import { DarkModeContext } from '../contexts/DarkModeContext'
 
 const SignUpPage = () => {
-    const { login } = useContext(AuthContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
+    const { darkMode } = useContext(DarkModeContext)
+    const { login } = useContext(AuthContext)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('')
     const local = 'http://localhost:3001/sign-up'
 
-
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         const userData = {
             email,
             password,
-            username
-        };
+            username,
+        }
 
         try {
             const response = await fetch(local, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userData)
-            });
+                body: JSON.stringify(userData),
+            })
 
             if (response.ok) {
                 // Handle successful response
-                const data = await response.json();
-                const token = data.token;
+                const data = await response.json()
+                const token = data.token
                 console.log(data)
 
                 if (token) {
-                    login(token, data.user.username, 'Account created successfully!'); // Save the token and update the authentication state
+                    login(
+                        token,
+                        data.user.username,
+                        'Account created successfully!',
+                    ) // Save the token and update the authentication state
                 } else {
-                    console.error('No token found in the response');
+                    console.error('No token found in the response')
                 }
-
             } else {
-                const errorMessage = await response.json();
-                console.error('Error signing up:', errorMessage);
+                const errorMessage = await response.json()
+                console.error('Error signing up:', errorMessage)
                 alert(`Error signing up: ${errorMessage.message}`)
             }
         } catch (error) {
-            console.error('Network error:', error);
-            alert('Network error', error);
+            console.error('Network error:', error)
+            alert('Network error', error)
         }
-    };
+    }
 
     return (
-        <>
+        <div
+            style={{
+                backgroundColor: darkMode ? '#A9A9A9' : '#ffffff',
+                color: darkMode ? '#ffffff' : '#000000',
+            }}
+        >
             <Navbar />
             <div className="signup-container">
                 <h2 className="signup-title">Sign Up</h2>
@@ -96,7 +105,9 @@ const SignUpPage = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="submit-button">Sign Up</button>
+                    <button type="submit" className="submit-button">
+                        Sign Up
+                    </button>
                 </form>
             </div>
 
@@ -163,7 +174,7 @@ const SignUpPage = () => {
                     background-color: #0056b3;
                 }
             `}</style>
-        </>
+        </div>
     )
 }
 

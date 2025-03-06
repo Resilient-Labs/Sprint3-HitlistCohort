@@ -29,7 +29,7 @@ const CompanyList = () => {
     }
 
     const filteredCompanies = companies.filter((company) =>
-        company.name.toLowerCase().includes(searchQuery.toLowerCase())
+        company.name.toLowerCase().includes(searchQuery.toLowerCase()),
     )
 
     return (

@@ -29,6 +29,19 @@ const CompanyForm = () => {
         setNewPointOfContact(event.target.value)
     }
 
+
+    const handleDelete = (id) => {
+        if(window.confirm('Are you sure you want to delete this company?')) {
+            companyService.remove(id).then(() => {
+                setCompanies(companies.filter(company => company.id !== id)) // filter company out of list, update state
+            }
+        )
+        }
+    }
+
+
+
+
     const addCompany = (event) => {
         event.preventDefault()
 
@@ -114,6 +127,22 @@ const CompanyForm = () => {
                     <button id="add-company-form-button">Add Company</button>
                 </div>
             </form>
+
+            {/*displays list of companies w delete btn */}
+            <div id="company-list">
+                <h3>Company List</h3>
+                <ul>
+                    {/*map thru companies, display each w del btn */}
+                    {companies.map(() => (
+                        <li key={company.id}>
+                            {company.name} - {company.status}
+
+                            {/*call handleDelete w id */}
+                            <button onClick={() => handleDelete(company.id)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 }

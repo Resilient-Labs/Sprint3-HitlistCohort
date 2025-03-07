@@ -4,6 +4,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import EditPage from './pages/Edit'
 import HitlistPage from './pages/HitlistPage'
 import ContactsPage from './pages/ContactsPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
     {
         path: '/signup',
         element: <SignUpPage />,
+        errorElement: <NotFoundPage />,
+    },
+    {
+        path: '/edit/:id', 
+        element: <EditPage />,
         errorElement: <NotFoundPage />,
     },
 ])

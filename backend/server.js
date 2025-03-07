@@ -8,6 +8,11 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
+// must stay here in order to load before making api requests (do not move)
+app.use(express.json())
+app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }))
+
+
 app.post('/sign-up', async (req, res) => {
     try {
         const { email, password, username } = req.body
@@ -139,6 +144,23 @@ app.delete('/companies/:id', async (req, res) => {
     }
 })
 
+// get by id
+app.get('/companies/:id', async (req, res) => {
+    try {
+        const companyId = req.params.id;
+        const company = await Company.findById(companyId);
+
+        if (!company) {
+            return res.status(404).json({ message: 'Company not found' });
+        }
+
+        res.json(company);
+    } catch (error) {
+        console.error('Error fetching company by ID', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 //***** GET ALL POINTS OF CONTACTS *****
 app.get('/all-contacts', async (req, res) => {
     try {
@@ -158,8 +180,6 @@ app.get('/all-contacts', async (req, res) => {
     }
 })
 
-app.use(cors({ origin: `http://localhost:5173`, optionsSuccessStatus: 200 }))
-app.use(express.static('dist'))
 app.use(express.json())
 app.use(main)
 

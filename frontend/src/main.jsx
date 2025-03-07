@@ -4,12 +4,16 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import EditPage from './pages/Edit'
 import HitlistPage from './pages/HitlistPage'
 import ContactsPage from './pages/ContactsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext'
+import { DarkModeProvider } from './contexts/DarkModeContext.jsx'
+
+// import './GlobalStyles.css'
 
 const router = createBrowserRouter([
     {
@@ -37,11 +41,22 @@ const router = createBrowserRouter([
         element: <SignUpPage />,
         errorElement: <NotFoundPage />,
     },
+    {
+        path: '/edit/:id', 
+        element: <EditPage />,
+        errorElement: <NotFoundPage />,
+    },
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <AuthProvider>  {/* AuthProvider should wrap RouterProvider */}
-            <RouterProvider router={router} />
+        <AuthProvider>
+            {' '}
+            {/* AuthProvider should wrap RouterProvider */}
+            <DarkModeProvider>
+                <div>
+                    <RouterProvider router={router} />
+                </div>
+            </DarkModeProvider>
         </AuthProvider>
     </StrictMode>,
 )

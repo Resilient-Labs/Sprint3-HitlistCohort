@@ -1,10 +1,21 @@
 import { useState } from 'react'
 import './ContactList.css'
+import React, { useState, useEffect } from 'react'
+import contactsService from '../services/contacts'
 
-const ContactList = ({ contacts }) => {
-    console.log('data:', contacts)
+const ContactList = () => {
+    const [contacts, setContacts] = useState([])
     const [search, setSearch] = useState('')
-
+     
+    useEffect(() => {
+        contactsService
+            .getAll()
+            .then((data) => {
+                setContacts(data || [])
+            })
+            .catch((error) => console.error('Error fetching companies:', error))
+    }, [])
+  
     const processPointOfContacts = (pointOfContacts) => {
         if (!pointOfContacts) return []
         if (Array.isArray(pointOfContacts))
@@ -29,7 +40,6 @@ const ContactList = ({ contacts }) => {
             name.toLowerCase().includes(search.toLowerCase())
         )
     )
-
     return (
         <div>
             <h2 className="contacts-header">Points of Contact</h2>

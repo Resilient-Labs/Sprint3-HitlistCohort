@@ -1,52 +1,63 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar'
-import { AuthContext } from '../contexts/AuthContext'; 
+import { AuthContext } from '../contexts/AuthContext'
+import { DarkModeContext } from '../contexts/DarkModeContext'
 
 const LoginPage = () => {
-    const { login } = useContext(AuthContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { login } = useContext(AuthContext)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const local = 'http://localhost:3001/login'
+    const { darkMode } = useContext(DarkModeContext)
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         const userData = {
             email,
-            password
-        };
+            password,
+        }
 
         try {
             const response = await fetch(local, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userData)
-            });
-        
+                body: JSON.stringify(userData),
+            })
+
             if (response.ok) {
-                const data = await response.json();
-                const token = data.token;
+                const data = await response.json()
+                const token = data.token
 
                 if (token) {
-                    login(token, data.user.username, 'Account logged in successfully!'); // Save the token and update the authentication state
+                    login(
+                        token,
+                        data.user.username,
+                        'Account logged in successfully!',
+                    ) // Save the token and update the authentication state
                 } else {
-                    console.error('No token found in the response');
+                    console.error('No token found in the response')
                 }
             } else {
-                const errorMessage = await response.json();
-                console.error('Error logging in:', errorMessage);
+                const errorMessage = await response.json()
+                console.error('Error logging in:', errorMessage)
                 alert(`Error logging in: ${errorMessage.message}`)
             }
         } catch (error) {
-            console.error('Network error:', error);
-            alert('Network error', error);
+            console.error('Network error:', error)
+            alert('Network error', error)
         }
-    };
+    }
 
     return (
-        <>
+        <div
+            style={{
+                backgroundColor: darkMode ? '#A9A9A9' : '#ffffff',
+                color: darkMode ? '#ffffff' : '#000000',
+            }}
+        >
             <Navbar />
             <div className="login-container">
                 <h2 className="login-title">Login</h2>
@@ -77,7 +88,9 @@ const LoginPage = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="submit-button">Login</button>
+                    <button type="submit" className="submit-button">
+                        Login
+                    </button>
                 </form>
             </div>
 
@@ -144,7 +157,7 @@ const LoginPage = () => {
                     background-color: #0056b3;
                 }
             `}</style>
-        </>
+        </div>
     )
 }
 

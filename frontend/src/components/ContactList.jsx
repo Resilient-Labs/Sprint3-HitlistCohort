@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './ContactList.css'
 import React, { useState, useEffect } from 'react'
 import contactsService from '../services/contacts'

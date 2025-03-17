@@ -8,11 +8,6 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
-// must stay here in order to load before making api requests (do not move)
-app.use(express.json())
-app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }))
-
-
 app.post('/sign-up', async (req, res) => {
     try {
         const { email, password, username } = req.body
@@ -180,6 +175,9 @@ app.get('/all-contacts', async (req, res) => {
     }
 })
 
+// must stay here in order to load before making api requests (do not move)
+app.use(cors({ origin: 'http://localhost:5173', optionsSuccessStatus: 200 }))
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(main)
 

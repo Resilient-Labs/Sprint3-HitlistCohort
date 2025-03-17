@@ -26,9 +26,6 @@ function App() {
         <div className={darkMode ? 'app-dark' : 'app-light'}>
             <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
             <CompanyList data={data} />
-            <ContactList contacts={data}/>
-            <CompanyForm />
-        </>  
         </div>
     )
 }

@@ -16,7 +16,6 @@ const Contacts = ({ contacts }) => {
             <Navbar />
             <div>Contacts Page</div>
             <ContactList contacts={contacts} />
-        </>
         </div>
     )
 }

@@ -2,7 +2,7 @@ const User = require('../models/user.schema')
 const jwt = require('jsonwebtoken')
 const usersRouter = require('express').Router()
 
-app.post('/', async (req, res) => {
+usersRouter.post('/', async (req, res) => {
     try {
         const { email, password, username } = req.body
 

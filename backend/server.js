@@ -3,8 +3,7 @@ const express = require('express')
 const app = express()
 const main = require('./mongoose')
 const companiesRouter = require('./routes/companies')
-const usersRouter = require('./routes/users')
-const loginRouter = require('./routes/login')
+const authenticationRouter = require('./routes/authentication')
 const cors = require('cors')
 const PORT = process.env.PORT || 3001
 
@@ -14,8 +13,7 @@ app.use(express.static('dist'))
 app.use(express.json())
 
 app.use('/companies', companiesRouter)
-app.use('/users', usersRouter)
-app.use('/login', loginRouter)
+app.use('/', authenticationRouter)
 
 //must go after routes or it will block them
 app.use(main)

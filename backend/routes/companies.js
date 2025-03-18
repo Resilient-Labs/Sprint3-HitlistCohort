@@ -14,8 +14,12 @@ companiesRouter.get('/', async (req, res) => {
 })
 
 //***** EDIT COMPANY INFO *****
-companiesRouter.put('/companies/:id', async (req, res) => {
+companiesRouter.put('/:id', async (req, res) => {
     try {
+        const ID = req.params.id
+        if (!ID) {
+            return res.status(400).json({ message: 'Id is needed' })
+        }
         const body = req.body
         const companyInfo = {
             name: body.name,
@@ -24,7 +28,6 @@ companiesRouter.put('/companies/:id', async (req, res) => {
             notes: body.notes,
             pointOfContacts: body.pointOfContacts,
         }
-        const ID = req.params.id
         Company.findByIdAndUpdate(ID, companyInfo, { new: true }).then(
             (updatedCompnayInfo) => {
                 res.json(updatedCompnayInfo)
@@ -37,7 +40,7 @@ companiesRouter.put('/companies/:id', async (req, res) => {
 })
 
 //***** ADD COMPANY *****
-companiesRouter.post('/companies', async (req, res) => {
+companiesRouter.post('/', async (req, res) => {
     try {
         const { name, status, applicationUrl, notes, pointOfContact } = req.body
 

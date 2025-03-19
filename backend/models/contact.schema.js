@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const contactSchema = new mongoose.Schema({
   name: String,
@@ -9,4 +9,6 @@ const contactSchema = new mongoose.Schema({
   lastContactDate: {type: Date},
 })
 
-export const ContactModel = mongoose.model('Contact', contactSchema)
+const ContactModel = mongoose.model('Contact', contactSchema)
+
+module.exports = ContactModel

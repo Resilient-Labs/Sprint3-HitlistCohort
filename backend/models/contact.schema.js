@@ -6,7 +6,7 @@ const contactSchema = new mongoose.Schema({
   email: String,
   linkedIn: String,
   company: String,
-  lastContactDate: {type: Date},
+  lastContactDate: Date,
 })
 
 const ContactModel = mongoose.model('Contact', contactSchema)

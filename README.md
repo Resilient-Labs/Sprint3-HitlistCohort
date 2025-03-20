@@ -215,6 +215,89 @@ Here is an article that explains more about git squash and how to use it: [Free 
 </div>
 </details>
 
+<h2> Schemas <h2>
+
+### Contact Schema (`backend/models/contact.schema.js`)
+
+```javascript
+const mongoose = require('mongoose');
+
+const contactSchema = new mongoose.Schema({
+  role: String,
+  email: String,
+  linkedIn: String,
+  company: String,  // Deprecated: This is being replaced by the reference to Company model below.
+  company: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company'  // References the 'Company' model, establishing a relationship between Contact and Company
+  },
+  lastContactDate: Date,
+});
+
+const ContactModel = mongoose.model('Contact', contactSchema);
+
+module.exports = ContactModel;
+```
+<h3>Contact Schema Fields</h3>
+    <ul>
+        <li><strong>role:</strong> The role of the contact (e.g., Manager, Developer).</li>
+        <li><strong>email:</strong> The contact's email address.</li>
+        <li><strong>linkedIn:</strong> The contact's LinkedIn profile.</li>
+        <li><strong>company:</strong> Deprecated. Previously used as a string field, now replaced with an ObjectId reference to the Company model.</li>
+        <li><strong>company:</strong> The ObjectId referencing a company document from the Company model. This creates a relationship between the Contact and Company models.</li>
+        <li><strong>lastContactDate:</strong> The most recent date when the contact was interacted with.</li>
+    </ul>
+
+### Company Schema (`backend/models/company.schema.js`)
+
+```javascript
+
+const mongoose = require('mongoose');
+
+const companySchema = new mongoose.Schema({
+  name: String,
+  status: String,
+  applicationUrl: String,
+  notes: String,
+  pointOfContacts: [String], // Deprecated: This is replaced by a reference to the Contact model below.
+  pointOfContacts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Contact'  // References the 'Contact' model, establishing a relationship between Company and Contact
+  }],
+});
+
+const CompanyModel = mongoose.model('Company', companySchema);
+
+module.exports = CompanyModel;
+```
+<h3>Contact Schema Fields</h3>
+   <ul>
+        <li><strong>role:</strong> The role of the contact (e.g., Manager, Developer).</li>
+        <li><strong>email:</strong> The contact's email address.</li>
+        <li><strong>linkedIn:</strong> The contact's LinkedIn profile.</li>
+        <li><strong>company:</strong> Deprecated. Previously used as a string field, now replaced with an ObjectId reference to the Company model.</li>
+        <li><strong>company:</strong> The ObjectId referencing a company document from the Company model. This creates a relationship between the Contact and Company models.</li>
+        <li><strong>lastContactDate:</strong> The most recent date when the contact was interacted with.</li>
+    </ul>
+
+
+ <h1>How the Contact and Company Schemas Work Together</h1>
+    <p>The Contact and Company schemas are related through the <code>company</code> field in the Contact schema and the <code>pointOfContacts</code> field in the Company schema:</p>
+    
+    <ul>
+        <li>The <code>company</code> field in the Contact schema references the <code>_id</code> of a Company, establishing a connection between a contact and the company they work for or are associated with.</li>
+        <li>The <code>pointOfContacts</code> field in the Company schema is an array of <code>ObjectId</code> references to the Contact model, which holds the contacts associated with a specific company.</li>
+    </ul>
+
+    <p>This relationship allows you to easily retrieve information about a contact's associated company or find all contacts linked to a specific company.</p>
+
+    <h2>Example Use Case:</h2>
+    <ul>
+        <li>When querying for a Contact, you can populate the <code>company</code> field to get detailed information about the company the contact works for.</li>
+        <li>When querying for a Company, you can populate the <code>pointOfContacts</code> field to retrieve all contacts (e.g., employees or representatives) associated with that company.</li>
+    </ul>
+
+
 <h2 href="#credits">Credits</h2>
 
 <details>

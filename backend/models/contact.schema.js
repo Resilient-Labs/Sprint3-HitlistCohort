@@ -5,7 +5,10 @@ const contactSchema = new mongoose.Schema({
   role: String,
   email: String,
   linkedIn: String,
-  company: String,
+  company: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company'
+  },
   lastContactDate: Date,
 })
 

@@ -94,6 +94,8 @@ To run the front end from the backend folder:
 
 <br/>
 
+<h3> 
+
 <h2 id="updating">Updating</h2>
 
 <h3>Workspaces</h3>
@@ -145,83 +147,70 @@ Here is an article that explains more about git squash and how to use it: [Free 
 <h4>Requests and Responses</h4>
 
 <details>
-<summary><bold><code>GET: /signup</code> </br> Action: To create an account for the user. A user object is saved to mongo to register this user with their credentials</bold></summary>
-</br>
-<div style='border-radius: 8px; background-color: grey; padding:8px;'>
-
-| Status | Response |
-|--------|----------|
-|        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ user, message: 'User registered successfully', token }</code>|
-| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Email already in use' }</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Server error', error: error.message }</code>|
-
-</div>
-
-</details>
-
-</br>
-
-<details>
-<summary><bold><code>GET: /login</code> </br> Action: To sign the user into the app.</bold></summary>
-</br>
-<div style='border-radius: 8px; background-color: grey; padding:8px;'>
-
-| Status | Response |
-|--------|----------|
-|        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{message: 'Login successful', token, user }</code>|
-| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Invalid email or password' }</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Server error', error: error.message }</code>|
-</details>
-</div>
-
-</br>
-
-<details>
-<summary><bold><code>GET: /companies</code> </br> Action: To retrieve a list of companies and applications saved by the user.</bold></summary>
-</br>
+<summary><strong><code>GET: /signup</code></strong> - Action: To create an account for the user.</summary>
 
 <div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
 | Status | Response |
 |--------|----------|
-|        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{name: String,status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code>{ "user": {}, "message": "User registered successfully", "token": "string" }</code> |
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code>{ "message": "Email already in use" }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "message": "Server error", "error": "string" }</code> |
+
 </div>
 </details>
 
-</br>
+<details>
+<summary><strong><code>GET: /login</code></strong> - Action: To sign the user into the app.</summary>
+
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+
+| Status | Response |
+|--------|----------|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "message": "Login successful", "token": "string", "user": {} }</code> |
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code>{ "message": "Invalid email or password" }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "message": "Server error", "error": "string" }</code> |
+
+</div>
+</details>
 
 <details>
-<summary><bold><code>PUT: /companies/:id</code> </br> Action: To update the details of an existing company.</bold></summary>
-</br>
+<summary><strong><code>GET: /companies</code></strong> - Action: To retrieve a list of companies and applications saved by the user.</summary>
+
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+
+| Status | Response |
+|--------|----------|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "companies": [{ "name": "string", "status": "string", "applicationUrl": "string", "notes": "string", "pointOfContacts": ["string"] }] }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "error": "Internal Server Error" }</code> |
+
+</div>
+</details>
+
+<details>
+<summary><strong><code>PUT: /companies/:id</code></strong> - Action: To update the details of an existing company.</summary>
 
 <div style='border-radius: 8px; background-color: grey; padding:16px;'>
 
-<span>Request Params: <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">id: String</code></span>
+<span>Request Params: <code>{ "id": "string" }</code></span>
 
 | Status | Response |
 |--------|----------|
-|        |          |
-|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">'{companies:[{ name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}]}'</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error"}</code>|
-</details>
-</div>
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "companies": [{ "name": "string", "status": "string", "applicationUrl": "string", "notes": "string", "pointOfContacts": ["string"] }] }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "error": "Internal Server Error" }</code> |
 
-</br>
+</div>
+</details>
 
 <details>
-<summary><bold><code>GET: /all-contacts</code> </br> Action: To retrieve an array of all the user's contacts.</bold></summary>
+<summary><strong><code>GET: /all-contacts</code></strong> - Action: To retrieve an array of all the user's contacts.</summary>
 
 <div style='border-radius: 8px; background-color: grey; padding:16px;'>
 
 | Status | Response |
 |--------|----------|
-|        |          |
-|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{allContacts: String[]}</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error"}</code>|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "allContacts": ["string"] }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "error": "Internal Server Error" }</code> |
 
 </div>
 </details>

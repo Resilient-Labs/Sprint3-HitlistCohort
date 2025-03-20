@@ -5,6 +5,7 @@ import ContactList from './components/ContactList'
 import CompanyForm from './components/CompanyForm'
 import { useEffect, useState } from 'react'
 import companyService from './services/company'
+import CompanyDashboard from './components/companyDashboard/companyDashboard.jsx'
 
 function App() {
     const [data, setData] = useState([])
@@ -21,6 +22,7 @@ function App() {
         <>
             <Navbar />
             <CompanyList data={data} />
+            <CompanyDashboard />
             <ContactList
                 contacts={data?.map((company) => company.contact) || []}
             />

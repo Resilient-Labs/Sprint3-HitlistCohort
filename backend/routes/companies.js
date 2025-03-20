@@ -20,12 +20,10 @@ companiesRouter.put('/:id', async (req, res) => {
         if (!ID) {
             return res.status(400).json({ message: 'Id is needed' })
         }
-
         //Handle empty request body
         if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).json({ message: 'No update data provided' });
         }
-
         const { name, status, applicationUrl, notes, pointOfContacts } = req.body;
 
         const companyInfo = {
@@ -35,6 +33,7 @@ companiesRouter.put('/:id', async (req, res) => {
             notes: notes,
             pointOfContacts: pointOfContacts || [],
         }
+
         Company
             .findByIdAndUpdate(ID, companyInfo, { new: true })
             .then((updatedCompany) => {
@@ -43,6 +42,7 @@ companiesRouter.put('/:id', async (req, res) => {
                 }
                 res.json(updatedCompany)
             })
+
     } catch (error) {
         console.error('Error Editing Company info')
         res.status(500).json({ error: 'Internal Server Error' })
@@ -54,7 +54,7 @@ companiesRouter.post('/', async (req, res) => {
     try {
         const { name, status, applicationUrl, notes, pointOfContact } = req.body 
         
-           const newCompany = new Company({
+        const newCompany = new Company({
             name,
             status,
             applicationUrl,

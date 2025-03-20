@@ -1,5 +1,5 @@
 import React from 'react'
-import './companyDashboard.css' // Import CSS for styling
+import './companyDashboard.css' 
 
 const CompanyDashboard = () => {
     // Hardcoded test data
@@ -21,7 +21,7 @@ const CompanyDashboard = () => {
         { id: 5, company: 'Tesla', status: 'Applied', date: '2025-03-15' },
     ]
 
-    // Derived data
+
     const totalCompanies = applications.length
     const appliedCompanies = applications.filter(
         (app) => app.status === 'Applied'
@@ -30,7 +30,7 @@ const CompanyDashboard = () => {
         (app) => app.status === 'Interviewing'
     )
 
-    // Last 3 applications
+
     const recentApplications = applications.slice(-3)
     return (
         <div className="dashboard-container">

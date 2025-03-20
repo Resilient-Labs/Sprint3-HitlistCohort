@@ -281,21 +281,19 @@ module.exports = CompanyModel;
     </ul>
 
 
- <h1>How the Contact and Company Schemas Work Together</h1>
-    <p>The Contact and Company schemas are related through the <code>company</code> field in the Contact schema and the <code>pointOfContacts</code> field in the Company schema:</p>
-    
-    <ul>
-        <li>The <code>company</code> field in the Contact schema references the <code>_id</code> of a Company, establishing a connection between a contact and the company they work for or are associated with.</li>
-        <li>The <code>pointOfContacts</code> field in the Company schema is an array of <code>ObjectId</code> references to the Contact model, which holds the contacts associated with a specific company.</li>
-    </ul>
+ # How the Contact and Company Schemas Work Together
 
-    <p>This relationship allows you to easily retrieve information about a contact's associated company or find all contacts linked to a specific company.</p>
+The Contact and Company schemas are related through the `company` field in the Contact schema and the `pointOfContacts` field in the Company schema:
 
-    <h2>Example Use Case:</h2>
-    <ul>
-        <li>When querying for a Contact, you can populate the <code>company</code> field to get detailed information about the company the contact works for.</li>
-        <li>When querying for a Company, you can populate the <code>pointOfContacts</code> field to retrieve all contacts (e.g., employees or representatives) associated with that company.</li>
-    </ul>
+- The `company` field in the Contact schema references the `_id` of a Company, establishing a connection between a contact and the company they work for or are associated with.
+- The `pointOfContacts` field in the Company schema is an array of `ObjectId` references to the Contact model, which holds the contacts associated with a specific company.
+
+This relationship allows you to easily retrieve information about a contact's associated company or find all contacts linked to a specific company.
+
+## Example Use Case:
+
+- When querying for a Contact, you can populate the `company` field to get detailed information about the company the contact works for.
+- When querying for a Company, you can populate the `pointOfContacts` field to retrieve all contacts (e.g., employees or representatives) associated with that company.
 
 
 <h2 href="#credits">Credits</h2>

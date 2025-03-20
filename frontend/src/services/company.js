@@ -20,8 +20,14 @@ const create = (newObject) => {
         })
 }
 
-const update = (id, newObject) => {
-    const request = axios.put(`${baseUrl}/${id}`, newObject)
+const update = (id, updatedCompany) => {
+
+    if (!updatedCompany) {
+        console.error('Update failed: No data provided');
+        return Promise.reject('No company updating data provided');
+    }
+
+    const request = axios.put(`${baseUrl}/${id}`, updatedCompany)
     return request
         .then((response) => response.data)
         .catch((error) => {

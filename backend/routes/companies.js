@@ -20,21 +20,31 @@ companiesRouter.put('/:id', async (req, res) => {
         if (!ID) {
             return res.status(400).json({ message: 'Id is needed' })
         }
-        const body = req.body
-        const companyInfo = {
-            name: body.name,
-            status: body.status,
-            applicationUrl: body.applicationUrl,
-            notes: body.notes,
-            pointOfContacts: body.pointOfContacts,
+
+        //Handle empty request body
+        if (!req.body || Object.keys(req.body).length === 0) {
+            return res.status(400).json({ message: 'No update data provided' });
         }
-        Company.findByIdAndUpdate(ID, companyInfo, { new: true }).then(
-            (updatedCompnayInfo) => {
-                res.json(updatedCompnayInfo)
-            },
-        )
+
+        const { name, status, applicationUrl, notes, pointOfContacts } = req.body;
+
+        const companyInfo = {
+            name: name,
+            status: status,
+            applicationUrl: applicationUrl,
+            notes: notes,
+            pointOfContacts: pointOfContacts || [],
+        }
+        Company
+            .findByIdAndUpdate(ID, companyInfo, { new: true })
+            .then((updatedCompany) => {
+                if (!updatedCompany) {
+                    return res.status(404).json({ message: 'Company not found' });
+                }
+                res.json(updatedCompany)
+            })
     } catch (error) {
-        console.error('Error Editing compnay info')
+        console.error('Error Editing Company info')
         res.status(500).json({ error: 'Internal Server Error' })
     }
 })
@@ -42,14 +52,13 @@ companiesRouter.put('/:id', async (req, res) => {
 //***** ADD COMPANY *****
 companiesRouter.post('/', async (req, res) => {
     try {
-        const { name, status, applicationUrl, notes, pointOfContact } = req.body
-
-        const newCompany = new Company({
+        const { name, status, applicationUrl, notes, pointOfContacts } = req.body 
+           const newCompany = new Company({
             name,
             status,
             applicationUrl,
             notes,
-            pointOfContact,
+            pointOfContacts,
         })
         await newCompany.save()
 

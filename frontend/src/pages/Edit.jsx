@@ -12,6 +12,7 @@ const EditPage = () => {
         status: '',
         applicationUrl: '',
         notes: '',
+        pointOfContacts: [],
     });
 
     useEffect(() => {
@@ -28,10 +29,19 @@ const EditPage = () => {
     const updateCompany = (event) => {
         event.preventDefault();
 
+        if (!companyData.name) {
+            alert('Company name is required.');
+            return;
+        }
+
         const companyObject = { ...companyData };
 
-        companyService.update(id, companyObject).then(() => {
-            setTimeout(() => (window.location.href = '/'), 1000)
+        companyService.update(id, companyObject).then((updatedCompany) => {
+            if (updatedCompany) {
+                setTimeout(() => (window.location.href = '/'), 1000);
+            } else {
+                alert('Error updating company');
+            }
         });
     };
 

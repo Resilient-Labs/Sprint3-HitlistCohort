@@ -5,7 +5,7 @@ const companySchema = new mongoose.Schema({
     status: String,
     applicationUrl: String,
     notes: String,
-    pointOfContacts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Contact' }],
+    pointOfContacts: [],
 })
 
 const CompanyModel = mongoose.model('Company', companySchema)

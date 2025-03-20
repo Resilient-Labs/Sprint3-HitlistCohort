@@ -40,9 +40,20 @@ const remove = (id) => {
         })
 }
 
+const getById = async (id) => {
+    try {
+        const response = await axios.get(`${baseUrl}/${id}`)
+        return response.data
+    } catch (error) {
+        console.error('GET by ID error', error)
+        return null
+    }
+}
+
 export default {
     getAll,
     create,
     update,
     remove,
+    getById
 }

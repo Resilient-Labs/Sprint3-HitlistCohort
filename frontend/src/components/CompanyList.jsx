@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import companyService from '../services/company'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
+import { Link } from 'react-router-dom'
 
 const CompanyList = () => {
     const [companies, setCompanies] = useState([])
@@ -29,7 +30,7 @@ const CompanyList = () => {
     }
 
     const filteredCompanies = companies.filter((company) =>
-        company.name.toLowerCase().includes(searchQuery.toLowerCase())
+        company.name.toLowerCase().includes(searchQuery.toLowerCase()),
     )
 
     return (
@@ -79,6 +80,9 @@ const CompanyList = () => {
                                 company.pointOfContacts.length > 0
                                     ? company.pointOfContacts.join(', ')
                                     : 'No contacts available'}
+                            </td>
+                            <td className="edit-cell">
+                                <Link to={`/edit/${company._id}`} className="edit-link">Edit</Link>
                             </td>
                         </tr>
                     ))}

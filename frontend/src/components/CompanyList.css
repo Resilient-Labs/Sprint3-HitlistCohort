@@ -10,7 +10,7 @@ table {
     background: #333f59;
 }
 
-.header-row>th {
+.header-row > th {
     color: white;
     font-size: 1.25rem;
 }
@@ -20,7 +20,7 @@ td {
     text-align: center;
 }
 
-td>a {
+td > a {
     text-decoration: none;
     color: black;
 }

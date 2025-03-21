@@ -3,7 +3,7 @@ import './companyDashboard.css'
 
 const DASHBOARD_TITLE = 'Current Applications Status Dashboard'
 const TOTAL_COMPANIES = 'Total Companies'
-const APPLIED_TO = 'Total Companies'
+const APPLIED_TO = 'Applied To'
 const CURRENTLY_INTERVIEWING = 'Currently Interviewing'
 const RECENT_APPLICATIONS = 'Recent Applications'
 

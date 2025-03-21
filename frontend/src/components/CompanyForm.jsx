@@ -127,7 +127,7 @@ const CompanyForm = () => {
                         <option value="">--Please choose an option--</option>
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
-                        <option value="Hight">High</option>
+                        <option value="High">High</option>
                     </select>
                 </div>
                 <div id="form-button-container">

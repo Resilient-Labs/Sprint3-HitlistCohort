@@ -32,6 +32,7 @@ companiesRouter.put('/:id', async (req, res) => {
             applicationUrl: applicationUrl,
             notes: notes,
             pointOfContacts: pointOfContacts || [],
+            priority: priority,
         }
 
         Company
@@ -52,7 +53,7 @@ companiesRouter.put('/:id', async (req, res) => {
 //***** ADD COMPANY *****
 companiesRouter.post('/', async (req, res) => {
     try {
-        const { name, status, applicationUrl, notes, pointOfContact } = req.body 
+        const { name, status, applicationUrl, notes, pointOfContact, priority} = req.body 
         
         const newCompany = new Company({
             name,
@@ -60,6 +61,7 @@ companiesRouter.post('/', async (req, res) => {
             applicationUrl,
             notes,
             pointOfContact,
+            priority
         })
         await newCompany.save()
 

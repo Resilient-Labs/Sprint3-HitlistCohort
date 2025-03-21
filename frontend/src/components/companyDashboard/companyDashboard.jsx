@@ -1,75 +1,58 @@
 import React from 'react'
-import './companyDashboard.css' 
+import './companyDashboard.css'
 
-const CompanyDashboard = () => {
-    // Hardcoded test data
-    const applications = [
-        { id: 1, company: 'Google', status: 'Applied', date: '2025-03-10' },
-        {
-            id: 2,
-            company: 'Microsoft',
-            status: 'Interviewing',
-            date: '2025-03-12',
-        },
-        { id: 3, company: 'Amazon', status: 'Rejected', date: '2025-03-08' },
-        {
-            id: 4,
-            company: 'Facebook',
-            status: 'Interviewing',
-            date: '2025-03-14',
-        },
-        { id: 5, company: 'Tesla', status: 'Applied', date: '2025-03-15' },
-    ]
+const DASHBOARD_TITLE = 'Current Applications Status Dashboard'
+const TOTAL_COMPANIES = 'Total Companies'
+const APPLIED_TO = 'Total Companies'
+const CURRENTLY_INTERVIEWING = 'Currently Interviewing'
+const RECENT_APPLICATIONS = 'Recent Applications'
 
-
+const CompanyDashboard = ({ applications }) => {
     const totalCompanies = applications.length
     const appliedCompanies = applications.filter(
         (app) => app.status === 'Applied'
     ).length
     const interviewingCompanies = applications.filter(
-        (app) => app.status === 'Interviewing'
+        (app) => app.status === 'interviewing'
     )
-
 
     const recentApplications = applications.slice(-3)
     return (
         <div className="dashboard-container">
-            <h1 className="dashboard-title">
-                Current Applications Status Dashboard
-            </h1>
+            <h1 className="dashboard-title">{DASHBOARD_TITLE}</h1>
 
             <div className="dashboard-stats">
                 <div className="stat-card">
-                    <h2>Total Companies</h2>
+                    <h2>{TOTAL_COMPANIES}</h2>
                     <p>{totalCompanies}</p>
                 </div>
 
                 <div className="stat-card">
-                    <h2>Applied To</h2>
+                    <h2>{APPLIED_TO}</h2>
                     <p>{appliedCompanies}</p>
                 </div>
 
                 <div className="stat-card">
-                    <h2>Currently Interviewing</h2>
+                    <h2>{CURRENTLY_INTERVIEWING}</h2>
                     <p>{interviewingCompanies.length}</p>
                 </div>
             </div>
 
             <div className="dashboard-section">
-                <h2>Currently Interviewing</h2>
+                <h2>{CURRENTLY_INTERVIEWING}</h2>
                 <ul>
                     {interviewingCompanies.map((app) => (
-                        <li key={app.id}>{app.company}</li>
+                        <li key={app._id}>{app.name}</li>
                     ))}
                 </ul>
             </div>
 
             <div className="dashboard-section">
-                <h2>Recent Applications</h2>
+                <h2>{RECENT_APPLICATIONS}</h2>
                 <ul>
                     {recentApplications.map((app) => (
-                        <li key={app.id}>
-                            {app.company} - {app.status}
+                        <li key={app._id}>
+                            {app.name} - {app.status}
                         </li>
                     ))}
                 </ul>

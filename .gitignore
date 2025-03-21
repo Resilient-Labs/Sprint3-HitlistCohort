@@ -1,1 +1,4 @@
-node_modules
+node_modulesbackend/dist/assets/*.css
+backend/dist/assets/*.js
+frontend/dist/assets/*.css
+frontend/dist/assets/*.js

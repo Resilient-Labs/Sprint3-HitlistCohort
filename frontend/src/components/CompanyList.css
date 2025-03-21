@@ -10,7 +10,7 @@ table {
     background: #333f59;
 }
 
-.header-row > th {
+.header-row>th {
     color: white;
     font-size: 1.25rem;
 }
@@ -18,9 +18,10 @@ table {
 td {
     border-bottom: 1px solid #e8e8e8;
     text-align: center;
+    padding: 8px;
 }
 
-td > a {
+td>a {
     text-decoration: none;
     color: black;
 }
@@ -36,4 +37,22 @@ td > a {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+}
+
+.high-priority {
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+}
+
+.medium-priority {
+    background-color: #ff9800;
+    color: white;
+    font-weight: bold;
+}
+
+.low-priority {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
 }

@@ -2,3 +2,5 @@ node_modulesbackend/dist/assets/*.css
 backend/dist/assets/*.js
 frontend/dist/assets/*.css
 frontend/dist/assets/*.js
+backend/node_modules/
+frontend/node_modules/

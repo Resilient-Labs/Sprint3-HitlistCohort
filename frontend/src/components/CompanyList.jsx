@@ -82,9 +82,9 @@ const CompanyList = () => {
                         <th>Application URL</th>
                         <th>Notes</th>
                         <th>Point of Contacts</th>
+                        <th>Priority</th>
                         <th>Edit Button</th>
                         <th>Delete Button</th>
-                        <th>Priority</th>
                     </tr>
                 </thead>
                 <tbody>

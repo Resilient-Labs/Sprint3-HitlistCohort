@@ -41,8 +41,21 @@ const CompanyList = () => {
     }
 
     const filteredCompanies = companies.filter((company) =>
-        company.name.toLowerCase().includes(searchQuery.toLowerCase()),
+        company.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
+
+    const getPriorityClass = (priority) => {
+        switch (priority) {
+            case 'High':
+                return 'high-priority'
+            case 'Medium':
+                return 'medium-priority'
+            case 'Low':
+                return 'low-priority'
+            default:
+                return ''
+        }
+    }
 
     return (
         <div className="company-list">
@@ -71,6 +84,7 @@ const CompanyList = () => {
                         <th>Point of Contacts</th>
                         <th>Edit Button</th>
                         <th>Delete Button</th>
+                        <th>Priority</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,8 +108,16 @@ const CompanyList = () => {
                                     ? company.pointOfContacts.join(', ')
                                     : 'No contacts available'}
                             </td>
+                            <td className={getPriorityClass(company.priority)}>
+                                {company.priority}
+                            </td>
                             <td className="edit-cell">
-                                <Link to={`/edit/${company._id}`} className="edit-link">Edit</Link>
+                                <Link
+                                    to={`/edit/${company._id}`}
+                                    className="edit-link"
+                                >
+                                    Edit
+                                </Link>
                             </td>
                             <td>
                                 <button onClick={() => handleDelete(company._id)}>Delete</button>

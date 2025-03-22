@@ -8,6 +8,7 @@ const CompanyForm = () => {
     const [newApplicationURL, setNewApplicationURL] = useState('')
     const [newNotes, setNewNotes] = useState('')
     const [newPointOfContact, setNewPointOfContact] = useState('')
+    const [newPriority, setNewPriority] = useState('')
 
     const handleNewCompanyNameChange = (event) => {
         setNewCompanyName(event.target.value)
@@ -29,6 +30,10 @@ const CompanyForm = () => {
         setNewPointOfContact(event.target.value)
     }
 
+    const handleNewPriorityChange = (event) => {
+        setNewPriority(event.target.value)
+    }
+
     const addCompany = (event) => {
         event.preventDefault()
 
@@ -38,6 +43,7 @@ const CompanyForm = () => {
             applicationUrl: newApplicationURL,
             notes: newNotes,
             pointOfContact: newPointOfContact,
+            priority: newPriority,
         }
 
         companyService.create(companyObject).then(() => {
@@ -46,6 +52,7 @@ const CompanyForm = () => {
             setNewApplicationURL('')
             setNewNotes('')
             setNewPointOfContact('')
+            setNewPriority('')
         })
     }
 
@@ -109,6 +116,19 @@ const CompanyForm = () => {
                         value={newNotes}
                         onChange={handleNewNotesChange}
                     />
+                </div>
+                <div className="form-field-container">
+                    <label htmlFor="form-company-priority">Priority</label>
+                    <select
+                        name="form-company-priority"
+                        id="form-company-priority"
+                        onChange={handleNewPriorityChange}
+                    >
+                        <option value="">--Please choose an option--</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
                 </div>
                 <div id="form-button-container">
                     <button id="add-company-form-button">Add Company</button>

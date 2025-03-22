@@ -29,6 +29,17 @@ const CompanyList = () => {
         setCompanies(sorted)
     }
 
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this company?')) {
+            try {
+                await companyService.remove(id)
+                setCompanies(companies => companies.filter(company => company._id !== id))
+            } catch (error) {
+                console.error('Failed to delete company:', error)
+            }
+        }
+    }
+
     const filteredCompanies = companies.filter((company) =>
         company.name.toLowerCase().includes(searchQuery.toLowerCase()),
     )
@@ -58,6 +69,8 @@ const CompanyList = () => {
                         <th>Application URL</th>
                         <th>Notes</th>
                         <th>Point of Contacts</th>
+                        <th>Edit Button</th>
+                        <th>Delete Button</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,6 +96,9 @@ const CompanyList = () => {
                             </td>
                             <td className="edit-cell">
                                 <Link to={`/edit/${company._id}`} className="edit-link">Edit</Link>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDelete(company._id)}>Delete</button>
                             </td>
                         </tr>
                     ))}

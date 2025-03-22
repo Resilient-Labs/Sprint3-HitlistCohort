@@ -4,11 +4,9 @@ import CompanyList from './components/CompanyList'
 import ContactList from './components/ContactList'
 import CompanyForm from './components/CompanyForm'
 import { useContext } from 'react'
-import companyService from './services/company'
 import CompanyDashboard from './components/companyDashboard/companyDashboard.jsx'
 import { DarkModeContext } from './contexts/DarkModeContext'
 import { useCompany } from './contexts/CompanyContext/CompanyContext.jsx'
-// import './GlobalStyles.css'
 
 function App() {
     const { darkMode, setDarkMode } = useContext(DarkModeContext)

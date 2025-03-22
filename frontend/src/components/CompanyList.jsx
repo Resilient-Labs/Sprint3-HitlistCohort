@@ -9,15 +9,6 @@ const CompanyList = () => {
     const { companies, deleteCompany, sortCompanies } = useCompany()
     const [searchQuery, setSearchQuery] = useState('')
 
-    const handleSort = (columnKey, order) =>
-        companies.sort((a, b) => {
-            let valueA = a[columnKey]?.toLowerCase() || ''
-            let valueB = b[columnKey]?.toLowerCase() || ''
-            return order === 'asc'
-                ? valueA.localeCompare(valueB)
-                : valueB.localeCompare(valueA)
-        })
-
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this company?')) {
             try {

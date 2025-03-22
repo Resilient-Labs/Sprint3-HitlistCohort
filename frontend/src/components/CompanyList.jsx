@@ -3,22 +3,14 @@ import companyService from '../services/company'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
 import { Link } from 'react-router-dom'
+import { useCompany } from '../contexts/CompanyContext'
 
 const CompanyList = () => {
-    const [companies, setCompanies] = useState([])
+    const { companies, deleteCompany, sortCompanies } = useCompany()
     const [searchQuery, setSearchQuery] = useState('')
 
-    useEffect(() => {
-        companyService
-            .getAll()
-            .then((data) => {
-                setCompanies(data || [])
-            })
-            .catch((error) => console.error('Error fetching companies:', error))
-    }, [])
-
-    const handleSort = (columnKey, order) => {
-        const sorted = [...companies].sort((a, b) => {
+    const handleSort = (columnKey, order) =>
+        companies.sort((a, b) => {
             let valueA = a[columnKey]?.toLowerCase() || ''
             let valueB = b[columnKey]?.toLowerCase() || ''
             return order === 'asc'
@@ -26,14 +18,11 @@ const CompanyList = () => {
                 : valueB.localeCompare(valueA)
         })
 
-        setCompanies(sorted)
-    }
-
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this company?')) {
             try {
                 await companyService.remove(id)
-                setCompanies(companies => companies.filter(company => company._id !== id))
+                deleteCompany(id)
             } catch (error) {
                 console.error('Failed to delete company:', error)
             }
@@ -75,7 +64,7 @@ const CompanyList = () => {
                             <SortColumn
                                 label="Name"
                                 columnKey="name"
-                                onSortChange={handleSort}
+                                onSortChange={sortCompanies}
                             />
                         </th>
                         <th>Status</th>
@@ -120,7 +109,11 @@ const CompanyList = () => {
                                 </Link>
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(company._id)}>Delete</button>
+                                <button
+                                    onClick={() => handleDelete(company._id)}
+                                >
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     ))}

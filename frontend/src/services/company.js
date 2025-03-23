@@ -36,13 +36,14 @@ const update = (id, updatedCompany) => {
 }
 
 const remove = (id) => {
-    axios
+    return axios
         .delete(`${baseUrl}/${id}`)
         .then((response) => {
             return response.data
         })
         .catch((error) => {
             console.error('DELETE error', error)
+            throw error
         })
 }
 

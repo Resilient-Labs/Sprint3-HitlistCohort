@@ -295,6 +295,76 @@ This relationship allows you to easily retrieve information about a contact's as
 - When querying for a Contact, you can populate the `company` field to get detailed information about the company the contact works for.
 - When querying for a Company, you can populate the `pointOfContacts` field to retrieve all contacts (e.g., employees or representatives) associated with that company.
 
+ # Adding Vitest for Backend Testing
+
+- Vitest is a fast unit testing framework that integrates well with modern JavaScript and TypeScript projects. This guide will walk you through setting up **Vitest** in your backend project.
+
+## Installation
+- To install Vitest, run the following command in your backend directory:
+
+```sh
+npm install --save-dev vitest
+```
+
+ ## Configure Vitest
+ - 1. Update `package.json`
+
+ ```json
+
+ "scripts": {
+  "dev": "node --watch server.js",
+  "lint": "eslint --fix .",
+  "format": "npx prettier --write \"**/*.{ts,js,md}\"",
+  "check": "npx prettier --check \"**/*.{ts,js,md}\"",
+  "test": "vitest"
+}
+
+```
+- This allows to run tests using:
+
+```sh
+npm test
+```
+ - 2. Create `vitest.config.js`
+ - Add the following configuration in `backend/vitest.config.js`: 
+
+ ```js
+ import { defineConfig } from 'vitest';
+
+export default defineConfig({
+  test: {
+    globals: true, // Enables global test functions like 'describe' and 'it'
+  }
+});
+```
+
+## Writing a Test
+
+- Create a test file, e.g., `backend/tests/example.test.js`, and write a basic test:
+
+```js
+import { describe, it, expect } from 'vitest';
+
+describe('Example Test', () => {
+  it('should return true', () => {
+    expect(true).toBe(true);
+  });
+});
+```
+
+## Running Tests
+- To execute tests, run:
+
+```sh
+npm test
+```
+- Or for watch mode:
+
+```sh
+npx vitest --watch
+```
+
+
 
 <h2 href="#credits">Credits</h2>
 

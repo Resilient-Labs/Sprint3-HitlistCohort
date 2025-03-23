@@ -23,7 +23,7 @@ contactsRouter.post('/contacts', async (req, res) => {
 });
 
 // GET CONTACT DETAILS
-contactsRouter.get('/contacts/:id', async (req, res) => {
+contactsRouter.get('/:id', async (req, res) => {
     try {
         const contact = await Contact.findById(req.params.id);
         if (!contact) {
@@ -37,8 +37,11 @@ contactsRouter.get('/contacts/:id', async (req, res) => {
 });
 
 // UPDATE CONTACT DETAILS
-contactsRouter.put('/contacts/:id', async (req, res) => {
+contactsRouter.put('/:id', async (req, res) => {
     try {
+        if (!req.params.id) {
+            return res.status(400).json({ message: 'Contact ID is required' });
+        }
         const updatedContact = await Contact.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedContact) {
             return res.status(404).json({ message: 'Contact not found' });
@@ -53,6 +56,9 @@ contactsRouter.put('/contacts/:id', async (req, res) => {
 // DELETE CONTACTS 
 contactsRouter.delete('/contacts/:id', async (req, res) => {
     try {
+        if (!req.params.id) {
+            return res.status(400).json({ message: 'Contact ID is required' });
+        }
         const deletedContact = await Contact.findByIdAndDelete(req.params.id);
         if (!deletedContact) {
             return res.status(404).json({ message: 'Contact not found' });

@@ -290,24 +290,24 @@ The Contact and Company schemas are related through the `company` field in the C
 
 This relationship allows you to easily retrieve information about a contact's associated company or find all contacts linked to a specific company.
 
-## Example Use Case:
+### Example Use Case:
 
 - When querying for a Contact, you can populate the `company` field to get detailed information about the company the contact works for.
 - When querying for a Company, you can populate the `pointOfContacts` field to retrieve all contacts (e.g., employees or representatives) associated with that company.
 
  # Adding Vitest for Backend Testing
 
-- Vitest is a fast unit testing framework that integrates well with modern JavaScript and TypeScript projects. This guide will walk you through setting up **Vitest** in your backend project.
+ Vitest is a fast unit testing framework that integrates well with modern JavaScript and TypeScript projects. This guide will walk you through setting up **Vitest** in your backend project.
 
 ## Installation
-- To install Vitest, run the following command in your backend directory:
+ To install Vitest, run the following command in your backend directory:
 
 ```sh
 npm install --save-dev vitest
 ```
 
  ## Configure Vitest
- - 1. Update `package.json`
+  1. Update `package.json`
 
  ```json
 
@@ -320,13 +320,13 @@ npm install --save-dev vitest
 }
 
 ```
-- This allows to run tests using:
+ This allows to run tests using:
 
 ```sh
 npm test
 ```
- - 2. Create `vitest.config.js`
- - Add the following configuration in `backend/vitest.config.js`: 
+ 2. Create `vitest.config.js`
+  Add the following configuration in `backend/vitest.config.js`: 
 
  ```js
  import { defineConfig } from 'vitest';
@@ -353,12 +353,12 @@ describe('Example Test', () => {
 ```
 
 ## Running Tests
-- To execute tests, run:
+ To execute tests, run:
 
 ```sh
 npm test
 ```
-- Or for watch mode:
+ Or for watch mode:
 
 ```sh
 npx vitest --watch

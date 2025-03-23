@@ -5,7 +5,8 @@
         "dev": "node --watch server.js",
         "lint": "eslint --fix .",
         "format": "npx prettier --write \"**/*.{ts,js,md}\"",
-        "check": "npx prettier --check \"**/*.{ts,js,md}\""
+        "check": "npx prettier --check \"**/*.{ts,js,md}\"",
+        "test": "vitest"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
@@ -27,6 +28,7 @@
         "eslint-plugin-prettier": "^5.2.3",
         "eslint-plugin-unused-imports": "^4.1.4",
         "lint-staged": "^15.4.3",
-        "prettier": "^3.5.2"
+        "prettier": "^3.5.2",
+        "vitest": "^3.0.9"
     }
 }

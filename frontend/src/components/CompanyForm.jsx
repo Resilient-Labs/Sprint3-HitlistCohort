@@ -1,8 +1,10 @@
 import './CompanyForm.css'
 import { useState } from 'react'
-import companyService from '../services/company'
+import { useCompany } from '../contexts/CompanyContext'
 
 const CompanyForm = () => {
+    const { createNewCompany } = useCompany()
+
     const [newCompanyName, setNewCompanyName] = useState('')
     const [newStatus, setNewStatus] = useState('')
     const [newApplicationURL, setNewApplicationURL] = useState('')
@@ -46,14 +48,13 @@ const CompanyForm = () => {
             priority: newPriority,
         }
 
-        companyService.create(companyObject).then(() => {
-            setNewCompanyName('')
-            setNewStatus('')
-            setNewApplicationURL('')
-            setNewNotes('')
-            setNewPointOfContact('')
-            setNewPriority('')
-        })
+        createNewCompany(companyObject)
+        setNewCompanyName('')
+        setNewStatus('')
+        setNewApplicationURL('')
+        setNewNotes('')
+        setNewPointOfContact('')
+        setNewPriority('')
     }
 
     return (
@@ -131,7 +132,9 @@ const CompanyForm = () => {
                     </select>
                 </div>
                 <div id="form-button-container">
-                    <button id="add-company-form-button">Add Company</button>
+                    <button id="add-company-form-button" type="submit">
+                        Add Company
+                    </button>
                 </div>
             </form>
         </div>

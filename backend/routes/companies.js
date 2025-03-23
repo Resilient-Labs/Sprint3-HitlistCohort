@@ -74,7 +74,7 @@ companiesRouter.post('/', async (req, res) => {
 })
 
 //***** DELETE COMPANY *****
-companiesRouter.delete('/companies/:id', async (req, res) => {
+companiesRouter.delete('/:id', async (req, res) => {
     try {
         const deletedCompany = await Company.findByIdAndDelete(req.params.id)
 

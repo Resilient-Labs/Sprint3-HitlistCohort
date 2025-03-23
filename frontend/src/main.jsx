@@ -12,6 +12,7 @@ import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
 import { AuthProvider } from './contexts/AuthContext'
 import { DarkModeProvider } from './contexts/DarkModeContext.jsx'
+import { CompanyProvider } from './contexts/CompanyContext'
 
 // import './GlobalStyles.css'
 
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
         errorElement: <NotFoundPage />,
     },
     {
-        path: '/edit/:id', 
+        path: '/edit/:id',
         element: <EditPage />,
         errorElement: <NotFoundPage />,
     },
@@ -50,13 +51,15 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
     <StrictMode>
         <AuthProvider>
-            {' '}
-            {/* AuthProvider should wrap RouterProvider */}
-            <DarkModeProvider>
-                <div>
-                    <RouterProvider router={router} />
-                </div>
-            </DarkModeProvider>
+            <CompanyProvider>
+                {' '}
+                {/* AuthProvider should wrap RouterProvider */}
+                <DarkModeProvider>
+                    <div>
+                        <RouterProvider router={router} />
+                    </div>
+                </DarkModeProvider>
+            </CompanyProvider>
         </AuthProvider>
-    </StrictMode>,
+    </StrictMode>
 )

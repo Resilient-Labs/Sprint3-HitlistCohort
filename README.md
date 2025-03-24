@@ -363,6 +363,56 @@ npm test
 ```sh
 npx vitest --watch
 ```
+# Deploying with Fly.io
+
+
+Before you begin, ensure you have:
+
+- A Fly.io account ([Sign up here](https://fly.io))
+- **Fly CLI** installed ([Installation guide](https://fly.io/docs/hands-on/installing/))
+
+## Step 1: Log in to Fly.io
+
+Authenticate your Fly.io account:
+
+```sh
+fly auth login
+```
+
+### Step 2: Initialize the Fly.io App
+Navigate to the `backend` directory and run:
+
+```sh
+fly launch
+```
+
+- Choose hitlist as the app name or create a new one.
+- Select bos (Boston) as the deployment region.
+- This command generates a `fly.toml` configuration file.
+
+### Step 3: Deploy the App
+To deploy, run:
+
+```sh
+fly deploy
+```
+
+Once deployed, Fly.io will provide a **public URL** where the backend is accessible.
+
+### Managing the Deployment
+View Logs:
+
+```sh
+fly logs
+```
+Restart the App:
+
+```sh
+fly restart
+```
+
+For the latest installation instructions, visit the official guide:  
+👉 [Flyctl Installation Guide](https://fly.io/docs/flyctl/install/)
 
 
 

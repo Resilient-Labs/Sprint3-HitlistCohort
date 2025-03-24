@@ -20,8 +20,8 @@ const CompanyList = () => {
         }
     }
 
-    const filteredCompanies = companies.filter((company) =>
-        company.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredCompanies = companies?.filter((company) =>
+        company?.name?.toLowerCase().includes(searchQuery.toLowerCase())
     )
 
     const getPriorityClass = (priority) => {

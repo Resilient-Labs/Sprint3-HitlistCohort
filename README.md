@@ -295,74 +295,73 @@ This relationship allows you to easily retrieve information about a contact's as
 - When querying for a Contact, you can populate the `company` field to get detailed information about the company the contact works for.
 - When querying for a Company, you can populate the `pointOfContacts` field to retrieve all contacts (e.g., employees or representatives) associated with that company.
 
- # Adding Vitest for Backend Testing
+ # Adding SuperTest for Backend Testing
 
- Vitest is a fast unit testing framework that integrates well with modern JavaScript and TypeScript projects. This guide will walk you through setting up **Vitest** in your backend project.
+Let's use the **supertest** package to help us write our tests for testing the API.
+
+## Setting Up Environment Variables
+
+```.env
+MONGO_URI='your_mongo_uri_here'
+TEST_MONGO_URI='your_test_mongo_uri_here'
+PORT=3000
+NODE_ENV=test
+```
 
 ## Installation
- To install Vitest, run the following command in your backend directory:
 
 ```sh
-npm install --save-dev vitest
+npm install --save-dev supertest
 ```
 
- ## Configure Vitest
-  1. Update `package.json`
+## `scripts` in the `backend/package.json` 
 
- ```json
-
+```json 
  "scripts": {
-  "dev": "node --watch server.js",
-  "lint": "eslint --fix .",
-  "format": "npx prettier --write \"**/*.{ts,js,md}\"",
-  "check": "npx prettier --check \"**/*.{ts,js,md}\"",
-  "test": "vitest"
-}
+        "start": "cross-env NODE_ENV=production node server.js",
+        "build-prod": "cd ../frontend/ && npm run build && cp -r dist ../backend/",
+        "dev": "cross-env NODE_ENV=development node --watch server.js",
+        "lint": "eslint --fix .",
+        "format": "npx prettier --write \"**/*.{ts,js,md}\"",
+        "check": "npx prettier --check \"**/*.{ts,js,md}\"",
+        "test": "cross-env NODE_ENV=test node --test"
+    },
+  ```
 
+## Writing a Basic Test
+Create a test file inside `backend/tests/`, e.g., `sample-test.js`:
+
+```javascript
+const { test, after } = require('node:test');
+const mongoose = require('mongoose');
+const supertest = require('supertest');
+const app = require('../server');
+const api = supertest(app);
+
+test('companies are returned as json', async () => {
+  await api
+    .get('/companies/all-contacts')
+    .expect(200)
+    .expect('Content-Type', /application\/json/);
+});
+
+after(async () => {
+  await mongoose.connection.close();
+});
 ```
- This allows to run tests using:
+
+## Running the Tests
 
 ```sh
 npm test
 ```
- 2. Create `vitest.config.js`
-  Add the following configuration in `backend/vitest.config.js`: 
 
- ```js
- import { defineConfig } from 'vitest';
-
-export default defineConfig({
-  test: {
-    globals: true, // Enables global test functions like 'describe' and 'it'
-  }
-});
-```
-
-## Writing a Test
-
-- Create a test file, e.g., `backend/tests/example.test.js`, and write a basic test:
-
-```js
-import { describe, it, expect } from 'vitest';
-
-describe('Example Test', () => {
-  it('should return true', () => {
-    expect(true).toBe(true);
-  });
-});
-```
-
-## Running Tests
- To execute tests, run:
-
-```sh
-npm test
-```
- Or for watch mode:
+## For test watch mode:
 
 ```sh
 npx vitest --watch
 ```
+
 # Deploying with Fly.io
 
 

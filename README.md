@@ -332,35 +332,41 @@ npm install --save-dev supertest
 Create a test file inside `backend/tests/`, e.g., `sample-test.js`:
 
 ```javascript
+// Importing the test function and 'after' hook from 'node:test'
 const { test, after } = require('node:test');
+// Importing supertest, which allows us to send HTTP requests to our app
+const request = require('supertest');
+// Importing mongoose for database connection management
 const mongoose = require('mongoose');
-const supertest = require('supertest');
+// Importing the Express app from the server file
 const app = require('../server');
-const api = supertest(app);
-
-test('companies are returned as json', async () => {
-  await api
-    .get('/companies/all-contacts')
-    .expect(200)
-    .expect('Content-Type', /application\/json/);
-});
-
+// This function runs after all tests are done
 after(async () => {
+  // Close the MongoDB connection to avoid open connections
   await mongoose.connection.close();
 });
+test('GET /companies/ should return JSON', async () => {
+  await request(app) // Send a GET request to the endpoint
+    .get('/companies/')
+    .expect(200) // Expect HTTP status 200 (OK)
+    .expect('Content-Type', /application\/json/); // Expect JSON response
+});
+
 ```
+**What it does:**
+ * Sends an HTTP `GET` request to `/companies/` using `supertest`. 
+ * Verifies that the server responds with **status `200`**.
+* Ensures that the `Content-Type` of the response is JSON (`application/json`).
 
 ## Running the Tests
+ cd .. `Sprint3-HitlistCohort` and then run:
 
 ```sh
-npm test
+NODE_ENV=test node --test backend/tests/sample-test.js
 ```
 
-## For test watch mode:
-
-```sh
-npx vitest --watch
-```
+Should look like this: 
+<img style="height: 300px; width: 200px;" src="./assets/testingSupertest.png" alt="testing supertest img result">
 
 # Deploying with Fly.io
 

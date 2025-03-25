@@ -367,7 +367,7 @@ NODE_ENV=test node --test backend/tests/sample-test.js
 
 Should look like this: 
 
-<img style="height: 200px; width: 400px;" src="./assets/testingSupertest.png" alt="testing supertest img result">
+<img style="height: 400px; width: 800px;" src="./assets/testingSupertest.png" alt="testing supertest img result">
 
 # Deploying with Fly.io
 

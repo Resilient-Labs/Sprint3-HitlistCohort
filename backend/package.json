@@ -1,5 +1,4 @@
 {
-    "type": "module",
     "scripts": {
         "start": "cross-env NODE_ENV=production node server.js",
         "build-prod": "cd ../frontend/ && npm run build && cp -r dist ../backend/",

@@ -89,22 +89,6 @@ companiesRouter.delete('/:id', async (req, res) => {
     }
 })
 
-// get by id
-companiesRouter.get('/:id', async (req, res) => {
-    try {
-        const companyId = req.params.id
-        const company = await Company.findById(companyId)
-
-        if (!company) {
-            return res.status(404).json({ message: 'Company not found' })
-        }
-
-        res.json(company)
-    } catch (error) {
-        console.error('Error fetching company by ID', error)
-        res.status(500).json({ error: 'Internal Server Error' })
-    }
-})
 
 //***** GET ALL POINTS OF CONTACTS *****
 companiesRouter.get('/all-contacts', async (req, res) => {
@@ -121,6 +105,23 @@ companiesRouter.get('/all-contacts', async (req, res) => {
         res.json({ allContacts })
     } catch (error) {
         console.error('Error fetching point of contactS:', error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+})
+
+// get by id
+companiesRouter.get('/:id', async (req, res) => {
+    try {
+        const companyId = req.params.id
+        const company = await Company.findById(companyId)
+
+        if (!company) {
+            return res.status(404).json({ message: 'Company not found' })
+        }
+
+        res.json(company)
+    } catch (error) {
+        console.error('Error fetching company by ID', error)
         res.status(500).json({ error: 'Internal Server Error' })
     }
 })

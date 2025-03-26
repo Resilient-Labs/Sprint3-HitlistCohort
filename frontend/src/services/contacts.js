@@ -34,9 +34,9 @@ const createContact = async (contact) => {
     }
 }
 
-const updateContact = async (id) => {
+const updateContact = async (contact) => {
     try {
-        const response = await axios.put(`${baseUrl}/${id}`)
+        const response = await axios.put(`${baseUrl}/${contact.id}`, contact)
         return response.data
     } catch (error) {
         console.error('Error with updating contact', error)

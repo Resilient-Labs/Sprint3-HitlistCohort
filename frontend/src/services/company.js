@@ -7,16 +7,21 @@ const getAll = async () => {
         return Array.isArray(response.data) ? response.data : []
     } catch (error) {
         console.error('GET error', error)
-        return []
+        return {success: false, message: 'Failed to fetch data from server'}
     }
 }
 
 const create = (newObject) => {
     const request = axios.post(baseUrl, newObject)
+
     return request
-        .then((response) => response.data)
+        .then((response) => {
+            console.log(response)
+            return {success: true, data: response.data , message: 'Operation Successful'}
+        })
         .catch((error) => {
             console.error('POST error', error)
+            throw error
         })
 }
 
@@ -29,9 +34,12 @@ const update = (id, updatedCompany) => {
 
     const request = axios.put(`${baseUrl}/${id}`, updatedCompany)
     return request
-        .then((response) => response.data)
+        .then((response) => {
+            return {success: true, data: response.data , message: 'Operation Successful'}
+        })
         .catch((error) => {
             console.error('PUT error', error)
+            return {success: false, message: 'Failed to Edit data'}
         })
 }
 
@@ -39,11 +47,11 @@ const remove = (id) => {
     return axios
         .delete(`${baseUrl}/${id}`)
         .then((response) => {
-            return response.data
+            return {success: true, data: response.data , message: 'Operation Successful'}
         })
         .catch((error) => {
             console.error('DELETE error', error)
-            throw error
+            return {success: false, message: 'Failed to delete data from server'}
         })
 }
 

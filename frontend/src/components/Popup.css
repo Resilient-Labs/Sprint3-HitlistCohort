@@ -1,0 +1,33 @@
+.popup {
+    font-size: 24px; 
+    color: #2c3e50; 
+    background-color: #f8f9fa; 
+    border: 2px solid #34495e; 
+    border-radius: 12px; 
+    padding: 15px 25px; 
+    
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+    text-align: center; 
+    width: 300px; 
+    max-width: 80%;
+    
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -55%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}

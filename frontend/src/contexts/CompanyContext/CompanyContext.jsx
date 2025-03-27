@@ -35,13 +35,19 @@ const CompanyProvider = ({ children }) => {
             }),
         []
     )
-
     const createNewCompany = useCallback(async (data) => {
-        const company = await companyService.create(data)
-        dispatch({
-            type: ADD_COMPANY,
-            payload: company,
-        })
+        try {
+            const company = await companyService.create(data)
+            dispatch({
+                type: ADD_COMPANY,
+                payload: company,
+            })
+            return { success: true, message: 'Operation Successful' } 
+            
+        } catch (error) {
+            console.error('Error creating company:', error)
+            return { success: false, message: 'Failed to add company to database' }
+        }
     }, [])
 
     const deleteCompany = useCallback(

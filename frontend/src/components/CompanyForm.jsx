@@ -1,6 +1,7 @@
 import './CompanyForm.css'
 import { useState } from 'react'
 import { useCompany } from '../contexts/CompanyContext'
+import PopUp from './PopUp'
 
 const CompanyForm = () => {
     const { createNewCompany } = useCompany()
@@ -11,6 +12,7 @@ const CompanyForm = () => {
     const [newNotes, setNewNotes] = useState('')
     const [newPointOfContact, setNewPointOfContact] = useState('')
     const [newPriority, setNewPriority] = useState('')
+    const [requestStatus, setRequestStatus] = useState('')
 
     const handleNewCompanyNameChange = (event) => {
         setNewCompanyName(event.target.value)
@@ -36,7 +38,7 @@ const CompanyForm = () => {
         setNewPriority(event.target.value)
     }
 
-    const addCompany = (event) => {
+    const addCompany = async (event) => {
         event.preventDefault()
 
         const companyObject = {
@@ -48,7 +50,18 @@ const CompanyForm = () => {
             priority: newPriority,
         }
 
-        createNewCompany(companyObject)
+        const res = await createNewCompany(companyObject)
+
+        console.log(res)
+            
+        setRequestStatus(res.message)
+
+        setTimeout(() => {
+            setRequestStatus('')
+        },2000)
+        
+       
+
         setNewCompanyName('')
         setNewStatus('')
         setNewApplicationURL('')
@@ -58,6 +71,8 @@ const CompanyForm = () => {
     }
 
     return (
+        <>
+        <PopUp message={requestStatus}/>
         <div id="form-container">
             <form onSubmit={addCompany} id="add-company-form">
                 <div id="heading-container">
@@ -138,6 +153,7 @@ const CompanyForm = () => {
                 </div>
             </form>
         </div>
+        </>
     )
 }
 

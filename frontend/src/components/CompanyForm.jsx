@@ -1,13 +1,18 @@
 import './CompanyForm.css'
 import { useState } from 'react'
-import companyService from '../services/company'
+import { useCompany } from '../contexts/CompanyContext'
+import PopUp from './PopUp'
 
 const CompanyForm = () => {
+    const { createNewCompany } = useCompany()
+
     const [newCompanyName, setNewCompanyName] = useState('')
     const [newStatus, setNewStatus] = useState('')
     const [newApplicationURL, setNewApplicationURL] = useState('')
     const [newNotes, setNewNotes] = useState('')
     const [newPointOfContact, setNewPointOfContact] = useState('')
+    const [newPriority, setNewPriority] = useState('')
+    const [requestStatus, setRequestStatus] = useState('')
 
     const handleNewCompanyNameChange = (event) => {
         setNewCompanyName(event.target.value)
@@ -29,7 +34,11 @@ const CompanyForm = () => {
         setNewPointOfContact(event.target.value)
     }
 
-    const addCompany = (event) => {
+    const handleNewPriorityChange = (event) => {
+        setNewPriority(event.target.value)
+    }
+
+    const addCompany = async (event) => {
         event.preventDefault()
 
         const companyObject = {
@@ -38,18 +47,32 @@ const CompanyForm = () => {
             applicationUrl: newApplicationURL,
             notes: newNotes,
             pointOfContact: newPointOfContact,
+            priority: newPriority,
         }
 
-        companyService.create(companyObject).then(() => {
-            setNewCompanyName('')
-            setNewStatus('')
-            setNewApplicationURL('')
-            setNewNotes('')
-            setNewPointOfContact('')
-        })
+        const res = await createNewCompany(companyObject)
+
+        console.log(res)
+            
+        setRequestStatus(res.message)
+
+        setTimeout(() => {
+            setRequestStatus('')
+        },2000)
+        
+       
+
+        setNewCompanyName('')
+        setNewStatus('')
+        setNewApplicationURL('')
+        setNewNotes('')
+        setNewPointOfContact('')
+        setNewPriority('')
     }
 
     return (
+        <>
+        <PopUp message={requestStatus}/>
         <div id="form-container">
             <form onSubmit={addCompany} id="add-company-form">
                 <div id="heading-container">
@@ -110,11 +133,27 @@ const CompanyForm = () => {
                         onChange={handleNewNotesChange}
                     />
                 </div>
+                <div className="form-field-container">
+                    <label htmlFor="form-company-priority">Priority</label>
+                    <select
+                        name="form-company-priority"
+                        id="form-company-priority"
+                        onChange={handleNewPriorityChange}
+                    >
+                        <option value="">--Please choose an option--</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
                 <div id="form-button-container">
-                    <button id="add-company-form-button">Add Company</button>
+                    <button id="add-company-form-button" type="submit">
+                        Add Company
+                    </button>
                 </div>
             </form>
         </div>
+        </>
     )
 }
 

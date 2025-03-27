@@ -3,38 +3,56 @@ import companyService from '../services/company'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
 import { Link } from 'react-router-dom'
+import { useCompany } from '../contexts/CompanyContext'
+import PopUp from './PopUp'
+
 
 const CompanyList = () => {
-    const [companies, setCompanies] = useState([])
+    const { companies, deleteCompany, sortCompanies } = useCompany()
     const [searchQuery, setSearchQuery] = useState('')
+    const [requestStatus, setRequestStatus] = useState('')
 
-    useEffect(() => {
-        companyService
-            .getAll()
-            .then((data) => {
-                setCompanies(data || [])
-            })
-            .catch((error) => console.error('Error fetching companies:', error))
-    }, [])
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this company?')) {
+            try {
+              const res =  await companyService.remove(id)
+              if(res.success){
+                setRequestStatus(res.message)
+                setTimeout(() => {
+                    setRequestStatus('')
+                },2000)
+              }
 
-    const handleSort = (columnKey, order) => {
-        const sorted = [...companies].sort((a, b) => {
-            let valueA = a[columnKey]?.toLowerCase() || ''
-            let valueB = b[columnKey]?.toLowerCase() || ''
-            return order === 'asc'
-                ? valueA.localeCompare(valueB)
-                : valueB.localeCompare(valueA)
-        })
 
-        setCompanies(sorted)
+                deleteCompany(id)
+                
+
+            } catch (error) {
+                console.error('Failed to delete company:', error)
+            }
+        }
     }
 
-    const filteredCompanies = companies.filter((company) =>
-        company.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    const filteredCompanies = companies?.filter((company) =>
+        company?.name?.toLowerCase().includes(searchQuery.toLowerCase())
     )
+
+    const getPriorityClass = (priority) => {
+        switch (priority) {
+            case 'High':
+                return 'high-priority'
+            case 'Medium':
+                return 'medium-priority'
+            case 'Low':
+                return 'low-priority'
+            default:
+                return ''
+        }
+    }
 
     return (
         <div className="company-list">
+            <PopUp message={requestStatus}/>
             <h2>Companies</h2>
             <input
                 type="text"
@@ -51,13 +69,16 @@ const CompanyList = () => {
                             <SortColumn
                                 label="Name"
                                 columnKey="name"
-                                onSortChange={handleSort}
+                                onSortChange={sortCompanies}
                             />
                         </th>
                         <th>Status</th>
                         <th>Application URL</th>
                         <th>Notes</th>
                         <th>Point of Contacts</th>
+                        <th>Priority</th>
+                        <th>Edit Button</th>
+                        <th>Delete Button</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,8 +102,23 @@ const CompanyList = () => {
                                     ? company.pointOfContacts.join(', ')
                                     : 'No contacts available'}
                             </td>
+                            <td className={getPriorityClass(company.priority)}>
+                                {company.priority}
+                            </td>
                             <td className="edit-cell">
-                                <Link to={`/edit/${company._id}`} className="edit-link">Edit</Link>
+                                <Link
+                                    to={`/edit/${company._id}`}
+                                    className="edit-link"
+                                >
+                                    Edit
+                                </Link>
+                            </td>
+                            <td>
+                                <button
+                                    onClick={() => handleDelete(company._id)}
+                                >
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     ))}

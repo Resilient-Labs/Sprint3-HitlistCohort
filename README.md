@@ -94,7 +94,23 @@ To run the front end from the backend folder:
 
 <br/>
 
-<h3> 
+
+ # HitList Pages
+ Home Page:
+ ![Home Page](assets/homepage.png)
+
+ Adding Hitlist:
+ ![Adding Page](assets/hitlistadd.png)
+
+ Contacts page: 
+ ![Contacts Page](assets/contacts%20page.png)
+
+ Login Page:
+![Login Page](assets/loginpage.png)
+
+ Sign Up Page:
+![Sign Up Page](assets/signuppage.png)
+
 
 <h2 id="updating">Updating</h2>
 
@@ -314,7 +330,7 @@ NODE_ENV=test
 npm install --save-dev supertest
 ```
 
-## `scripts` in the `backend/package.json` 
+## `scripts` in the (`backend/package.json`)
 
 ```json 
  "scripts": {

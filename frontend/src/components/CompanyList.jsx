@@ -4,16 +4,29 @@ import SortColumn from './SortColumn'
 import './CompanyList.css'
 import { Link } from 'react-router-dom'
 import { useCompany } from '../contexts/CompanyContext'
+import PopUp from './PopUp'
+
 
 const CompanyList = () => {
     const { companies, deleteCompany, sortCompanies } = useCompany()
     const [searchQuery, setSearchQuery] = useState('')
+    const [requestStatus, setRequestStatus] = useState('')
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this company?')) {
             try {
-                await companyService.remove(id)
+              const res =  await companyService.remove(id)
+              if(res.success){
+                setRequestStatus(res.message)
+                setTimeout(() => {
+                    setRequestStatus('')
+                },2000)
+              }
+
+
                 deleteCompany(id)
+                
+
             } catch (error) {
                 console.error('Failed to delete company:', error)
             }
@@ -39,6 +52,7 @@ const CompanyList = () => {
 
     return (
         <div className="company-list">
+            <PopUp message={requestStatus}/>
             <h2>Companies</h2>
             <input
                 type="text"

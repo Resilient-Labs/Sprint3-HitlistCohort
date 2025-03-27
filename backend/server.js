@@ -20,8 +20,12 @@ app.use('/', authenticationRouter)
 //must go after routes or it will block them
 app.use(main)
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
 
-module.exports = app
+
+if (process.env.NODE_ENV !== 'test') {
+    server = app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = {app}

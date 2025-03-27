@@ -3,10 +3,12 @@ import Navbar from '../components/Navbar';
 import { useContext, useState, useEffect } from 'react';
 import { DarkModeContext } from '../contexts/DarkModeContext';
 import companyService from '../services/company';
+import PopUp from '../components/PopUp';
 
 const EditPage = () => {
     const { darkMode } = useContext(DarkModeContext);
     const { id } = useParams();
+    const [requestStatus, setRequestStatus] = useState('')
     const [companyData, setCompanyData] = useState({
         name: '',
         status: '',
@@ -26,7 +28,7 @@ const EditPage = () => {
     const handleNewApplicationURLChange = (event) => setCompanyData({ ...companyData, applicationUrl: event.target.value });
     const handleNewNotesChange = (event) => setCompanyData({ ...companyData, notes: event.target.value });
 
-    const updateCompany = (event) => {
+    const updateCompany =  (event) => {
         event.preventDefault();
 
         if (!companyData.name) {
@@ -36,9 +38,19 @@ const EditPage = () => {
 
         const companyObject = { ...companyData };
 
-        companyService.update(id, companyObject).then((updatedCompany) => {
+      
+
+
+        companyService.update(id, companyObject).then((updatedCompany) => { 
+           
+                setRequestStatus(updatedCompany.message)
+
+                setTimeout(() => {
+                    setRequestStatus('')
+                },3000)
+    
             if (updatedCompany) {
-                setTimeout(() => (window.location.href = '/'), 1000);
+                setTimeout(() => (window.location.href = '/'), 10000);
             } else {
                 alert('Error updating company');
             }
@@ -52,6 +64,7 @@ const EditPage = () => {
                 color: darkMode ? '#ffffff' : '#000000',
             }}
         >
+            <PopUp message={requestStatus}/>
             <Navbar />
             <div id="form-container">
                 <form onSubmit={updateCompany} id="edit-company-form">

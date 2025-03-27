@@ -320,8 +320,8 @@ Let's use the **supertest** package to help us write our tests for testing the A
 ```.env
 MONGO_URI='your_mongo_uri_here'
 TEST_MONGO_URI='your_test_mongo_uri_here'
-PORT=3000
-NODE_ENV=test
+TEST_PORT=4000
+
 ```
 
 ## Installation
@@ -375,7 +375,7 @@ test('GET /companies/ should return JSON', async () => {
 * Ensures that the `Content-Type` of the response is JSON (`application/json`).
 
 ## Running the Tests
- cd .. `Sprint3-HitlistCohort` and then run:
+ cd .. `Sprint3-HitlistCohort` and find what test file you want to test and then run:
 
 ```sh
 NODE_ENV=test node --test backend/tests/sample-test.js

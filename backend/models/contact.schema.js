@@ -10,6 +10,7 @@ const contactSchema = new mongoose.Schema({
     ref: 'Company'
   },
   lastContactDate: Date,
+  reminderMessage: String,
 })
 
 const ContactModel = mongoose.model('Contact', contactSchema)

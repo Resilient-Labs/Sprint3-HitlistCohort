@@ -13,6 +13,7 @@ contactsRouter.post('/', async (req, res) => {
         }
 
         const newContact = new Contact({ name, email, phone, companyId })
+        lastContactDate: new Date()
         await newContact.save()
 
         res.status(201).json(newContact)
@@ -21,6 +22,29 @@ contactsRouter.post('/', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error ' })
     }
 })
+contactsRouter.get('/follow-ups', async (req, res) => {
+    try {
+        const now = new Date();
+        const contacts = await Contact.find({ 
+            lastContactDate: { $exists: true } 
+        });
+
+        const followUps = contacts.map(contact => {
+            if (!contact.lastContactDate) return null;
+
+            const daysSinceLastContact = Math.floor((now - contact.lastContactDate) / (1000 * 60 * 60 * 24));
+            return {
+                name: contact.name,
+                daysSinceLastContact,
+            };
+        }).filter(Boolean); // Remove null values
+
+        res.json(followUps);
+    } catch (error) {
+        console.error('Error fetching follow-up reminders:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 // GET CONTACT DETAILS
 contactsRouter.get('/:id', async (req, res) => {
@@ -45,6 +69,15 @@ contactsRouter.put('/:id', async (req, res) => {
         if (!req.params.id) {
             return res.status(400).json({ message: 'Contact ID is required' })
         }
+        
+        // Create an object with only the fields that need updating
+        const updateData = { ...req.body };
+
+        // If lastContactDate is provided, ensure it's a valid date
+        if (req.body.lastContactDate) {
+            updateData.lastContactDate = new Date(req.body.lastContactDate);
+        }
+
         const updatedContact = await Contact.findByIdAndUpdate(
             req.params.id,
             req.body,
@@ -76,5 +109,7 @@ contactsRouter.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' })
     }
 })
+
+
 
 module.exports = contactsRouter

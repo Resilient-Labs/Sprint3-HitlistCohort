@@ -1,7 +1,7 @@
 const { test, after, beforeEach } = require('node:test')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
-const app = require('../server')
+const { app } = require('../server')
 
 const api = supertest(app)
 

@@ -1,25 +1,20 @@
-import './ContactList.css'
 import React, { useState, useEffect } from 'react'
 import contactsService from '../services/contacts'
+import companiesService from '../services/company'
 
 const ContactList = () => {
-    const [search, setSearch] = useState('')
-    const [poc, setPoc] = useState('')
     const [name, setName] = useState('')
-    const [status, setStatus] = useState('')
-    const [notes, setNotes] = useState('')
-    const [url, setUrl] = useState('')
-    const [contacts, setContacts] = useState([
-        {
-            id: 1,
-            pointOfContacts: 'meep',
-            name: 'Hi',
-            status: 'meep',
-            notes: 'notes',
-            applicationURL: 'meep',
-            edit: false,
-        },
-    ])
+    const [role, setRole] = useState('')
+    const [email, setEmail] = useState('')
+    const [linkedIn, setLinkedIn] = useState('')
+    const [company, setCompany] = useState('')
+    const [lastContactDate, setLastContactDate] = useState('')
+
+    const [search, setSearch] = useState('')
+    const [contacts, setContacts] = useState([])
+    const [companies, setCompanies] = useState([])
+
+    const [editingContact, setEditingContact] = useState(null)
 
     useEffect(() => {
         contactsService
@@ -27,326 +22,261 @@ const ContactList = () => {
             .then((data) => {
                 setContacts(data || [])
             })
+            .catch((error) => console.error('Error fetching contacts:', error))
+
+        companiesService
+            .getAll()
+            .then((data) => {
+                setCompanies(data || [])
+            })
             .catch((error) => console.error('Error fetching companies:', error))
     }, [])
 
     const addContact = (e) => {
         e.preventDefault()
 
-        if (contacts.find((e) => e.url === url)) {
-            alert(`This job has already been added.`)
-            setUrl('')
+        if (contacts.find((c) => c.email === email)) {
+            alert(`A contact with this email already exists.`)
             return
         }
 
         const contactObject = {
-            _id: id,
-            pointOfContact: poc,
-            name: name,
-            status: status,
-            notes: notes,
-            applicationUrl: url,
-            edit: false,
+            name,
+            role,
+            email,
+            linkedIn,
+            company: company || null,
+            lastContactDate: lastContactDate ? new Date(lastContactDate) : null,
         }
 
-        contacts.create(contactObject).then((returnedContact) => {
-            setContacts(contacts.concat(returnedContact))
-            setEditValues(contacts.concat(returnedContact))
-            setPoc('')
-            setName('')
-            setStatus('')
-            setNotes('')
-            setUrl('')
-        })
+        contactsService
+            .createContact(contactObject)
+            .then((returnedContact) => {
+                setContacts(contacts.concat(returnedContact))
+                setName('')
+                setRole('')
+                setEmail('')
+                setLinkedIn('')
+                setCompany('')
+                setLastContactDate('')
+            })
+            .catch((error) => {
+                console.error('Error adding contact:', error)
+                alert('Failed to add contact')
+            })
     }
 
     const removeContact = (id) => {
-        return function (event) {
-            event.preventDefault()
-            contactService.remove(id)
+        if (window.confirm('Are you sure you want to delete this contact?')) {
+            contactsService
+                .deleteContact(id)
+                .then(() => {
+                    setContacts(contacts.filter((c) => c._id !== id))
+                })
+                .catch((error) => {
+                    console.error('Error removing contact:', error)
+                    alert('Failed to remove contact')
+                })
         }
     }
 
-    const editContact = (contact) => {
-        return function (e) {
-            e.preventDefault()
+    const startEditContact = (contact) => {
+        setEditingContact(contact)
 
-            const contactObject = {
-                _id: contact.id,
-                pointOfContact: contact.poc,
-                name: contact.name,
-                status: contact.status,
-                notes: contact.notes,
-                applicationUrl: contact.url,
-                edit: true,
-            }
-
-            contacts.update(contactObject).then((returnedContact) => {
-                setContacts(
-                    contacts.map((item) =>
-                        item.id === contactObject.id ? returnedContact : item
-                    )
-                )
-            })
-        }
+        setName(contact.name)
+        setRole(contact.role)
+        setEmail(contact.email)
+        setLinkedIn(contact.linkedIn)
+        setCompany(contact.company?._id || '')
+        setLastContactDate(
+            contact.lastContactDate
+                ? new Date(contact.lastContactDate).toISOString().split('T')[0]
+                : ''
+        )
     }
 
-    const updateContact = (id) => {
+    const updateContact = (e) => {
         e.preventDefault()
 
-        const contactObject = {
-            pointOfContact: poc,
-            name: name,
-            status: status,
-            notes: notes,
-            applicationUrl: url,
-            edit: false,
+        if (!editingContact) return
+
+        const updatedContactObject = {
+            _id: editingContact._id,
+            name,
+            role,
+            email,
+            linkedIn,
+            company: company || null,
+            lastContactDate: lastContactDate ? new Date(lastContactDate) : null,
         }
 
-        contacts.update(id, contactObject).then((returnedContact) => {
-            setContacts(contacts.concat(returnedContact))
-            setPoc('')
-            setName('')
-            setStatus('')
-            setNotes('')
-            setUrl('')
-        })
+        contactsService
+            .updateContact(editingContact._id, updatedContactObject)
+            .then((returnedContact) => {
+                setContacts(
+                    contacts.map((c) =>
+                        c._id === returnedContact._id ? returnedContact : c
+                    )
+                )
+
+                setEditingContact(null)
+                setName('')
+                setRole('')
+                setEmail('')
+                setLinkedIn('')
+                setCompany('')
+                setLastContactDate('')
+            })
+            .catch((error) => {
+                console.error('Error updating contact:', error)
+                alert('Failed to update contact')
+            })
     }
 
-    const processPointOfContacts = (pointOfContacts) => {
-        if (!pointOfContacts) return []
-        if (Array.isArray(pointOfContacts))
-            return pointOfContacts.filter((name) => name.trim() !== '')
-        if (typeof pointOfContacts === 'string')
-            return pointOfContacts
-                .split(',')
-                .map((name) => name.trim())
-                .filter((name) => name !== '')
-        return []
-    }
-
-    const validContacts = contacts
-        .map((contact) => ({
-            ...contact,
-            pointOfContacts: processPointOfContacts(contact.pointOfContacts),
-        }))
-        .filter((contact) => contact.pointOfContacts.length > 0)
-
-    const filteredContacts = validContacts.filter((contact) =>
-        contact.pointOfContacts.some((name) =>
-            name.toLowerCase().includes(search.toLowerCase())
-        )
+    const filteredContacts = contacts.filter(
+        (contact) =>
+            contact.name.toLowerCase().includes(search.toLowerCase()) ||
+            contact.email.toLowerCase().includes(search.toLowerCase()) ||
+            contact.role.toLowerCase().includes(search.toLowerCase())
     )
 
+    const formatLinkedInURL = (url) => {
+        if (!url) return null
+
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = `https://${url}`
+        }
+
+        if (!url.includes('linkedin.com/')) {
+            url = `https://www.linkedin.com/in/${url}`
+        }
+
+        return url
+    }
+
     return (
-        <div>
-            <h2 className="contacts-header">Points of Contact</h2>
-            <form onSubmit={addContact}>
-                {' '}
-                <input
-                    type="text"
-                    placeholder="Point of Contact"
-                    value={poc}
-                    onChange={(e) => setPoc(e.target.value)}
-                />
+        <div className="contact-list-container">
+            <h2>Contacts</h2>
+
+            <form onSubmit={editingContact ? updateContact : addContact}>
                 <input
                     type="text"
                     placeholder="Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    required
                 />
                 <input
                     type="text"
-                    placeholder="Status"
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
+                    placeholder="Role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
                 <input
                     type="text"
-                    placeholder="Notes"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="LinkedIn Profile"
+                    value={linkedIn}
+                    onChange={(e) => setLinkedIn(e.target.value)}
                 />
+                <select
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                >
+                    <option value="">Select Company</option>
+                    {companies.map((comp) => (
+                        <option key={comp._id} value={comp._id}>
+                            {comp.name}
+                        </option>
+                    ))}
+                </select>
                 <input
-                    type="text"
-                    placeholder="Application URL"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
+                    type="date"
+                    placeholder="Last Contact Date"
+                    value={lastContactDate}
+                    onChange={(e) => setLastContactDate(e.target.value)}
                 />
-                <input type="submit" value="submit" />
+                <button type="submit">
+                    {editingContact ? 'Update Contact' : 'Add Contact'}
+                </button>
+                {editingContact && (
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setEditingContact(null)
+                            setName('')
+                            setRole('')
+                            setEmail('')
+                            setLinkedIn('')
+                            setCompany('')
+                            setLastContactDate('')
+                        }}
+                    >
+                        Cancel
+                    </button>
+                )}
             </form>
-            <br />
+
             <input
                 type="text"
-                placeholder="Filter Contacts"
+                placeholder="Search Contacts"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
+
             <ul className="contacts-list">
-                {search ? ( // If user is searching, show filtered results
-                    filteredContacts.length === 0 ? (
-                        <li>No contacts found</li>
-                    ) : (
-                        filteredContacts.map((contact) =>
-                            !contact.edit ? (
-                                <li key={contact.id} className="contacts-items">
-                                    <p>
-                                        Point of Contact:{' '}
-                                        {contact.pointOfContacts.join(', ')}
-                                    </p>
-                                    <strong>{contact.name}</strong>
-                                    <p>Status: {contact.status}</p>
-                                    <p>Notes: {contact.notes}</p>
-                                    <a
-                                        href={contact.applicationUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Application Link
-                                    </a>
-                                    <br />
-                                    <button onClick={editContact(contact)}>
-                                        Edit
-                                    </button>
-                                    <button onClick={removeContact(contact.id)}>
-                                        Delete
-                                    </button>
-                                </li>
-                            ) : (
-                                <li key={contact.id}>
-                                    <form
-                                        className="contacts-items"
-                                        onSubmit={updateContact(contact.id)}
-                                    >
-                                        <input
-                                            type="text"
-                                            placeholder="Point of Contact"
-                                            value={poc}
-                                            onChange={(e) =>
-                                                setPoc(e.target.value)
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Name"
-                                            value={name}
-                                            onChange={(e) =>
-                                                setName(e.target.value)
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Status"
-                                            value={status}
-                                            onChange={(e) =>
-                                                setStatus(e.target.value)
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Notes"
-                                            value={notes}
-                                            onChange={(e) =>
-                                                setNotes(e.target.value)
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Application URL"
-                                            value={url}
-                                            onChange={(e) =>
-                                                setUrl(e.target.value)
-                                            }
-                                        />
-                                        <input type="submit" value="submit" />
-                                    </form>
-                                </li>
-                            )
-                        )
-                    )
-                ) : // If no search input, show all contacts
-                validContacts.length === 0 ? (
-                    <li key={contact.id}>
-                        No contacts with valid points of contact
-                    </li>
+                {filteredContacts.length === 0 ? (
+                    <li>No contacts found</li>
                 ) : (
-                    validContacts.map((contact) =>
-                        !contact.edit ? (
-                            <li key={contact.id} className="contacts-items">
-                                <p>
-                                    Point of Contact:{' '}
-                                    {contact.pointOfContacts.join(', ')}
-                                </p>
+                    filteredContacts.map((contact) => (
+                        <li key={contact._id} className="contact-item">
+                            <div>
                                 <strong>{contact.name}</strong>
-                                <p>Status: {contact.status}</p>
-                                <p>Notes: {contact.notes}</p>
-                                <a
-                                    href={contact.applicationUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                {contact.role && <p>Role: {contact.role}</p>}
+                                <p>Email: {contact.email}</p>
+                                {contact.linkedIn && (
+                                    <p>
+                                        LinkedIn:{' '}
+                                        <a
+                                            href={formatLinkedInURL(
+                                                contact.linkedIn
+                                            )}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {contact.linkedIn}
+                                        </a>
+                                    </p>
+                                )}
+                                {contact.lastContactDate && (
+                                    <p>
+                                        Last Contacted:{' '}
+                                        {new Date(
+                                            contact.lastContactDate
+                                        ).toLocaleDateString()}
+                                    </p>
+                                )}
+                            </div>
+                            <div className="contact-actions">
+                                <button
+                                    onClick={() => startEditContact(contact)}
                                 >
-                                    Application Link
-                                </a>
-                                <br />
-                                <button onClick={editContact(contact)}>
                                     Edit
                                 </button>
-                                <button onClick={removeContact(contact.id)}>
+                                <button
+                                    onClick={() => removeContact(contact._id)}
+                                >
                                     Delete
                                 </button>
-                            </li>
-                        ) : (
-                            <li key={contact.id}>
-                                <form
-                                    className="contacts-items"
-                                    onSubmit={updateContact(id)}
-                                >
-                                    <input
-                                        type="text"
-                                        placeholder="Point of Contact"
-                                        value={poc}
-                                        onChange={(e) => setPoc(e.target.value)}
-                                    />
-                                    <br />
-                                    <input
-                                        type="text"
-                                        placeholder="Name"
-                                        value={name}
-                                        onChange={(e) =>
-                                            setName(e.target.value)
-                                        }
-                                    />
-                                    <br />
-                                    <input
-                                        type="text"
-                                        placeholder="Status"
-                                        value={status}
-                                        onChange={(e) =>
-                                            setStatus(e.target.value)
-                                        }
-                                    />
-                                    <br />
-                                    <input
-                                        type="text"
-                                        placeholder="Notes"
-                                        value={notes}
-                                        onChange={(e) =>
-                                            setNotes(e.target.value)
-                                        }
-                                    />
-                                    <br />
-                                    <input
-                                        type="text"
-                                        placeholder="Application URL"
-                                        value={url}
-                                        onChange={(e) => setUrl(e.target.value)}
-                                    />
-                                    <br />
-                                    <input type="submit" value="submit" />
-                                </form>
-                            </li>
-                        )
-                    )
+                            </div>
+                        </li>
+                    ))
                 )}
             </ul>
         </div>

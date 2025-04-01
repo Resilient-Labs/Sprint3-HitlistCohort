@@ -3,7 +3,6 @@ const baseUrl = `http://localhost:3001/contacts` // currently only one Contacts 
 
 const getAll = async () => {
     try {
-        // get All contacts is not yet created in the backend
         const response = await axios.get(`${baseUrl}`)
         return Array.isArray(response.data.allContacts)
             ? response.data.allContacts
@@ -29,14 +28,17 @@ const createContact = async (contact) => {
         const response = await axios.post(`${baseUrl}`, contact)
         return response.data
     } catch (error) {
-        console.error('Error with creating contact', error)
-        return []
+        console.error(
+            'Error creating contact:',
+            error.response?.data || error.message
+        )
+        throw error
     }
 }
 
-const updateContact = async (contact) => {
+const updateContact = async (id, contact) => {
     try {
-        const response = await axios.put(`${baseUrl}/${contact.id}`, contact)
+        const response = await axios.put(`${baseUrl}/${id}`, contact)
         return response.data
     } catch (error) {
         console.error('Error with updating contact', error)

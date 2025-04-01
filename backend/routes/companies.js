@@ -74,7 +74,7 @@ companiesRouter.post('/', async (req, res) => {
 })
 
 //***** DELETE COMPANY *****
-companiesRouter.delete('/companies/:id', async (req, res) => {
+companiesRouter.delete('/:id', async (req, res) => {
     try {
         const deletedCompany = await Company.findByIdAndDelete(req.params.id)
 
@@ -85,6 +85,26 @@ companiesRouter.delete('/companies/:id', async (req, res) => {
         res.json({ message: 'Company Deleted', deletedCompany })
     } catch (error) {
         console.error('Error deleting company:', error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+})
+
+
+//***** GET ALL POINTS OF CONTACTS *****
+companiesRouter.get('/all-contacts', async (req, res) => {
+    try {
+        const companiesPoc = await Company.find({}, 'pointOfContacts -_id')
+        const allContacts = companiesPoc
+            .map((company) =>
+                Array.isArray(company.pointOfContacts)
+                    ? company.pointOfContacts
+                    : [],
+            )
+            .flat()
+
+        res.json({ allContacts })
+    } catch (error) {
+        console.error('Error fetching point of contactS:', error)
         res.status(500).json({ error: 'Internal Server Error' })
     }
 })
@@ -102,25 +122,6 @@ companiesRouter.get('/:id', async (req, res) => {
         res.json(company)
     } catch (error) {
         console.error('Error fetching company by ID', error)
-        res.status(500).json({ error: 'Internal Server Error' })
-    }
-})
-
-//***** GET ALL POINTS OF CONTACTS *****
-companiesRouter.get('/all-contacts', async (req, res) => {
-    try {
-        const companiesPoc = await Company.find({}, 'pointOfContacts -_id')
-        const allContacts = companiesPoc
-            .map((company) =>
-                Array.isArray(company.pointOfContacts)
-                    ? company.pointOfContacts
-                    : [],
-            )
-            .flat()
-
-        res.json({ allContacts })
-    } catch (error) {
-        console.error('Error fetching point of contactS:', error)
         res.status(500).json({ error: 'Internal Server Error' })
     }
 })

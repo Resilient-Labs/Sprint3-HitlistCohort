@@ -94,6 +94,24 @@ To run the front end from the backend folder:
 
 <br/>
 
+
+ # HitList Pages
+ Home Page:
+ ![Home Page](assets/homepage.png)
+
+ Adding Hitlist:
+ ![Adding Page](assets/hitlistadd.png)
+
+ Contacts page: 
+ ![Contacts Page](assets/contacts%20page.png)
+
+ Login Page:
+![Login Page](assets/loginpage.png)
+
+ Sign Up Page:
+![Sign Up Page](assets/signuppage.png)
+
+
 <h2 id="updating">Updating</h2>
 
 <h3>Workspaces</h3>
@@ -145,86 +163,280 @@ Here is an article that explains more about git squash and how to use it: [Free 
 <h4>Requests and Responses</h4>
 
 <details>
-<summary><bold><code>GET: /signup</code> </br> Action: To create an account for the user. A user object is saved to mongo to register this user with their credentials</bold></summary>
-</br>
-<div style='border-radius: 8px; background-color: grey; padding:8px;'>
-
-| Status | Response |
-|--------|----------|
-|        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ user, message: 'User registered successfully', token }</code>|
-| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Email already in use' }</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Server error', error: error.message }</code>|
-
-</div>
-
-</details>
-
-</br>
-
-<details>
-<summary><bold><code>GET: /login</code> </br> Action: To sign the user into the app.</bold></summary>
-</br>
-<div style='border-radius: 8px; background-color: grey; padding:8px;'>
-
-| Status | Response |
-|--------|----------|
-|        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{message: 'Login successful', token, user }</code>|
-| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Invalid email or password' }</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ message: 'Server error', error: error.message }</code>|
-</details>
-</div>
-
-</br>
-
-<details>
-<summary><bold><code>GET: /companies</code> </br> Action: To retrieve a list of companies and applications saved by the user.</bold></summary>
-</br>
+<summary><strong><code>GET: /signup</code></strong> - Action: To create an account for the user.</summary>
 
 <div style='border-radius: 8px; background-color: grey; padding:8px;'>
 
 | Status | Response |
 |--------|----------|
-|        |          |
-| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{name: String,status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error" }</code>|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>201</strong></div> | <code>{ "user": {}, "message": "User registered successfully", "token": "string" }</code> |
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code>{ "message": "Email already in use" }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "message": "Server error", "error": "string" }</code> |
+
 </div>
 </details>
 
-</br>
+<details>
+<summary><strong><code>GET: /login</code></strong> - Action: To sign the user into the app.</summary>
+
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+
+| Status | Response |
+|--------|----------|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "message": "Login successful", "token": "string", "user": {} }</code> |
+| <div style="padding: 8px; color: white; background-color: orange; border-radius: 6px; width: 40px; text-align: center;"><strong>400</strong></div> | <code>{ "message": "Invalid email or password" }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "message": "Server error", "error": "string" }</code> |
+
+</div>
+</details>
 
 <details>
-<summary><bold><code>PUT: /companies/:id</code> </br> Action: To update the details of an existing company.</bold></summary>
-</br>
+<summary><strong><code>GET: /companies</code></strong> - Action: To retrieve a list of companies and applications saved by the user.</summary>
+
+<div style='border-radius: 8px; background-color: grey; padding:8px;'>
+
+| Status | Response |
+|--------|----------|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "companies": [{ "name": "string", "status": "string", "applicationUrl": "string", "notes": "string", "pointOfContacts": ["string"] }] }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "error": "Internal Server Error" }</code> |
+
+</div>
+</details>
+
+<details>
+<summary><strong><code>PUT: /companies/:id</code></strong> - Action: To update the details of an existing company.</summary>
 
 <div style='border-radius: 8px; background-color: grey; padding:16px;'>
 
-<span>Request Params: <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 16px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">id: String</code></span>
+<span>Request Params: <code>{ "id": "string" }</code></span>
 
 | Status | Response |
 |--------|----------|
-|        |          |
-|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">'{companies:[{ name: String, status: String, applicationUrl: String, notes: String, pointOfContacts: [String]}]}'</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error"}</code>|
-</details>
-</div>
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "companies": [{ "name": "string", "status": "string", "applicationUrl": "string", "notes": "string", "pointOfContacts": ["string"] }] }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "error": "Internal Server Error" }</code> |
 
-</br>
+</div>
+</details>
 
 <details>
-<summary><bold><code>GET: /all-contacts</code> </br> Action: To retrieve an array of all the user's contacts.</bold></summary>
+<summary><strong><code>GET: /all-contacts</code></strong> - Action: To retrieve an array of all the user's contacts.</summary>
 
 <div style='border-radius: 8px; background-color: grey; padding:16px;'>
 
 | Status | Response |
 |--------|----------|
-|        |          |
-|<div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{allContacts: String[]}</code>|
-| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code style="background-color: rgba(45, 45, 45, 0.69); color: #ffffff; padding: 18px 16px; border-radius: 4px; font-family: monospace; white-space: pre;">{ error: "Internal Server Error"}</code>|
+| <div style="padding: 8px; color: white; background-color: green; border-radius: 6px; width: 40px; text-align: center;"><strong>200</strong></div> | <code>{ "allContacts": ["string"] }</code> |
+| <div style="padding: 8px; color: white; background-color: red; border-radius: 6px; width: 40px; text-align: center;"><strong>500</strong></div> | <code>{ "error": "Internal Server Error" }</code> |
 
 </div>
 </details>
+
+<h2> Schemas <h2>
+
+### Contact Schema (`backend/models/contact.schema.js`)
+
+```javascript
+const mongoose = require('mongoose');
+
+const contactSchema = new mongoose.Schema({
+  role: String,
+  email: String,
+  linkedIn: String,
+  company: String,  // Deprecated: This is being replaced by the reference to Company model below.
+  company: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company'  // References the 'Company' model, establishing a relationship between Contact and Company
+  },
+  lastContactDate: Date,
+});
+
+const ContactModel = mongoose.model('Contact', contactSchema);
+
+module.exports = ContactModel;
+```
+<h3>Contact Schema Fields</h3>
+    <ul>
+        <li><strong>role:</strong> The role of the contact (e.g., Manager, Developer).</li>
+        <li><strong>email:</strong> The contact's email address.</li>
+        <li><strong>linkedIn:</strong> The contact's LinkedIn profile.</li>
+        <li><strong>company:</strong> Deprecated. Previously used as a string field, now replaced with an ObjectId reference to the Company model.</li>
+        <li><strong>company:</strong> The ObjectId referencing a company document from the Company model. This creates a relationship between the Contact and Company models.</li>
+        <li><strong>lastContactDate:</strong> The most recent date when the contact was interacted with.</li>
+    </ul>
+
+### Company Schema (`backend/models/company.schema.js`)
+
+```javascript
+
+const mongoose = require('mongoose');
+
+const companySchema = new mongoose.Schema({
+  name: String,
+  status: String,
+  applicationUrl: String,
+  notes: String,
+  pointOfContacts: [String], // Deprecated: This is replaced by a reference to the Contact model below.
+  pointOfContacts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Contact'  // References the 'Contact' model, establishing a relationship between Company and Contact
+  }],
+});
+
+const CompanyModel = mongoose.model('Company', companySchema);
+
+module.exports = CompanyModel;
+```
+<h3>Contact Schema Fields</h3>
+   <ul>
+        <li><strong>role:</strong> The role of the contact (e.g., Manager, Developer).</li>
+        <li><strong>email:</strong> The contact's email address.</li>
+        <li><strong>linkedIn:</strong> The contact's LinkedIn profile.</li>
+        <li><strong>company:</strong> Deprecated. Previously used as a string field, now replaced with an ObjectId reference to the Company model.</li>
+        <li><strong>company:</strong> The ObjectId referencing a company document from the Company model. This creates a relationship between the Contact and Company models.</li>
+        <li><strong>lastContactDate:</strong> The most recent date when the contact was interacted with.</li>
+    </ul>
+
+
+ # How the Contact and Company Schemas Work Together
+
+The Contact and Company schemas are related through the `company` field in the Contact schema and the `pointOfContacts` field in the Company schema:
+
+- The `company` field in the Contact schema references the `_id` of a Company, establishing a connection between a contact and the company they work for or are associated with.
+- The `pointOfContacts` field in the Company schema is an array of `ObjectId` references to the Contact model, which holds the contacts associated with a specific company.
+
+This relationship allows you to easily retrieve information about a contact's associated company or find all contacts linked to a specific company.
+
+### Example Use Case:
+
+- When querying for a Contact, you can populate the `company` field to get detailed information about the company the contact works for.
+- When querying for a Company, you can populate the `pointOfContacts` field to retrieve all contacts (e.g., employees or representatives) associated with that company.
+
+ # Adding SuperTest for Backend Testing
+
+Let's use the **supertest** package to help us write our tests for testing the API.
+
+## Setting Up Environment Variables
+
+```.env
+MONGO_URI='your_mongo_uri_here'
+TEST_MONGO_URI='your_test_mongo_uri_here'
+TEST_PORT=4000
+
+```
+
+## Installation
+
+```sh
+npm install --save-dev supertest
+```
+
+## `scripts` in the (`backend/package.json`)
+
+```json 
+ "scripts": {
+        "start": "cross-env NODE_ENV=production node server.js",
+        "build-prod": "cd ../frontend/ && npm run build && cp -r dist ../backend/",
+        "dev": "cross-env NODE_ENV=development node --watch server.js",
+        "lint": "eslint --fix .",
+        "format": "npx prettier --write \"**/*.{ts,js,md}\"",
+        "check": "npx prettier --check \"**/*.{ts,js,md}\"",
+        "test": "cross-env NODE_ENV=test node --test"
+    },
+  ```
+
+## Writing a Basic Test
+Create a test file inside `backend/tests/`, e.g., `sample-test.js`:
+
+```javascript
+// Importing the test function and 'after' hook from 'node:test'
+const { test, after } = require('node:test');
+// Importing supertest, which allows us to send HTTP requests to our app
+const request = require('supertest');
+// Importing mongoose for database connection management
+const mongoose = require('mongoose');
+// Importing the Express app from the server file
+const app = require('../server');
+// This function runs after all tests are done
+after(async () => {
+  // Close the MongoDB connection to avoid open connections
+  await mongoose.connection.close();
+});
+test('GET /companies/ should return JSON', async () => {
+  await request(app) // Send a GET request to the endpoint
+    .get('/companies/')
+    .expect(200) // Expect HTTP status 200 (OK)
+    .expect('Content-Type', /application\/json/); // Expect JSON response
+});
+
+```
+**What it does:**
+ * Sends an HTTP `GET` request to `/companies/` using `supertest`. 
+ * Verifies that the server responds with **status `200`**.
+* Ensures that the `Content-Type` of the response is JSON (`application/json`).
+
+## Running the Tests
+ cd .. `Sprint3-HitlistCohort` and find what test file you want to test and then run:
+
+```sh
+NODE_ENV=test node --test backend/tests/sample-test.js
+```
+
+Should look like this: 
+
+<img style="height: 400px; width: 800px;" src="./assets/testingSupertest.png" alt="testing supertest img result">
+
+# Deploying with Fly.io
+
+
+Before you begin, ensure you have:
+
+- A Fly.io account ([Sign up here](https://fly.io))
+- **Fly CLI** installed ([Installation guide](https://fly.io/docs/hands-on/installing/))
+
+## Step 1: Log in to Fly.io
+
+Authenticate your Fly.io account:
+
+```sh
+fly auth login
+```
+
+### Step 2: Initialize the Fly.io App
+Navigate to the `backend` directory and run:
+
+```sh
+fly launch
+```
+
+- Choose hitlist as the app name or create a new one.
+- Select bos (Boston) as the deployment region.
+- This command generates a `fly.toml` configuration file.
+
+### Step 3: Deploy the App
+To deploy, run:
+
+```sh
+fly deploy
+```
+
+Once deployed, Fly.io will provide a **public URL** where the backend is accessible.
+
+### Managing the Deployment
+View Logs:
+
+```sh
+fly logs
+```
+Restart the App:
+
+```sh
+fly restart
+```
+
+For the latest installation instructions, visit the official guide:  
+👉 [Flyctl Installation Guide](https://fly.io/docs/flyctl/install/)
+
+
 
 <h2 href="#credits">Credits</h2>
 

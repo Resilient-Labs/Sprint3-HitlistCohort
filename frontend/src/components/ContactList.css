@@ -28,12 +28,6 @@
     position: relative;
 }
 
-.edit-cell {
-    position: absolute;
-    right: .5rem;
-    display: none;
-}
-
 .edit-cell a {
     color: blue;
 }

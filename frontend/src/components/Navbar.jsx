@@ -70,7 +70,7 @@ const Navbar = () => {
                                 <li>Sign Up</li>
                             </NavLink>
                         </>
-                    ) : (
+                        ) : (
                         <li
                             onClick={logout}
                             className="logout-button"

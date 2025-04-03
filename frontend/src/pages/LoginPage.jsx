@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar'
 import { AuthContext } from '../contexts/AuthContext'
 import { DarkModeContext } from '../contexts/DarkModeContext'
-import { NavLink } from 'react-router-dom'
 
 const LoginPage = () => {
     const { login } = useContext(AuthContext)
@@ -59,23 +58,7 @@ const LoginPage = () => {
                 color: darkMode ? '#ffffff' : '#000000',
             }}
         >
-           <header
-            style={{
-                backgroundColor: '#007bff',
-                color: '#ffffff',
-                padding: '20px',
-                textAlign: 'center',
-                fontSize: '28px',
-                fontWeight: 'bold',
-                borderRadius: '8px', 
-                marginBottom: '20px',
-                width: '100%',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            }}
-        >
-            Welcome to the Hitlist
-        </header>
-
+            <Navbar />
             <div className="login-container">
                 <h2 className="login-title">Login</h2>
                 <form className="login-form" onSubmit={handleSubmit}>
@@ -108,16 +91,7 @@ const LoginPage = () => {
                     <button type="submit" className="submit-button">
                         Login
                     </button>
-                    <span>Don't have an account?
-                        <NavLink to='/signup'>
-                        <span>  Create an account</span>
-                        </NavLink> 
-                    </span>
                 </form>
-
-                <p style={{ textAlign: 'center', marginTop: '20px', color: '#555' }}>
-                    
-                </p>
             </div>
 
             <style jsx>{`

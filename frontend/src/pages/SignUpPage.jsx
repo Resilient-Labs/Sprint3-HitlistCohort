@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar'
 import { AuthContext } from '../contexts/AuthContext'
 import { DarkModeContext } from '../contexts/DarkModeContext'
-import { NavLink } from 'react-router-dom'
 
 const SignUpPage = () => {
     const { darkMode } = useContext(DarkModeContext)
@@ -63,33 +62,7 @@ const SignUpPage = () => {
                 color: darkMode ? '#ffffff' : '#000000',
             }}
         >
-            <header
-            style={{
-                backgroundColor: '#007bff',
-                color: '#ffffff',
-                padding: '20px',
-                textAlign: 'center',
-                fontSize: '28px',
-                fontWeight: 'bold',
-                borderRadius: '8px',
-                marginBottom: '20px',
-                width: '100%',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            }}
-        >
-            Welcome to the Hitlist
-        </header>
-
-            <div style={{ marginTop: '30px', textAlign: 'center', color: '#555', fontSize: '20px' }}>
-                <h3>Why Join Hitlist?</h3>
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    <li>✔ Track your job applications with ease</li>
-                    <li>✔ Stay organized during your job search</li>
-                    <li>✔ Land your dream job faster</li>
-                </ul>
-            </div>
-
-            
+            <Navbar />
             <div className="signup-container">
                 <h2 className="signup-title">Sign Up</h2>
                 <form className="signup-form" onSubmit={handleSubmit}>
@@ -135,24 +108,8 @@ const SignUpPage = () => {
                     <button type="submit" className="submit-button">
                         Sign Up
                     </button>
-                    <span>Already have an account?
-                        <NavLink to='/login'>
-                        <span> Sign in</span>
-                        </NavLink> 
-                    </span>
                 </form>
-
-                <p style={{ textAlign: 'center', marginTop: '20px', color: '#555' }}>
-                    Join the Hitlist today and land your dream job!
-                </p>
-
-
-
             </div>
-
-          
-
-
 
             <style jsx>{`
                 .signup-container {

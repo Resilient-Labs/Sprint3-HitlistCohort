@@ -5,11 +5,9 @@ import { DarkModeContext } from '../contexts/DarkModeContext'
 import './Navbar.css'
 import DarkModeToggle from './DarkModeToggle'
 
-
 const Navbar = () => {
-    const { isAuthenticated, logout, username } = useContext(AuthContext)
+    const { isAuthenticated, logout } = useContext(AuthContext)
     const { darkMode, setDarkMode } = useContext(DarkModeContext)
-    
 
     return (
         <div className="navbar-container">
@@ -21,17 +19,6 @@ const Navbar = () => {
                 </Link>
             </div>
             <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-
-            <span style={{  fontWeight: 'bold', 
-                            color: '#333f59', 
-                            fontSize: '20px', 
-                            padding: '10px 30px', 
-                            borderRadius: '5px', 
-                            backgroundColor: '#f0f0f0' }}
-                            >
-                         Welcome back, { username}!
-            </span>       
-
             <div className="navbar-items">
                 <ul className="navbar-ul">
                     <NavLink
@@ -83,7 +70,7 @@ const Navbar = () => {
                                 <li>Sign Up</li>
                             </NavLink>
                         </>
-                        ) : (
+                    ) : (
                         <li
                             onClick={logout}
                             className="logout-button"

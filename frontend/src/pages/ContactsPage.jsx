@@ -4,8 +4,14 @@ import ContactList from '../components/ContactList'
 import { useContext } from 'react'
 import { DarkModeContext } from '../contexts/DarkModeContext'
 
+import { AuthContext } from '../contexts/AuthContext'
+import LoginPage from '../pages/LoginPage.jsx'
+
+
 const Contacts = ({ contacts }) => {
+    const { isAuthenticated } = useContext(AuthContext)
     const { darkMode } = useContext(DarkModeContext)
+
     return (
         <div
             style={{
@@ -13,9 +19,17 @@ const Contacts = ({ contacts }) => {
                 color: darkMode ? '#ffffff' : '#000000',
             }}
         >
+            
+            { !isAuthenticated ? ( <LoginPage/>
+            ) : (
+            <>
+            
             <Navbar />
             <div>Contacts Page</div>
             <ContactList contacts={contacts} />
+            
+            </>) }
+
         </div>
     )
 }

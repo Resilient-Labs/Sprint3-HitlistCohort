@@ -4,11 +4,7 @@ import CompanyForm from '../components/CompanyForm'
 import { DarkModeContext } from '../contexts/DarkModeContext'
 import { useContext } from 'react'
 
-import { AuthContext } from '../contexts/AuthContext'
-import LoginPage from '../pages/LoginPage'
-
 const HitlistPage = () => {
-    const { isAuthenticated } = useContext(AuthContext)
     const { darkMode } = useContext(DarkModeContext)
     return (
         <div
@@ -17,14 +13,9 @@ const HitlistPage = () => {
                 color: darkMode ? '#ffffff' : '#000000',
             }}
         >
-            {!isAuthenticated ? ( <LoginPage/> ) : 
-            (   <>
-                    <Navbar />
-                    <CompanyForm />
-                    <CompanyList />
-                </> 
-            )}
-           
+            <Navbar />
+            <CompanyForm />
+            <CompanyList />
         </div>
     )
 }

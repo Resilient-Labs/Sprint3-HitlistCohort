@@ -37,13 +37,11 @@ beforeEach(async () => {
 
 test('update contact returns 200 and a json response', async () => {
   await api
-    .updateContact('/contacts/507f1f77bcf86cd799439011', updatedContact)
+    .updateContact(updatedContact)
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
     const newRes = await api.get('/contacts/507f1f77bcf86cd799439011')
-
-    //console.log(newRes.body)
 
     assert.strictEqual(newRes.body.email, updatedContact.email)
 
@@ -51,7 +49,7 @@ test('update contact returns 200 and a json response', async () => {
 
 test('update contact sends 500 with wrong contact id', async () => {
     await api
-        .put('/contacts/507f1f77bcf86cd799439010', updatedContact)
+        .updateContact({...updatedContact, _id: '507f1f77bcf86cd799439010'})
         .expect(404)
         .expect('Content-Type', /application\/json/)
 })

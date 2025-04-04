@@ -1,20 +1,40 @@
 const contactsRouter = require('express').Router()
 const Contact = require('../models/contact.schema')
 
+//GET ALL CONTACTS
+contactsRouter.get('/', async (req, res) => {
+    try {
+        const contacts = await Contact.find({}).populate('company')
+        res.json(contacts)
+    } catch (error) {
+        console.error('Error getting contacts', error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+})
+
 // ADD A CONTACT TO A COMPANY
 contactsRouter.post('/', async (req, res) => {
     try {
-        const { name, email, phone, companyId } = req.body
+        const { name, role, email, linkedIn, company, lastContactDate } =
+            req.body
 
-        if (!companyId) {
+        if (!company) {
             return res.status(400).json({
                 message: 'Company ID is required',
             })
         }
 
-        const newContact = new Contact({ name, email, phone, companyId })
+        const newContact = new Contact({
+            name,
+            role,
+            email,
+            linkedIn,
+            company: company || null,
+            lastContactDate: lastContactDate ? new Date(lastContactDate) : null,
+        })
         await newContact.save()
 
+        console.log('Contact saved:', newContact)
         res.status(201).json(newContact)
     } catch (error) {
         console.error('Error adding contact:', error)
@@ -45,11 +65,19 @@ contactsRouter.put('/:id', async (req, res) => {
         if (!req.params.id) {
             return res.status(400).json({ message: 'Contact ID is required' })
         }
+
+        const contactData = { ...req.body }
+
+        if (contactData.company && typeof contactData.company === 'string') {
+            contactData.company = contactData.company
+        }
+
         const updatedContact = await Contact.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            contactData,
             { new: true },
-        )
+        ).populate('company')
+
         if (!updatedContact) {
             return res.status(404).json({ message: 'Contact not found' })
         }
@@ -67,9 +95,11 @@ contactsRouter.delete('/:id', async (req, res) => {
             return res.status(400).json({ message: 'Contact ID is required' })
         }
         const deletedContact = await Contact.findByIdAndDelete(req.params.id)
+
         if (!deletedContact) {
             return res.status(404).json({ message: 'Contact not found' })
         }
+
         res.json({ message: 'Contact deleted', deletedContact })
     } catch (error) {
         console.error('Error deleting contact:', error)

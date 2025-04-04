@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import EditPage from './pages/Edit'
@@ -13,7 +12,8 @@ import LoginPage from './pages/LoginPage'
 import { AuthProvider } from './contexts/AuthContext'
 import { DarkModeProvider } from './contexts/DarkModeContext.jsx'
 import { CompanyProvider } from './contexts/CompanyContext'
-
+import { Provider } from 'react-redux'
+import store from './redux/store'
 // import './GlobalStyles.css'
 
 const router = createBrowserRouter([
@@ -48,18 +48,21 @@ const router = createBrowserRouter([
         errorElement: <NotFoundPage />,
     },
 ])
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <AuthProvider>
-            <CompanyProvider>
-                {' '}
-                {/* AuthProvider should wrap RouterProvider */}
-                <DarkModeProvider>
-                    <div>
-                        <RouterProvider router={router} />
-                    </div>
-                </DarkModeProvider>
-            </CompanyProvider>
-        </AuthProvider>
+        <Provider store={store}>
+            <AuthProvider>
+                <CompanyProvider>
+                    {' '}
+                    {/* AuthProvider should wrap RouterProvider */}
+                    <DarkModeProvider>
+                        <div>
+                            <RouterProvider router={router} />
+                        </div>
+                    </DarkModeProvider>
+                </CompanyProvider>
+            </AuthProvider>
+        </Provider>
     </StrictMode>
 )

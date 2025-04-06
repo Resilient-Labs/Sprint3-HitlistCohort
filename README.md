@@ -381,6 +381,242 @@ test('GET /companies/ should return JSON', async () => {
 NODE_ENV=test node --test backend/tests/sample-test.js
 ```
 
+# 💪 Cypress Testing Guide
+
+This guide helps you get started with Cypress to run end-to-end tests on your Vite + Express application.
+
+---
+
+## 📦 Installation
+
+Install Cypress as a development dependency:
+
+```bash
+npm install --save-dev cypress
+```
+
+Then, install the Cypress binary:
+
+```bash
+npx cypress install
+```
+
+---
+
+## 🚀 Running Cypress
+
+Start your frontend and backend servers in separate terminals:
+
+```bash
+# Terminal 1 - Start Vite dev server
+npm run dev
+
+# Terminal 2 - Start Express backend
+node server.js
+```
+
+Then, open the Cypress test runner:
+
+```bash
+npx cypress open
+```
+
+This will open the Cypress UI where you can select and run tests interactively.
+
+---
+
+## 📂 Folder Structure
+
+After first run, Cypress creates the following structure:
+
+```
+cypress/
+  e2e/
+    login.cy.js      # Your test file
+  support/
+  fixtures/
+  ...
+cypress.config.js     # Cypress config file
+```
+
+---
+
+## ✍️ Writing a Test (Login Example)
+
+Create a test file in `cypress/e2e/login.cy.js`:
+
+```js
+describe('Login and Logout Flow', () => {
+  it('logs in and logs out successfully', () => {
+    cy.visit('http://localhost:5173'); // Vite app
+
+    cy.get('input[name="email"]').type('testuser@example.com');
+    cy.get('input[name="password"]').type('password123');
+    cy.get('button[type="submit"]').click();
+
+    cy.contains('Welcome, Test User');
+    
+    cy.get('button#logout').click();
+
+    cy.contains('Login');
+  });
+});
+```
+
+---
+
+## 🔁 Running Tests Headlessly (CI or CLI)
+
+To run Cypress tests in the terminal without opening the UI:
+
+```bash
+npx cypress run
+```
+
+This will execute tests in headless mode using Electron by default.
+
+---
+
+## 🛠 Tips
+
+- Make sure your test data (e.g. `testuser@example.com`) exists in your backend.
+- You can use `cy.request()` to seed data or log in via API.
+- Cypress automatically waits for elements — no need to use timeouts manually.
+
+# ✨ Jest Testing Guide
+
+This guide will help you set up and use Jest for unit testing your JavaScript or React codebase.
+
+---
+
+## 📦 Installation
+
+Install Jest as a development dependency:
+
+```bash
+npm install --save-dev jest
+```
+
+If you're using Babel (e.g. with React or modern JS syntax), install these too:
+
+```bash
+npm install --save-dev @babel/preset-env @babel/preset-react babel-jest
+```
+
+Create a `babel.config.js` file:
+
+```js
+module.exports = {
+  presets: ['@babel/preset-env', '@babel/preset-react'],
+};
+```
+
+---
+
+## 🔢 Basic Configuration
+
+Add this to your `package.json`:
+
+```json
+"scripts": {
+  "test": "jest"
+}
+```
+
+Or create a `jest.config.js`:
+
+```js
+module.exports = {
+  testEnvironment: 'jsdom',
+  moduleFileExtensions: ['js', 'jsx'],
+  transform: {
+    '^.+\\.(js|jsx)$': 'babel-jest',
+  },
+};
+```
+
+---
+
+## 📝 Writing a Test
+
+Create a test file like `sum.test.js`:
+
+```js
+function sum(a, b) {
+  return a + b;
+}
+
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+```
+
+Run the test:
+
+```bash
+npm test
+```
+
+---
+
+## 🔹 Testing React Components
+
+Example `Button.test.jsx`:
+
+```jsx
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Button from './Button';
+
+test('calls onClick when clicked', () => {
+  const handleClick = jest.fn();
+  render(<Button onClick={handleClick}>Click Me</Button>);
+  fireEvent.click(screen.getByText('Click Me'));
+  expect(handleClick).toHaveBeenCalledTimes(1);
+});
+```
+
+Install testing library if needed:
+
+```bash
+npm install --save-dev @testing-library/react @testing-library/jest-dom
+```
+
+---
+
+## 🔁 Watch Mode
+
+Run Jest in watch mode:
+
+```bash
+npm test -- --watch
+```
+
+---
+
+## 🚧 Tips
+
+- Use `.test.js` or `.spec.js` suffixes for test files.
+- Mock functions with `jest.fn()`.
+- Use `describe()` blocks to group related tests.
+- Snapshot testing is supported with `expect(component).toMatchSnapshot()`.
+
+---
+
+## 📅 Running Coverage Report
+
+```bash
+npm test -- --coverage
+```
+
+This generates a `coverage/` folder with HTML reports.
+
+---
+
+Happy testing! ✨
+
+
 Should look like this: 
 
 <img style="height: 400px; width: 800px;" src="./assets/testingSupertest.png" alt="testing supertest img result">

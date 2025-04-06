@@ -412,7 +412,7 @@ Start your frontend and backend servers in separate terminals:
 npm run dev
 
 # Terminal 2 - Start Express backend
-node server.js
+node server.js or npm run dev
 ```
 
 Then, open the Cypress test runner:

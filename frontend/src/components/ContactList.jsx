@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import contactsService from '../services/contacts'
 import companiesService from '../services/company'
+import './ContactList.css'
 
 const ContactList = () => {
     const [name, setName] = useState('')
@@ -156,52 +157,58 @@ const ContactList = () => {
 
     return (
         <div className="contact-list-container">
-            <h2>Contacts</h2>
+            <h2 className="contact-list-header">Your Contacts</h2>
 
             <form onSubmit={editingContact ? updateContact : addContact}>
-                <input
-                    type="text"
-                    placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Role"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                />
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="LinkedIn Profile"
-                    value={linkedIn}
-                    onChange={(e) => setLinkedIn(e.target.value)}
-                />
-                <select
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                >
-                    <option value="">Select Company</option>
-                    {companies.map((comp) => (
-                        <option key={comp._id} value={comp._id}>
-                            {comp.name}
-                        </option>
-                    ))}
-                </select>
-                <input
-                    type="date"
-                    placeholder="Last Contact Date"
-                    value={lastContactDate}
-                    onChange={(e) => setLastContactDate(e.target.value)}
-                />
+                <div className="form-row">
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                    />
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div className="form-row">
+                    <input
+                        type="text"
+                        placeholder="LinkedIn Profile"
+                        value={linkedIn}
+                        onChange={(e) => setLinkedIn(e.target.value)}
+                    />
+                    <select
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                    >
+                        <option value="">Select Company</option>
+                        {companies.map((comp) => (
+                            <option key={comp._id} value={comp._id}>
+                                {comp.name}
+                            </option>
+                        ))}
+                    </select>
+                    <input
+                        type="date"
+                        placeholder="Last Contact Date"
+                        value={lastContactDate}
+                        onChange={(e) => setLastContactDate(e.target.value)}
+                    />
+                </div>
+
                 <button type="submit">
                     {editingContact ? 'Update Contact' : 'Add Contact'}
                 </button>
@@ -230,19 +237,30 @@ const ContactList = () => {
                 onChange={(e) => setSearch(e.target.value)}
             />
 
-            <ul className="contacts-list">
-                {filteredContacts.length === 0 ? (
-                    <li>No contacts found</li>
-                ) : (
-                    filteredContacts.map((contact) => (
-                        <li key={contact._id} className="contact-item">
-                            <div>
-                                <strong>{contact.name}</strong>
-                                {contact.role && <p>Role: {contact.role}</p>}
-                                <p>Email: {contact.email}</p>
-                                {contact.linkedIn && (
-                                    <p>
-                                        LinkedIn:{' '}
+            <table className="contacts-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>LinkedIn</th>
+                        <th>Last Contacted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredContacts.length === 0 ? (
+                        <tr>
+                            <td colSpan="6">No contacts found</td>
+                        </tr>
+                    ) : (
+                        filteredContacts.map((contact) => (
+                            <tr key={contact._id}>
+                                <td>{contact.name}</td>
+                                <td>{contact.role}</td>
+                                <td>{contact.email}</td>
+                                <td>
+                                    {contact.linkedIn && (
                                         <a
                                             href={formatLinkedInURL(
                                                 contact.linkedIn
@@ -252,33 +270,35 @@ const ContactList = () => {
                                         >
                                             {contact.linkedIn}
                                         </a>
-                                    </p>
-                                )}
-                                {contact.lastContactDate && (
-                                    <p>
-                                        Last Contacted:{' '}
-                                        {new Date(
+                                    )}
+                                </td>
+                                <td>
+                                    {contact.lastContactDate &&
+                                        new Date(
                                             contact.lastContactDate
                                         ).toLocaleDateString()}
-                                    </p>
-                                )}
-                            </div>
-                            <div className="contact-actions">
-                                <button
-                                    onClick={() => startEditContact(contact)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    onClick={() => removeContact(contact._id)}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </li>
-                    ))
-                )}
-            </ul>
+                                </td>
+                                <td>
+                                    <button
+                                        onClick={() =>
+                                            startEditContact(contact)
+                                        }
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            removeContact(contact._id)
+                                        }
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    )}
+                </tbody>
+            </table>
         </div>
     )
 }

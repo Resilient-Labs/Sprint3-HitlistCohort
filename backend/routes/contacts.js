@@ -4,8 +4,8 @@ const Contact = require('../models/contact.schema')
 //GET ALL CONTACTS
 contactsRouter.get('/', async (req, res) => {
     try {
-        const contacts = await Contact.find({}).populate('company')
-        res.json(contacts)
+        const contacts = await Contact.find({}).populate('company', { name: 1 })
+        res.json({ allContacts: contacts })
     } catch (error) {
         console.error('Error getting contacts', error)
         res.status(500).json({ error: 'Internal Server Error' })

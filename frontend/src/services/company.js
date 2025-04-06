@@ -4,6 +4,7 @@ const baseUrl = `http://localhost:3001/companies`
 const getAll = async () => {
     try {
         const response = await axios.get(baseUrl)
+        console.log(response.data)
         return Array.isArray(response.data) ? response.data : []
     } catch (error) {
         console.error('GET error', error)

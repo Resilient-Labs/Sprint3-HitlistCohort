@@ -89,3 +89,10 @@ input[type="text"] {
 input[type="text"]:focus {
     border-color: #0073e6;
 }
+
+.follow-up-alert {
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-left: 10px;
+}

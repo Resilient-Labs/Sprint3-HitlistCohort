@@ -155,6 +155,16 @@ const ContactList = () => {
         return url
     }
 
+    const checkFollowUpNeeded = (lastContactDate) => {
+        if (!lastContactDate) return false
+
+        const currentDate = new Date()
+        const contactDate = new Date(lastContactDate)
+        const differenceInTime = currentDate - contactDate
+        const differenceInDays = differenceInTime / (1000 * 3600 * 24)
+
+        return differenceInDays > 30 // If last contact was more than 30 days ago
+    }
     return (
         <div className="contact-list-container">
             <h2 className="contact-list-header">Your Contacts</h2>
@@ -277,6 +287,13 @@ const ContactList = () => {
                                         new Date(
                                             contact.lastContactDate
                                         ).toLocaleDateString()}
+                                    {checkFollowUpNeeded(
+                                        contact.lastContactDate
+                                    ) && (
+                                        <span className="follow-up-alert">
+                                            : Need to Follow Up
+                                        </span>
+                                    )}
                                 </td>
                                 <td>
                                     <button

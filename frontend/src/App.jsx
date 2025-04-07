@@ -6,18 +6,15 @@ import CompanyForm from './components/CompanyForm'
 import { useContext } from 'react'
 import CompanyDashboard from './components/companyDashboard/companyDashboard.jsx'
 import { DarkModeContext } from './contexts/DarkModeContext'
-import { useCompany } from './contexts/CompanyContext/CompanyContext.jsx'
 import LoginPage from './pages/LoginPage.jsx'
-
-
 import { AuthContext } from './contexts/AuthContext'
-import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 function App() {
     const { isAuthenticated } = useContext(AuthContext)
     const { darkMode, setDarkMode } = useContext(DarkModeContext)
-    const { companies, deleteCompany, sortCompanies } = useCompany()
-
+    const companies = useSelector((state) => state.companies)
+    console.log("companies", companies)
     return (
         <div className={darkMode ? 'app-dark' : 'app-light'}>
             

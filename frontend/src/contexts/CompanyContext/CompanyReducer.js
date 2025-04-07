@@ -5,6 +5,8 @@ import {
     ADD_COMPANY,
 } from './constants'
 
+//we're going to refactor this to use redux toolkit
+
 const companyReducer = (state, action) => {
     switch (action.type) {
         case SET_INITIAL_STATE: {

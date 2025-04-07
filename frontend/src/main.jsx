@@ -12,7 +12,6 @@ import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage.jsx'
 import { AuthProvider } from './contexts/AuthContext'
 import { DarkModeProvider } from './contexts/DarkModeContext.jsx'
-import { CompanyProvider } from './contexts/CompanyContext'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 // import './GlobalStyles.css'
@@ -59,7 +58,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <StrictMode>
         <Provider store={store}>
             <AuthProvider>
-                <CompanyProvider>
                     {' '}
                     {/* AuthProvider should wrap RouterProvider */}
                     <DarkModeProvider>
@@ -67,7 +65,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                             <RouterProvider router={router} />
                         </div>
                     </DarkModeProvider>
-                </CompanyProvider>
             </AuthProvider>
         </Provider>
     </StrictMode>

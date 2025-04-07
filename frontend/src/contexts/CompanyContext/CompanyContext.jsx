@@ -6,15 +6,7 @@ import {
     useEffect,
     useCallback,
 } from 'react'
-import companyReducer from './CompanyReducer'
-
 import companyService from '../../services/company'
-import {
-    SET_INITIAL_STATE,
-    DELETE_COMPANY_BY_ID,
-    SORT_COMPANIES,
-    ADD_COMPANY,
-} from './constants'
 
 const CompanyContext = createContext({})
 
@@ -76,13 +68,6 @@ const CompanyProvider = ({ children }) => {
         [state, deleteCompany, sortCompanies, createNewCompany]
     )
 
-    useEffect(() => {
-        const getCompanies = async () => {
-            const response = await companyService.getAll()
-            setCompanies(response)
-        }
-        getCompanies()
-    }, [])
 
     return (
         <CompanyContext.Provider value={value}>

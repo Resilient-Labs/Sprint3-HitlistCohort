@@ -3,14 +3,27 @@ import companyService from '../services/company'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
 import { Link } from 'react-router-dom'
-import { useCompany } from '../contexts/CompanyContext'
 import PopUp from './PopUp'
-import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 
+const CompanyList = () => {
 
-const CompanyList = ({ companies, deleteCompany, sortCompanies }) => {
     const [searchQuery, setSearchQuery] = useState('')
     const [requestStatus, setRequestStatus] = useState('')
+    const dispatch = useDispatch()
+    const companies = useSelector((state) => state.companies)
+
+    useEffect(() => {
+        const fetchCompanies = async () => {
+          const response = await companyService.getAll()
+          console.log(response)
+          dispatch(setInitialState(response))
+        }
+        fetchCompanies()
+      }, [dispatch])
+
+  
+    console.log("companies",companies)
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this company?')) {
@@ -24,7 +37,7 @@ const CompanyList = ({ companies, deleteCompany, sortCompanies }) => {
               }
 
 
-                deleteCompany(id)
+              dispatch(deleteCompanies)
                 
 
             } catch (error) {
@@ -69,7 +82,7 @@ const CompanyList = ({ companies, deleteCompany, sortCompanies }) => {
                             <SortColumn
                                 label="Name"
                                 columnKey="name"
-                                onSortChange={sortCompanies}
+                                onSortChange={dispatch(sortCompanies)}
                             />
                         </th>
                         <th>Status</th>

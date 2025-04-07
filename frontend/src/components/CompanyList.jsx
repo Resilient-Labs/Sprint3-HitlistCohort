@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import companyService from '../services/company'
+import companiesService from '../services/company'
+import { setInitialState, deleteCompanyById, sortCompanies } from '../redux/companySlice'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
 import { Link } from 'react-router-dom'
@@ -15,15 +16,16 @@ const CompanyList = () => {
 
     useEffect(() => {
         const fetchCompanies = async () => {
-          const response = await companyService.getAll()
-          console.log(response)
-          dispatch(setInitialState(response))
+            try {
+                console.log(response)
+                const response = await companiesService.getAll()
+                dispatch(setInitialState(response))
+            } catch (error) {
+                console.log("Unable to fetch companies", error)
+            }
         }
         fetchCompanies()
       }, [dispatch])
-
-  
-    console.log("companies",companies)
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this company?')) {
@@ -37,7 +39,7 @@ const CompanyList = () => {
               }
 
 
-              dispatch(deleteCompanies)
+              dispatch(deleteCompanyById(id))
                 
 
             } catch (error) {

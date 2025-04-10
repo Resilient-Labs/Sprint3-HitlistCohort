@@ -3,13 +3,15 @@ import Navbar from '../components/Navbar'
 import CompanyForm from '../components/CompanyForm'
 import { DarkModeContext } from '../contexts/DarkModeContext'
 import { useContext } from 'react'
-
+import { useCompany } from '../contexts/CompanyContext/CompanyContext'
 import { AuthContext } from '../contexts/AuthContext'
 import LoginPage from '../pages/LoginPage'
 
 const HitlistPage = () => {
     const { isAuthenticated } = useContext(AuthContext)
     const { darkMode } = useContext(DarkModeContext)
+    const { companies, deleteCompany, sortCompanies } = useCompany()
+
     return (
         <div
             style={{
@@ -21,7 +23,11 @@ const HitlistPage = () => {
             (   <>
                     <Navbar />
                     <CompanyForm />
-                    <CompanyList />
+                    <CompanyList
+                        companies={companies}
+                        deleteCompany={deleteCompany}
+                        sortCompanies={sortCompanies}
+                    />
                 </> 
             )}
            

@@ -16,7 +16,7 @@ import { useState } from 'react'
 function App() {
     const { isAuthenticated } = useContext(AuthContext)
     const { darkMode, setDarkMode } = useContext(DarkModeContext)
-    const { companies } = useCompany()
+    const { companies, deleteCompany, sortCompanies } = useCompany()
 
     return (
         <div className={darkMode ? 'app-dark' : 'app-light'}>
@@ -29,7 +29,11 @@ function App() {
                 <>
                 
                 <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-                <CompanyList data={companies} />
+                <CompanyList
+                    companies={companies}
+                    deleteCompany={deleteCompany}
+                    sortCompanies={sortCompanies}
+                />
                 <CompanyDashboard applications={companies} />
                 <ContactList
                     contacts={companies?.map((company) => company.contact)}

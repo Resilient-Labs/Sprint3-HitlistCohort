@@ -5,10 +5,10 @@ import './CompanyList.css'
 import { Link } from 'react-router-dom'
 import { useCompany } from '../contexts/CompanyContext'
 import PopUp from './PopUp'
+import PropTypes from 'prop-types'
 
 
-const CompanyList = () => {
-    const { companies, deleteCompany, sortCompanies } = useCompany()
+const CompanyList = ({ companies, deleteCompany, sortCompanies }) => {
     const [searchQuery, setSearchQuery] = useState('')
     const [requestStatus, setRequestStatus] = useState('')
 
@@ -129,3 +129,19 @@ const CompanyList = () => {
 }
 
 export default CompanyList
+
+CompanyList.propTypes = {
+    companies: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        status: PropTypes.string,
+        applicationUrl: PropTypes.string,
+        notes: PropTypes.string,
+        pointOfContacts: PropTypes.arrayOf(PropTypes.string),
+        priority: PropTypes.string,
+      })
+    ).isRequired,
+    deleteCompany: PropTypes.func.isRequired,
+    sortCompanies: PropTypes.func.isRequired,
+}

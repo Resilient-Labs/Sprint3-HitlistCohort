@@ -33,11 +33,7 @@ const LoginPage = () => {
                 const token = data.token
 
                 if (token) {
-                    login(
-                        token,
-                        data.user.username,
-                        'Account logged in successfully!',
-                    ) // Save the token and update the authentication state
+                    login(token, data.user.username, data.user.email) // Save the token and update the authentication state
                 } else {
                     console.error('No token found in the response')
                 }
@@ -59,22 +55,22 @@ const LoginPage = () => {
                 color: darkMode ? '#ffffff' : '#000000',
             }}
         >
-           <header
-            style={{
-                backgroundColor: '#007bff',
-                color: '#ffffff',
-                padding: '20px',
-                textAlign: 'center',
-                fontSize: '28px',
-                fontWeight: 'bold',
-                borderRadius: '8px', 
-                marginBottom: '20px',
-                width: '100%',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            }}
-        >
-            Welcome to the Hitlist
-        </header>
+            <header
+                style={{
+                    backgroundColor: '#007bff',
+                    color: '#ffffff',
+                    padding: '20px',
+                    textAlign: 'center',
+                    fontSize: '28px',
+                    fontWeight: 'bold',
+                    borderRadius: '8px',
+                    marginBottom: '20px',
+                    width: '100%',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                }}
+            >
+                Welcome to the Hitlist
+            </header>
 
             <div className="login-container">
                 <h2 className="login-title">Login</h2>
@@ -108,16 +104,21 @@ const LoginPage = () => {
                     <button type="submit" className="submit-button">
                         Login
                     </button>
-                    <span>Don't have an account?
-                        <NavLink to='/signup'>
-                        <span>  Create an account</span>
-                        </NavLink> 
+                    <span>
+                        Don't have an account?
+                        <NavLink to="/signup">
+                            <span> Create an account</span>
+                        </NavLink>
                     </span>
                 </form>
 
-                <p style={{ textAlign: 'center', marginTop: '20px', color: '#555' }}>
-                    
-                </p>
+                <p
+                    style={{
+                        textAlign: 'center',
+                        marginTop: '20px',
+                        color: '#555',
+                    }}
+                ></p>
             </div>
 
             <style jsx>{`

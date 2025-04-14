@@ -37,9 +37,14 @@ authenticationRouter.post('/sign-up', async (req, res) => {
     try {
         const { email, password, username } = req.body
 
-        const existingUser = await User.findOne({ email })
-        if (existingUser) {
+        const existingEmail = await User.findOne({ email })
+        if (existingEmail) {
             return res.status(400).json({ message: 'Email already in use' })
+        }
+
+        const existingUser = await User.findOne({ username })
+        if (existingUser) {
+            return res.status(400).json({ message: 'Username already in use' })
         }
 
         const user = new User({ email, password, username })

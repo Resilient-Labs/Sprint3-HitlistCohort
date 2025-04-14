@@ -1,10 +1,10 @@
 import axios from 'axios'
 const baseUrl = `http://localhost:3001/companies`
 
-const getAll = async () => {
+const getAll = async () => {    
     try {
         const response = await axios.get(baseUrl)
-        console.log(response.data)
+        console.log("response",response)
         return Array.isArray(response.data) ? response.data : []
     } catch (error) {
         console.error('GET error', error)
@@ -17,7 +17,6 @@ const create = (newObject) => {
 
     return request
         .then((response) => {
-            console.log(response)
             return {success: true, data: response.data , message: 'Operation Successful'}
         })
         .catch((error) => {

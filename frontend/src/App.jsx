@@ -14,7 +14,6 @@ function App() {
     const { isAuthenticated } = useContext(AuthContext)
     const { darkMode, setDarkMode } = useContext(DarkModeContext)
     const companies = useSelector((state) => state.companies)
-    console.log("companies", companies)
     return (
         <div className={darkMode ? 'app-dark' : 'app-light'}>
             
@@ -26,11 +25,7 @@ function App() {
                 <>
                 
                 <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-                <CompanyList
-                    companies={companies}
-                    deleteCompany={deleteCompany}
-                    sortCompanies={sortCompanies}
-                />
+                <CompanyList/>
                 <CompanyDashboard applications={companies} />
                 <ContactList
                     contacts={companies?.map((company) => company.contact)}

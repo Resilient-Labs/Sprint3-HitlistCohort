@@ -8,18 +8,16 @@ import PopUp from './PopUp'
 import { useDispatch, useSelector } from 'react-redux'
 
 const CompanyList = () => {
-
     const [searchQuery, setSearchQuery] = useState('')
     const [requestStatus, setRequestStatus] = useState('')
     const dispatch = useDispatch()
-    const companies = useSelector((state) => state.companies)
+    let companies = useSelector((state) => state.companies)
 
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
-                console.log(response)
                 const response = await companiesService.getAll()
-                dispatch(setInitialState(response))
+                dispatch(setInitialState(response.data))
             } catch (error) {
                 console.log("Unable to fetch companies", error)
             }

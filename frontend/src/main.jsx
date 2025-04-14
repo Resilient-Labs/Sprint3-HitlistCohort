@@ -9,6 +9,7 @@ import ContactsPage from './pages/ContactsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
+import ProfilePage from './pages/ProfilePage.jsx'
 import { AuthProvider } from './contexts/AuthContext'
 import { DarkModeProvider } from './contexts/DarkModeContext.jsx'
 import { CompanyProvider } from './contexts/CompanyContext'
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
     {
         path: '/edit/:id',
         element: <EditPage />,
+        errorElement: <NotFoundPage />,
+    },
+    {
+        path: '/profile',
+        element: <ProfilePage />,
         errorElement: <NotFoundPage />,
     },
 ])

@@ -1,31 +1,45 @@
 import React, { useState, useEffect } from 'react'
 import companyService from '../services/company'
+import { setCompaniesInitialState, deleteCompanyById, sortCompanies } from '../redux/companySlice'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
 import { Link } from 'react-router-dom'
-import { useCompany } from '../contexts/CompanyContext'
 import PopUp from './PopUp'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
-
-const CompanyList = ({ companies, deleteCompany, sortCompanies }) => {
+const CompanyList = () => {
     const [searchQuery, setSearchQuery] = useState('')
     const [requestStatus, setRequestStatus] = useState('')
+    const dispatch = useDispatch()
+    const companies = useSelector((state) => state.companies.companies)
+
+    useEffect(() => {
+        const fetchCompanies = async () => {
+            try {
+                const response = await companyService.getAll()
+                console.log("response company list",response)
+                dispatch(setCompaniesInitialState(response))
+            } catch (error) {
+                console.log("Unable to fetch companies", error)
+            }
+        }
+        fetchCompanies()
+      }, [dispatch])
+
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this company?')) {
             try {
               const res =  await companyService.remove(id)
               if(res.success){
+                dispatch(deleteCompanyById(id))
                 setRequestStatus(res.message)
                 setTimeout(() => {
                     setRequestStatus('')
                 },2000)
               }
 
-
-                deleteCompany(id)
-                
 
             } catch (error) {
                 console.error('Failed to delete company:', error)
@@ -69,7 +83,7 @@ const CompanyList = ({ companies, deleteCompany, sortCompanies }) => {
                             <SortColumn
                                 label="Name"
                                 columnKey="name"
-                                onSortChange={sortCompanies}
+                                onSortChange={dispatch(sortCompanies)}
                             />
                         </th>
                         <th>Status</th>

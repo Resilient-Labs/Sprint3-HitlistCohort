@@ -77,7 +77,7 @@ const ContactList = () => {
             contactsService
                 .deleteContact(id)
                 .then(() => {
-                    setContacts(contacts.filter((c) => c._id !== id))
+                   dispatch()
                 })
                 .catch((error) => {
                     console.error('Error removing contact:', error)

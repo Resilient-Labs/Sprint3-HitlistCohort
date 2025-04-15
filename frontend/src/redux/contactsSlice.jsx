@@ -9,26 +9,26 @@ const contactsSlice = createSlice({
         setContactsInitialState: (state, action) => {
             return {
                 ...state, 
-                contacts : action.payload
+                Contacts : action.payload
             }
         }, 
-        addCompany: (state, action) => {
-                const newCompany = action.payload
+        addContacts: (state, action) => {
+                const newContacts = action.payload
                 return {
                     ...state,
-                    contacts : [...state.contacts , newCompany],
+                    contacts : [...state.contacts , newContacts],
                 }
             }, 
-        deleteCompanyById: (state, action) => {
+        deleteContactsById: (state, action) => {
                 const id = action.payload
                 return {
                     ...state,
                     contacts : state.contacts .filter(
-                        (company) => company._id !== id
+                        (contacts) => contacts._id !== id
                     ),
                 }
             }, 
-        sortcontacts : (state, action) => {
+        sortContacts : (state, action) => {
                 const { columnKey, order } = action.payload
                 return {
                     ...state,

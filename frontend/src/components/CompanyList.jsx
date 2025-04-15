@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import companiesService from '../services/company'
+import companyService from '../services/company'
 import { setInitialState, deleteCompanyById, sortCompanies } from '../redux/companySlice'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
@@ -17,7 +17,7 @@ const CompanyList = () => {
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
-                const response = await companiesService.getAll()
+                const response = await companyService.getAll()
                 console.log("response company list",response)
                 dispatch(setInitialState(response))
             } catch (error) {
@@ -33,15 +33,13 @@ const CompanyList = () => {
             try {
               const res =  await companyService.remove(id)
               if(res.success){
+                dispatch(deleteCompanyById(id))
                 setRequestStatus(res.message)
                 setTimeout(() => {
                     setRequestStatus('')
                 },2000)
               }
 
-
-              dispatch(deleteCompanyById(id))
-                
 
             } catch (error) {
                 console.error('Failed to delete company:', error)

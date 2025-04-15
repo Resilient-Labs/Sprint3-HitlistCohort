@@ -1,20 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
-const initialState = {
-    companies: [],
-  }
-
 const companySlice = createSlice({
     name: 'companies',
-    initialState,
+    initialState: {
+        companies:[]
+    },
     reducers: {
         setInitialState: (state, action) => {
-                return {
-                    ...state,
-                    companies: action.payload,
-                }
-            }, 
+            return {
+                ...state, 
+                companies: action.payload
+            }
+        }, 
         addCompany: (state, action) => {
                 const newCompany = action.payload
                 return {
@@ -55,5 +52,5 @@ export const {
     sortCompanies,
   } = companySlice.actions
   
-export default companySlice
+export default companySlice.reducer
   

@@ -6,24 +6,26 @@ import './CompanyList.css'
 import { Link } from 'react-router-dom'
 import PopUp from './PopUp'
 import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 
 const CompanyList = () => {
     const [searchQuery, setSearchQuery] = useState('')
     const [requestStatus, setRequestStatus] = useState('')
     const dispatch = useDispatch()
-    let companies = useSelector((state) => state.companies)
+    const companies = useSelector((state) => state.companies.companies)
 
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
                 const response = await companiesService.getAll()
-                dispatch(setInitialState(response.data))
+                dispatch(setInitialState(response.data.companies))
             } catch (error) {
                 console.log("Unable to fetch companies", error)
             }
         }
         fetchCompanies()
       }, [dispatch])
+
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this company?')) {

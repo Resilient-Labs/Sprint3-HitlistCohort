@@ -6,7 +6,7 @@ const companySlice = createSlice({
         companies:[]
     },
     reducers: {
-        setInitialState: (state, action) => {
+        setCompaniesInitialState: (state, action) => {
             return {
                 ...state, 
                 companies: action.payload
@@ -46,7 +46,7 @@ const companySlice = createSlice({
   
 
 export const {
-    setInitialState,
+    setCompaniesInitialState,
     addCompany,
     deleteCompanyById,
     sortCompanies,

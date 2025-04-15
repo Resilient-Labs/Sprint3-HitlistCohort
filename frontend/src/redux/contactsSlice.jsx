@@ -6,7 +6,7 @@ const contactsSlice = createSlice({
         contacts:[]
     },
     reducers: {
-        setInitialState: (state, action) => {
+        setContactsInitialState: (state, action) => {
             return {
                 ...state, 
                 contacts : action.payload
@@ -46,10 +46,10 @@ const contactsSlice = createSlice({
   
 
 export const {
-    setInitialState,
+    setContactsInitialState,
     addContact,
     deleteContactById,
-    sortcontacts ,
+    sortContacts ,
   } = contactsSlice.actions
   
 export default contactsSlice.reducer

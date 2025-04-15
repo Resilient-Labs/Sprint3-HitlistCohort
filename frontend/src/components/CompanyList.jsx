@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import companyService from '../services/company'
-import { setInitialState, deleteCompanyById, sortCompanies } from '../redux/companySlice'
+import { setCompaniesInitialState, deleteCompanyById, sortCompanies } from '../redux/companySlice'
 import SortColumn from './SortColumn'
 import './CompanyList.css'
 import { Link } from 'react-router-dom'
@@ -19,7 +19,7 @@ const CompanyList = () => {
             try {
                 const response = await companyService.getAll()
                 console.log("response company list",response)
-                dispatch(setInitialState(response))
+                dispatch(setCompaniesInitialState(response))
             } catch (error) {
                 console.log("Unable to fetch companies", error)
             }

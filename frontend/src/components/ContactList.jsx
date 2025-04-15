@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import contactsService from '../services/contacts'
 import companiesService from '../services/company'
+import { useDispatch, useSelector } from 'react-redux'
 import './ContactList.css'
 
 const ContactList = () => {
@@ -12,23 +13,25 @@ const ContactList = () => {
     const [lastContactDate, setLastContactDate] = useState('')
 
     const [search, setSearch] = useState('')
-    const [contacts, setContacts] = useState([])
-    const [companies, setCompanies] = useState([])
-
     const [editingContact, setEditingContact] = useState(null)
+
+    const dispatch = useDispatch()
+    const companies = useSelector((state) => state.companies.companies)
+    const contacts = useSelector((state) => state.contacts.contacts)
+
 
     useEffect(() => {
         contactsService
             .getAll()
             .then((data) => {
-                setContacts(data || [])
+                dispatch(setContactsInitialState(data))
             })
             .catch((error) => console.error('Error fetching contacts:', error))
 
         companiesService
             .getAll()
             .then((data) => {
-                setCompanies(data || [])
+                dispatch(setCompaniesInitialState(data))
             })
             .catch((error) => console.error('Error fetching companies:', error))
     }, [])

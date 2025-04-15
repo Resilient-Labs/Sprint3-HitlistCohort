@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import contactsService from '../services/contacts'
 import companiesService from '../services/company'
+import { setContactsInitialState } from '../redux/contactsSlice'
+import {setCompaniesInitialState } from '../redux/companySlice'
 import { useDispatch, useSelector } from 'react-redux'
 import './ContactList.css'
 

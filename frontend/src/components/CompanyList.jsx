@@ -18,7 +18,8 @@ const CompanyList = () => {
         const fetchCompanies = async () => {
             try {
                 const response = await companiesService.getAll()
-                dispatch(setInitialState(response.data.companies))
+                console.log("response company list",response)
+                dispatch(setInitialState(response))
             } catch (error) {
                 console.log("Unable to fetch companies", error)
             }

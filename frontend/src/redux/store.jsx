@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import companyReducer from './companySlice'
+import contactsReducer from './contactsSlice'
 
 /* 
     TODO: No slices have been created yet. The commented out slices are just here as an example of next steps.
@@ -7,7 +8,8 @@ import companyReducer from './companySlice'
 
 const store = configureStore({
     reducer: {
-        companies: companyReducer
+        companies: companyReducer,
+        contacts: contactsReducer
     },
 })
 
